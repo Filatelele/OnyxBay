@@ -55,6 +55,12 @@
 		var/obj/item/reagent_containers/food/monkeycube/cube = O
 		if(!cube.wrapped)
 			cube.Expand()
+	else if(istype(O, /obj/item/clothing/mask/smokable))
+		var/obj/item/clothing/mask/smokable/smokable = O
+		smokable.die(FALSE, TRUE)
+	else if(istype(O, /obj/item/flame))
+		var/obj/item/flame/flame = O
+		flame.lit = FALSE
 
 /datum/reagent/water/touch_mob(mob/living/L, amount)
 	if(istype(L))

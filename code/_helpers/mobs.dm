@@ -128,18 +128,9 @@
 /proc/get_exposed_defense_zone(atom/movable/target)
 	return pick(BP_HEAD, BP_L_HAND, BP_R_HAND, BP_L_FOOT, BP_R_FOOT, BP_L_ARM, BP_R_ARM, BP_L_LEG, BP_R_LEG, BP_CHEST, BP_GROIN)
 
-/proc/do_mob(atom/movable/affecter, mob/target, time = 30, target_zone = 0, uninterruptible = 0, progress = 1, incapacitation_flags = INCAPACITATION_DEFAULT, can_multitask = FALSE)
+/proc/do_mob(atom/movable/affecter, mob/target, time = 30, target_zone = 0, uninterruptible = 0, progress = 1, incapacitation_flags = INCAPACITATION_DEFAULT)
 	if(!affecter || !target)
-		return FALSE
-
-	var/uniqueid
-	if(!can_multitask)
-		uniqueid = "domob_\ref[affecter]_\ref[target]"
-		if(uniqueid in GLOB.domobs)
-			return FALSE
-
-		LAZYADD(GLOB.domobs, uniqueid)
-
+		return 0
 	var/mob/user = affecter
 	var/is_mob_type = istype(user)
 	var/user_loc = affecter.loc
@@ -192,19 +183,9 @@
 	if(progbar)
 		qdel(progbar)
 
-	if(!can_multitask)
-		LAZYREMOVE(GLOB.domobs, uniqueid)
-
-/proc/do_after(mob/user, delay, atom/target = null, needhand = TRUE, progress = TRUE, incapacitation_flags = INCAPACITATION_DEFAULT, same_direction = FALSE, can_move = FALSE)
+/proc/do_after(mob/user, delay, atom/target = null, needhand = 1, progress = 1, incapacitation_flags = INCAPACITATION_DEFAULT, same_direction = 0, can_move = 0)
 	if(!user)
-		return FALSE
-
-	var/uniqueid = "doafter_\ref[user]_\ref[target]"
-	if(uniqueid in GLOB.doafters)
-		return FALSE
-
-	LAZYADD(GLOB.doafters, uniqueid)
-
+		return 0
 	var/atom/target_loc = null
 	var/target_type = null
 
@@ -248,10 +229,8 @@
 				. = 0
 				break
 
-	if(progbar)
+	if (progbar)
 		qdel(progbar)
-
-	LAZYREMOVE(GLOB.doafters, uniqueid)
 
 /proc/is_species(A, species_datum)
 	. = FALSE

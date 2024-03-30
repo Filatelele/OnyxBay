@@ -163,6 +163,9 @@
 
 	var/static/list/light_eas
 
+	glow_icon_state = "tube1"
+	exposure_icon_state = "cone"
+
 	/// Whether this light fixture is currently turning on
 	VAR_PRIVATE/turning_on = FALSE
 
@@ -751,6 +754,10 @@
 	sound_on = SFX_LIGHT_TUBE_ON
 	sound_on_volume = 50
 
+	glow_icon_state = "tube1"
+	exposure_icon_state = "cone"
+	glow_colored = TRUE
+
 /obj/item/light/tube/large
 	w_class = ITEM_SIZE_SMALL
 	name = "large light tube"
@@ -800,6 +807,8 @@
 	random_tone = TRUE
 	sound_on = SFX_LIGHT_BULB_ON
 	sound_on_volume = 75
+	glow_icon_state = "lbulb"
+	exposure_icon_state = "circle"
 
 /obj/item/light/bulb/he
 	name = "high efficiency light bulb"

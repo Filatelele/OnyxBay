@@ -42,6 +42,9 @@
 
 	if(mind?.wizard?.lich)
 		mind.wizard.escape_to_lich(mind)
+	var/datum/deity_form/devil/devil = mind?.deity?.form
+	if(istype(devil))
+		devil.on_shell_death(mind)
 
 	BITSET(hud_updateflag, HEALTH_HUD)
 	BITSET(hud_updateflag, STATUS_HUD)

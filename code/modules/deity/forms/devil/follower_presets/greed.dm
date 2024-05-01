@@ -114,6 +114,7 @@
 	var/obj/structure/closet/locker
 	/// Type of the locker to summon
 	var/locker_type = /obj/structure/closet/cabinet
+	click_to_activate = TRUE
 
 /datum/action/cooldown/spell/interdimensional_locker/New()
 	. = ..()
@@ -143,6 +144,7 @@
 			to_chat(M, SPAN_WARNING("You are suddenly flung out of \the [locker]!"))
 
 		locker.forceMove(null)
+		click_to_activate = TRUE
 		return
 
 	var/turf/target = get_turf(cast_on)
@@ -154,6 +156,7 @@
 			return
 
 	locker.forceMove(target)
+	click_to_activate = FALSE
 
 /datum/action/cooldown/spell/infernal_lathe
 	name = "Infernal Lathe"

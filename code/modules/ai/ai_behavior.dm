@@ -1,48 +1,50 @@
 /*
-AI BEHAVIOR
+ * AI BEHAVIOR
 
-The actual thinking brain that determines what it wants the mob to do
-Registers signals, handles the pathfinding element addition/removal alongside making the mob do actions
+ * The actual thinking brain that determines what it wants the mob to do
+ * Registers signals, handles the pathfinding element addition/removal alongside making the mob do actions
+ *
+ * A brief note regarding the issue of commented SIGNAL_HANDLERS
+ * Most procs use to_chat for debugging purposes. As you know, to_chat and some other procs use sleep - yay, BS12 code!
+ * Therefore to prevent 30+ warnings from popping up they are commented to serve as a reminder for any future generations of coders.
 */
 
 /datum/ai_behavior
 	///What atom is the ai moving to
 	var/atom/atom_to_walk_to
-	///How far should we stay away from atom_to_walk_to
+	/// How far should we stay away from atom_to_walk_to
 	var/distance_to_maintain = 1
-	///Prob chance of sidestepping (left or right) when distance maintained with target
+	/// Prob chance of sidestepping (left or right) when distance maintained with target
 	var/sidestep_prob = 0
-	///Current node to use for calculating action states: this is the mob's node
+	/// Current node to use for calculating action states: this is the mob's node
 	var/obj/effect/ai_node/current_node
-	///The node goal of this ai
+	/// The node goal of this ai
 	var/obj/effect/ai_node/goal_node
-	///A list of nodes the ai should go to in order to go to goal_node
+	/// A list of nodes the ai should go to in order to go to goal_node
 	var/list/obj/effect/ai_node/goal_nodes
-	///A list of turfs the ai should go in order to get to atom_to_walk_to
+	/// A list of turfs the ai should go in order to get to atom_to_walk_to
 	var/list/turf/turfs_in_path
-	///What the ai is doing right now
+	/// What the ai is doing right now
 	var/current_action
-	///The standard ation of the AI, aka what it should do at the init or when going back to "normal" behavior
+	/// The standard ation of the AI, aka what it should do at the init or when going back to "normal" behavior
 	var/base_action = MOVING_TO_NODE
-	///Ref to the parent associated with this mind
+	/// Parent associated with this AI behavior instance
 	var/mob/mob_parent
-	///An identifier associated with this behavior, used for accessing specific values of a node's weights
+	/// An identifier associated with this behavior, used for accessing specific values of a node's weights
 	var/identifier
-	///How far will we look for targets
+	/// How far will we look for targets
 	var/target_distance = 8
-	///What we will escort
+	/// What we will escort
 	var/atom/escorted_atom
-	///When this timer is up, we force a change of node to ensure that the ai will never stay stuck trying to go to a specific node
+	/// When this timer is up, we force a change of node to ensure that the ai will never stay stuck trying to go to a specific node
 	var/anti_stuck_timer
-	///Minimum health percentage before the ai tries to run away
+	/// Minimum health percentage before the ai tries to run away
 	var/minimum_health = 0.4
-	///If the mob attached to the ai is offered on xeno creation
-	var/is_offered_on_creation = FALSE
-	///Are we waiting for advanced pathfinding
+	/// Are we waiting for advanced pathfinding
 	var/registered_for_node_pathfinding = FALSE
-	///Are we already registered for normal pathfinding
+	/// Are we already registered for normal pathfinding
 	var/registered_for_move = FALSE
-	///Should we lose the escorted atom if we change action
+	/// Should we lose the escorted atom if we change action
 	var/weak_escort = FALSE
 	/// Delay before bot tries to switch pathfinding modes between node and tile-based in order to unstuck itself
 	var/unstuck_delay = 2 SECONDS
@@ -56,10 +58,10 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 
 	mob_parent = parent_to_assign
 	set_escorted_atom(null, escorted_atom)
+	//We always use the escorted atom as our reference point for looking for target. So if we don't have any escorted atom, we take ourselve as the reference
 	add_think_ctx("scheduled_move", CALLBACK(src, nameof(.proc/scheduled_move)), 0)
 	add_think_ctx("ask_for_pathfinding", CALLBACK(src, nameof(.proc/ask_for_pathfinding)), 0)
 	add_think_ctx("look_for_next_node", CALLBACK(src, nameof(.proc/look_for_next_node)), 0)
-	//We always use the escorted atom as our reference point for looking for target. So if we don't have any escorted atom, we take ourselve as the reference
 	set_next_think(world.time + 1 SECOND)
 
 /datum/ai_behavior/Destroy(force)
@@ -80,7 +82,7 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	register_signal(goal_node, SIGNAL_QDELETING, nameof(.proc/clean_goal_node))
 	late_initialize()
 
-///Set behaviour to base behavior
+/// Set behaviour to base behavior
 /datum/ai_behavior/proc/late_initialize()
 	switch(base_action)
 		if(MOVING_TO_NODE)
@@ -90,13 +92,13 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 		if(IDLE)
 			change_action(IDLE)
 
-///We finished moving to a node, let's pick a random nearby one to travel to
+/// We finished moving to a node, let's pick a random nearby one to travel to
 /datum/ai_behavior/proc/finished_node_move()
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	look_for_next_node(FALSE)
 	return COMSIG_MAINTAIN_POSITION
 
-///Cleans up signals related to the action and element(s)
+/// Cleans up signals related to the action and element(s)
 /datum/ai_behavior/proc/cleanup_current_action(next_action)
 	if(current_action == MOVING_TO_NODE && next_action != MOVING_TO_NODE)
 		set_current_node(null)
@@ -113,7 +115,7 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 			unregister_signal(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE)
 			set_next_think_ctx("look_for_next_node", 0)
 
-///Clean every signal on the ai_behavior
+/// Clean every signal on the ai_behavior
 /datum/ai_behavior/proc/cleanup_signals()
 	cleanup_current_action()
 	unregister_global_signal(COMSIG_GLOB_AI_MINION_RALLY)
@@ -121,7 +123,7 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	if(goal_node)
 		unregister_signal(goal_node, SIGNAL_QDELETING)
 
-///Cleanup old state vars, start the movement towards our new target
+/// Cleanup old state vars, start the movement towards our new target
 /datum/ai_behavior/proc/change_action(next_action, atom/next_target, special_distance_to_maintain)
 	if(QDELETED(mob_parent))
 		return
@@ -148,13 +150,13 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	if(current_action == FOLLOWING_PATH)
 		distance_to_maintain = 0
 	else if(current_action == ESCORTING_ATOM)
-		distance_to_maintain = 1 //Don't stay too close
+		distance_to_maintain = 1
 	else
 		distance_to_maintain = isnull(special_distance_to_maintain) ? initial(distance_to_maintain) : special_distance_to_maintain
 	if(next_target)
 		atom_to_walk_to = next_target
-		//if(!registered_for_move)
-		INVOKE_ASYNC(src, nameof(.proc/scheduled_move))
+		if(!registered_for_move)
+			INVOKE_ASYNC(src, nameof(.proc/scheduled_move))
 
 	register_action_signals(current_action)
 	if(current_action == MOVING_TO_SAFETY)
@@ -162,13 +164,13 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	else
 		mob_parent.a_intent = I_HURT
 
-///Try to find a node to go to. If ignore_current_node is true, we will just find the closest current_node, and not the current_node best adjacent node
+/// Try to find a node to go to. If ignore_current_node is true, we will just find the closest current_node, and not the current_node best adjacent node
 /datum/ai_behavior/proc/look_for_next_node(ignore_current_node = TRUE, should_reset_goal_nodes = FALSE)
 	if(should_reset_goal_nodes)
 		set_current_node(null)
 
-	if(ignore_current_node || !current_node) //We don't have a current node, let's find the closest in our LOS
-		var/closest_distance = MAX_NODE_RANGE //squared because we are using the cheap get dist
+	if(ignore_current_node || !current_node)
+		var/closest_distance = MAX_NODE_RANGE
 		var/avoid_node = current_node
 		for(var/obj/effect/ai_node/ai_node as anything in GLOB.all_nodes)
 			if(!ai_node)
@@ -204,7 +206,7 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	current_node.set_weight(identifier, NODE_LAST_VISITED, world.time)
 	change_action(MOVING_TO_NODE, current_node)
 
-///Set the current node to next_node
+/// Set the current node to next_node
 /datum/ai_behavior/proc/set_current_node(obj/effect/ai_node/next_node)
 	if(current_node)
 		unregister_signal(current_node, SIGNAL_QDELETING)
@@ -212,15 +214,16 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 		register_signal(current_node, SIGNAL_QDELETING, nameof(.proc/look_for_next_node))
 	current_node = next_node
 
-///Signal handler when the ai is blocked by an obstacle
+/// Signal handler when the ai is blocked by an obstacle
 /datum/ai_behavior/proc/deal_with_obstacle(datum/source, direction)
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
+	pass()
 
-///Register on advanced pathfinding subsytem to get a tile pathfinding
+/// Register on advanced pathfinding subsytem to get a tile pathfinding
 /datum/ai_behavior/proc/ask_for_pathfinding()
 	SSadvanced_pathfinding.tile_pathfinding_to_do += src
 
-///Look for the a* tile path to get to atom_to_walk_to
+/// Look for the a* tile path to get to atom_to_walk_to
 /datum/ai_behavior/proc/look_for_tile_path()
 	if(QDELETED(current_node))
 		return
@@ -234,7 +237,7 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	change_action(FOLLOWING_PATH, turfs_in_path[length(turfs_in_path)])
 	turfs_in_path.len--
 
-///Look for the a* node path to get to goal_node
+/// Look for the a* node path to get to goal_node
 /datum/ai_behavior/proc/look_for_node_path()
 	if(QDELETED(goal_node) || QDELETED(current_node))
 		return
@@ -247,10 +250,10 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 		set_current_node(null)
 	look_for_next_node()
 
-///Signal handler when we reached our current tile goal
+/// Signal handler when we reached our current tile goal
 /datum/ai_behavior/proc/finished_path_move()
-	SIGNAL_HANDLER
-	if(!length(turfs_in_path))//We supposedly found our goal
+	//SIGNAL_HANDLER
+	if(!length(turfs_in_path))
 		cleanup_current_action()
 		late_initialize()
 		return
@@ -261,19 +264,19 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	turfs_in_path.len--
 	return COMSIG_MAINTAIN_POSITION
 
-//Used for mainly looking at the world around the AI and determining if a new action must be considered and executed
+/// Used for mainly looking at the world around the AI and determining if a new action must be considered and executed
 /datum/ai_behavior/think()
 	look_for_new_state()
 	set_next_think(world.time + 1 SECOND)
 
-///Check if we need to adopt a new state
+/// Check if we need to adopt a new state
 /datum/ai_behavior/proc/look_for_new_state()
-	SIGNAL_HANDLER
-	return
+	//SIGNAL_HANDLER
+	pass()
 
-///Set the goal node
+/// Set the goal node
 /datum/ai_behavior/proc/set_goal_node(datum/source, identifier, obj/effect/ai_node/new_goal_node)
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	if(identifier && src.identifier != identifier)
 		return
 
@@ -283,9 +286,9 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	goal_nodes = null
 	register_signal(goal_node, SIGNAL_QDELETING, nameof(.proc/clean_goal_node))
 
-///Set the escorted atom.
+/// Set the escorted atom.
 /datum/ai_behavior/proc/set_escorted_atom(datum/source, atom/atom_to_escort, new_escort_is_weak)
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	clean_escorted_atom()
 	escorted_atom = atom_to_escort
 	weak_escort = new_escort_is_weak
@@ -295,9 +298,9 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	register_signal(escorted_atom, SIGNAL_QDELETING, nameof(.proc/clean_escorted_atom))
 	change_action(ESCORTING_ATOM, escorted_atom)
 
-///Change atom to walk to if the order comes from a corresponding commander
+/// Change atom to walk to if the order comes from a corresponding commander
 /datum/ai_behavior/proc/global_set_escorted_atom(datum/source, atom/atom_to_escort)
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	if(!atom_to_escort || mob_parent.ckey)
 		return
 
@@ -307,9 +310,9 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	set_escorted_atom(source, atom_to_escort)
 
 
-///clean the escorted atom var to avoid harddels
+/// Clean the escorted atom var to avoid harddels
 /datum/ai_behavior/proc/clean_escorted_atom()
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	if(!escorted_atom)
 		return
 
@@ -318,14 +321,14 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 	base_action = initial(base_action)
 	unregister_global_signal(COMSIG_GLOB_AI_MINION_RALLY)
 
-///Set the target distance to be normal (initial) or very low (almost passive)
+/// Set the target distance to be normal (initial) or very low (almost passive)
 /datum/ai_behavior/proc/set_agressivity(datum/source, should_be_agressive = TRUE)
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	target_distance = should_be_agressive ? initial(target_distance) : 2
 
-///Clean the goal node
+/// Clean the goal node
 /datum/ai_behavior/proc/clean_goal_node()
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	goal_node = null
 	goal_nodes = null
 	if(current_action == MOVING_TO_NODE)
@@ -360,7 +363,7 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 
 /mob/var/next_move_slowdown = 0
 
-///Returns the left and right dir of the input dir, used for AI stutter step while attacking
+/// Returns the left and right dir of the input dir, used for AI stutter step while attacking
 /proc/LeftAndRightOfDir(direction, diagonal_check = FALSE)
 	if(diagonal_check)
 		if(ISDIAGONALDIR(direction))
@@ -372,7 +375,7 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 	/// This allows minions to be buckled to their atom_to_escort without disrupting the movement of atom_to_escort
 	if(get_dist(mob_parent, atom_to_walk_to) <= 0)
 		if(current_action == FOLLOWING_PATH)
-			SEND_SIGNAL(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE) & COMSIG_MAINTAIN_POSITION
+			SEND_SIGNAL(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE)
 		return
 
 	mob_parent.next_move_slowdown = 0
@@ -403,7 +406,6 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 	if(!mob_parent.Move(next_turf, step_dir) && !(SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, step_dir) & COMSIG_OBSTACLE_DEALT_WITH))
 		step_dir = pick(LeftAndRightOfDir(step_dir))
 		next_turf = get_step(mob_parent, step_dir)
-		//if(mob_parent.Move(get_step(mob_parent, step_dir), step_dir) && ISDIAGONALDIR(step_dir))
 		mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown
 	else if(ISDIAGONALDIR(step_dir))
 		mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown

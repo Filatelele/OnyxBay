@@ -1578,6 +1578,7 @@
 #include "code\modules\admin\view_variables\vv_set_handlers.dm"
 #include "code\modules\ai\ai_behavior.dm"
 #include "code\modules\ai\ai_node.dm"
+#include "code\modules\ai\goblin_cursed.dm"
 #include "code\modules\ai\station_bot.dm"
 #include "code\modules\ai\testing.dm"
 #include "code\modules\ai\xeno.dm"

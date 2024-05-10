@@ -6,16 +6,22 @@
 	health = 20
 	maxHealth = 20
 	icon = 'icons/obj/aibots.dmi'
-	universal_speak = 1
-	density = 0
+	universal_speak = TRUE
+	density = FALSE
+	/// Botcard for opening doors
 	var/obj/item/card/id/botcard = null
+	/// List of accesses that will be transfered to a newly created var/botcard on init
 	var/list/botcard_access = list()
-	var/on = 1
-	var/open = 0
-	var/locked = 1
-	var/emagged = 0
+	/// Whether this bot is on or off
+	var/on = TRUE
+	/// State of the maintenance panel
+	var/open = FALSE
+	/// Whether the maintenance panel is locked or not
+	var/locked = TRUE
+	var/emagged = FALSE
+	var/busy = FALSE
 	var/light_strength = 3
-	var/busy = 0
+
 
 	var/obj/access_scanner = null
 	var/list/req_access = list()

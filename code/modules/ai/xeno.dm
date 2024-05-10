@@ -3,7 +3,6 @@
 /datum/ai_behavior/xeno
 	sidestep_prob = 25
 	identifier = IDENTIFIER_XENO
-	is_offered_on_creation = TRUE
 	///List of abilities to consider doing every Process()
 	var/list/ability_list = list()
 	///If the mob parent can heal itself and so should flee
@@ -28,8 +27,6 @@
 
 /datum/ai_behavior/xeno/think()
 	return ..()
-
-#define ESCORTING_MAX_DISTANCE 10
 
 /datum/ai_behavior/xeno/look_for_new_state()
 	var/mob/living/living_parent = mob_parent

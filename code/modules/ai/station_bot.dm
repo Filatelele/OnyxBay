@@ -3,7 +3,6 @@
 /datum/ai_behavior/station_bot
 	sidestep_prob = 25
 	identifier = IDENTIFIER_SBOT
-	is_offered_on_creation = FALSE
 	///List of abilities to consider doing every Process()
 	var/list/ability_list = list()
 	var/patrolling = TRUE
@@ -62,18 +61,18 @@
 				return
 
 			var/atom/next_target = get_nearest_target(mob_parent, target_distance, TARGET_HOSTILE, mob_parent.faction)
-			if(!next_target)//We didn't find a target
+			if(!next_target) // No target - abort.
 				cleanup_current_action()
 				late_initialize()
 				return
 
-			if(next_target == atom_to_walk_to)//We didn't find a better target
+			if(next_target == atom_to_walk_to) // No better target, no need to change action.
 				return
 
-			change_action(null, next_target)//We found a better target, change course!
+			change_action(null, next_target) // A better target is found.
 		if(MOVING_TO_SAFETY)
 			var/atom/next_target = get_nearest_target(escorted_atom, target_distance, TARGET_HOSTILE, mob_parent.faction)
-			if(!next_target)//We are safe, try to find some weeds
+			if(!next_target) //We are safe, try to find some weeds
 				target_distance = initial(target_distance)
 				cleanup_current_action()
 				late_initialize()
@@ -173,7 +172,9 @@
 		return
 
 	mob_parent.face_atom(attacked)
-	mob_parent.UnarmedAttack(attacked, TRUE)
+	var/mob/living/goblin/goblin = mob_parent
+	goblin.make_grab(goblin, attacked, GRAB_NORMAL)
+	//mob_parent.UnarmedAttack(attacked, TRUE)
 
 /datum/ai_behavior/station_bot/register_action_signals(action_type)
 	switch(action_type)

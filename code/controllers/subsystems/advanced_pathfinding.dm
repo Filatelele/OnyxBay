@@ -52,13 +52,14 @@ SUBSYSTEM_DEF(advanced_pathfinding)
 	for(var/datum/ai_behavior/ai_behavior as anything in tile_pathfinding_to_do)
 		ai_behavior.look_for_tile_path()
 		tile_pathfinding_to_do -= ai_behavior
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
+
 	for(var/datum/ai_behavior/ai_behavior as anything in node_pathfinding_to_do)
 		ai_behavior.look_for_node_path()
 		node_pathfinding_to_do -= ai_behavior
 		ai_behavior.registered_for_node_pathfinding = FALSE
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/advanced_pathfinding/stat_entry(msg)
@@ -202,3 +203,6 @@ GLOBAL_LIST_EMPTY(goal_nodes)
 
 /obj/effect/ai_node/supporting
 	name = "AI station bot supporting node"
+
+/obj/effect/ai_node/goal/sbot
+	identifier = IDENTIFIER_SBOT

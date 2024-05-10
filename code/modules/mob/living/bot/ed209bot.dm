@@ -47,8 +47,6 @@
 	new /obj/effect/decal/cleanable/blood/oil(Tsec)
 	qdel(src)
 
-/mob/living/bot/secbot/ed209/handleRangedTarget()
-	RangedAttack(target)
 
 /mob/living/bot/secbot/ed209/RangedAttack(atom/A)
 	if(last_shot + shot_delay > world.time)

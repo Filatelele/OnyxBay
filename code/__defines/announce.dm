@@ -261,3 +261,11 @@ GLOBAL_VAR_CONST(PREF_ANNOUNCER_TGSTATION, "\[Cargo\] /TG/station (Legacy)")
 /datum/announce/skipjack_departure
 	text = "Your visitors are on their way out of the system, burning delta-v like it's nothing. Good riddance."
 	title = "NMV Icarus Sensor Array"
+
+/datum/announce/malfunctioning_robots_arrival_icarus
+	text = "Attention, you have a large signature approaching the station - brace for visitors."
+	title = "NMV Icarus Sensor Array"
+
+/datum/announce/malfunctioning_robots_arrival
+	text = "11010000 10010010 11010001 10001011 11010000 10111111 11010000 10111110 11010000 10111011 11010000 10111101 11010000 10110101 11010000 10111101 11010000 10111000 11010000 10110101 100000 11010000 10111111 11010001 10000000 11010000 10111110 11010001 10000010 11010000 10111110 11010000 10111010 11010000 10111110 11010000 10111011 11010000 10110000 100000 100010 11010000 10010011 11010000 10110000 11010000 10111100 11010000 10111100 11010000 10110000 100010 101110"
+	title = "NULL REFERENCE EXCEPTION: NAME UNDEFINED"

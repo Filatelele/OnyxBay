@@ -14,115 +14,12 @@
 	var/maketiles = 0
 	var/floor_build_type = /decl/flooring/tiling // Basic steel floor.
 
-/mob/living/bot/floorbot/premade
-	name = "Rusty"
-	on = 0
-
-/mob/living/bot/floorbot/update_icons()
-	if(busy)
-		icon_state = "floorbot-c"
-	else if(amount > 0)
-		icon_state = "floorbot[on]"
-	else
-		icon_state = "floorbot[on]e"
-
-/mob/living/bot/floorbot/GetInteractTitle()
-	. = "<head><title>Repairbot v1.0 controls</title></head>"
-	. += "<b>Automatic Floor Repairer v1.0</b>"
-
-/mob/living/bot/floorbot/GetInteractStatus()
+/mob/living/bot/floorbot/Initialize()
 	. = ..()
-	. += "<br>Tiles left: [amount]"
+	AddComponent(/datum/component/ai_controller, /datum/ai_behavior/station_bot/floorbot)
 
-/mob/living/bot/floorbot/GetInteractPanel()
-	. = "Improves floors: <a href='?src=\ref[src];command=improve'>[improvefloors ? "Yes" : "No"]</a>"
-	. += "<br>Finds tiles: <a href='?src=\ref[src];command=tiles'>[eattiles ? "Yes" : "No"]</a>"
-	. += "<br>Make singles pieces of metal into tiles when empty: <a href='?src=\ref[src];command=make'>[maketiles ? "Yes" : "No"]</a>"
-
-/mob/living/bot/floorbot/GetInteractMaintenance()
-	. = "Disassembly mode: "
-	switch(emagged)
-		if(0)
-			. += "<a href='?src=\ref[src];command=emag'>Off</a>"
-		if(1)
-			. += "<a href='?src=\ref[src];command=emag'>On (Caution)</a>"
-		if(2)
-			. += "ERROROROROROR-----"
-
-/mob/living/bot/floorbot/ProcessCommand(mob/user, command, href_list)
-	..()
-	if(CanAccessPanel(user))
-		switch(command)
-			if("improve")
-				improvefloors = !improvefloors
-			if("tiles")
-				eattiles = !eattiles
-			if("make")
-				maketiles = !maketiles
-
-	if(CanAccessMaintenance(user))
-		switch(command)
-			if("emag")
-				if(emagged < 2)
-					emagged = !emagged
-
-/mob/living/bot/floorbot/emag_act(remaining_charges, mob/user)
-	. = ..()
-	if(!emagged)
-		emagged = 1
-		if(user)
-			to_chat(user, "<span class='notice'>The [src] buzzes and beeps.</span>")
-		return 1
-
-/mob/living/bot/floorbot/handleRegular()
-	++tilemake
-	if(tilemake >= 100)
-		tilemake = 0
-		addTiles(1)
-
-	if(prob(1))
-		audible_emote("makes an excited booping beeping sound!")
-
-/mob/living/bot/floorbot/handleAdjacentTarget()
-	if(get_turf(target) == src.loc)
-		UnarmedAttack(target)
-
-/mob/living/bot/floorbot/lookForTargets()
-	for(var/turf/simulated/floor/T in view(src))
-		if(confirmTarget(T))
-			target = T
-			return
-
-	if(amount < maxAmount && (eattiles || maketiles))
-		for(var/obj/item/stack/S in view(src))
-			if(confirmTarget(S))
-				target = S
-				return
-
-/mob/living/bot/floorbot/confirmTarget(atom/A) // The fact that we do some checks twice may seem confusing but remember that the bot's settings may be toggled while it's moving and we want them to stop in that case
+/mob/living/bot/floorbot/UnarmedAttack(atom/A, proximity_flag)
 	if(!..())
-		return 0
-
-	if(istype(A, /obj/item/stack/tile/floor))
-		return (amount < maxAmount && eattiles)
-	if(istype(A, /obj/item/stack/material/steel))
-		return (amount < maxAmount && maketiles)
-
-	if(A.loc.name == "Space")
-		return 0
-
-	var/turf/simulated/floor/T = A
-	if(istype(T))
-		if(emagged)
-			return 1
-		else
-			return (amount && (T.broken || T.burnt || (improvefloors && !T.flooring)))
-
-/mob/living/bot/floorbot/UnarmedAttack(atom/A, proximity)
-	if(!..())
-		return
-
-	if(busy)
 		return
 
 	if(get_turf(A) != loc)
@@ -142,7 +39,6 @@
 			if(do_after(src, 150, F)) // Extra time because this can and will kill.
 				F.ReplaceWithLattice()
 				addTiles(1)
-		target = null
 		update_icons()
 	else if(istype(A, /turf/simulated/floor))
 		var/turf/simulated/floor/F = A
@@ -153,7 +49,6 @@
 			if(do_after(src, 50, F))
 				if(F.broken || F.burnt)
 					F.make_plating()
-			target = null
 			busy = 0
 			update_icons()
 		else if(!F.flooring && amount)
@@ -164,7 +59,6 @@
 				if(!F.flooring)
 					F.set_flooring(get_flooring_data(floor_build_type))
 					addTiles(-1)
-			target = null
 			update_icons()
 	else if(istype(A, /obj/item/stack/tile/floor) && amount < maxAmount)
 		var/obj/item/stack/tile/floor/T = A
@@ -176,7 +70,6 @@
 				var/eaten = min(maxAmount - amount, T.get_amount())
 				T.use(eaten)
 				addTiles(eaten)
-		target = null
 		update_icons()
 	else if(istype(A, /obj/item/stack/material) && amount + 4 <= maxAmount)
 		var/obj/item/stack/material/M = A
@@ -189,31 +82,12 @@
 					M.use(1)
 					addTiles(4)
 
-/mob/living/bot/floorbot/explode()
-	turn_off()
-	visible_message("<span class='danger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-
-	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
-	N.contents = list()
-	new /obj/item/device/assembly/prox_sensor(Tsec)
-	if(prob(50))
-		new /obj/item/robot_parts/l_arm(Tsec)
-	var/obj/item/stack/tile/floor/T = new /obj/item/stack/tile/floor(Tsec)
-	T.amount = amount
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
-	qdel(src)
-
 /mob/living/bot/floorbot/proc/addTiles(am)
 	amount += am
 	if(amount < 0)
 		amount = 0
 	else if(amount > maxAmount)
 		amount = maxAmount
-	busy = FALSE
-
 
 /* Assembly */
 

@@ -28,10 +28,7 @@
 		clean_goal_node()
 	return ..()
 
-#define ESCORTING_MAX_DISTANCE 10
-
 /datum/ai_behavior/station_bot/look_for_new_state()
-	var/mob/living/living_parent = mob_parent
 	switch(current_action)
 		if(ESCORTING_ATOM)
 			if(get_dist(escorted_atom, mob_parent) > ESCORTING_MAX_DISTANCE)
@@ -84,6 +81,7 @@
 
 			change_action(null, next_target, INFINITY)
 		if(IDLE)
+			do_idle_action()
 			var/atom/next_target = get_nearest_target(escorted_atom, target_distance, TARGET_HOSTILE, mob_parent.faction)
 			if(!next_target)
 				change_action(MOVING_TO_ATOM, next_target)
@@ -162,7 +160,7 @@
 
 ///Signal handler to try to attack our target
 /datum/ai_behavior/station_bot/proc/attack_target(datum/soure, atom/attacked)
-	SIGNAL_HANDLER
+	//SIGNAL_HANDLER
 	if(world.time < mob_parent.next_move)
 		return
 
@@ -172,9 +170,7 @@
 		return
 
 	mob_parent.face_atom(attacked)
-	var/mob/living/goblin/goblin = mob_parent
-	goblin.make_grab(goblin, attacked, GRAB_NORMAL)
-	//mob_parent.UnarmedAttack(attacked, TRUE)
+	mob_parent.UnarmedAttack(attacked, TRUE)
 
 /datum/ai_behavior/station_bot/register_action_signals(action_type)
 	switch(action_type)
@@ -195,3 +191,7 @@
 				return
 
 	return ..()
+
+/// Called while being IDLE.
+/datum/ai_behavior/station_bot/proc/do_idle_action()
+	pass()

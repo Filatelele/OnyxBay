@@ -487,9 +487,10 @@
 			mode = 43
 
 		if("MULEbot")
-			var/mob/living/bot/mulebot/M = locate(href_list["ref"])
-			if(istype(M))
-				M.obeyCommand(href_list["command"])
+			pass()
+			//var/mob/living/bot/mulebot/M = locate(href_list["ref"])
+			//if(istype(M))
+				//M.obeyCommand(href_list["command"])
 
 
 	return 1

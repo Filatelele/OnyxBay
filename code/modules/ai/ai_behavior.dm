@@ -374,8 +374,7 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 /datum/ai_behavior/proc/ai_do_move()
 	/// This allows minions to be buckled to their atom_to_escort without disrupting the movement of atom_to_escort
 	if(get_dist(mob_parent, atom_to_walk_to) <= 0)
-		if(current_action == FOLLOWING_PATH)
-			SEND_SIGNAL(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE)
+		SEND_SIGNAL(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE)
 		return
 
 	mob_parent.next_move_slowdown = 0
@@ -387,7 +386,7 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 		if(!get_dir(mob_parent, atom_to_walk_to)) //We're right on top, move out of it
 			step_dir = pick(GLOB.alldirs)
 			if(!mob_parent.Move(get_step(mob_parent, step_dir), step_dir))
-				SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, step_dir)
+				SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, get_step(mob_parent, step_dir))
 			else if(ISDIAGONALDIR(step_dir))
 				mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown //Not perfect but good enough
 			return
@@ -403,9 +402,37 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 	else
 		step_dir = get_dir(mob_parent, atom_to_walk_to)
 	var/turf/next_turf = get_step(mob_parent, step_dir)
-	if(!mob_parent.Move(next_turf, step_dir) && !(SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, step_dir) & COMSIG_OBSTACLE_DEALT_WITH))
+	if(!mob_parent.Move(next_turf, step_dir) && !(SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, next_turf) & COMSIG_OBSTACLE_DEALT_WITH))
 		step_dir = pick(LeftAndRightOfDir(step_dir))
 		next_turf = get_step(mob_parent, step_dir)
 		mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown
 	else if(ISDIAGONALDIR(step_dir))
 		mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown
+
+///Returns the nearest target that has the right target flag
+/datum/ai_behavior/proc/get_nearest_target(atom/source, distance, target_flags, attacker_faction)
+	if(!source)
+		return
+
+	var/atom/nearest_target
+	var/shorter_distance = distance + 1
+	if(target_flags & TARGET_HUMAN)
+		for(var/mob/living/nearby_human as anything in cheap_get_humans_near(source, distance))
+			if(nearby_human.is_ic_dead() || nearby_human.faction == attacker_faction)
+				continue
+
+			if(get_dist(source, nearby_human) < shorter_distance)
+				nearest_target = nearby_human
+				shorter_distance = get_dist(source, nearby_human)
+
+	if(target_flags & TARGET_HUMAN_TURRETS)
+		for(var/atom/nearby_turret as anything in GLOB.all_turrets)
+			if(source.z != nearby_turret.z)
+				continue
+
+			if(!(get_dist(source, nearby_turret) < shorter_distance))
+				continue
+
+			nearest_target = nearby_turret
+
+	return nearest_target

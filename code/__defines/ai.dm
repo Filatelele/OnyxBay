@@ -39,7 +39,7 @@
 #define IDENTIFIER_XENO "identifies_xeno"
 #define IDENTIFIER_ZOMBIE "identifies_zombie"
 #define IDENTIFIER_SBOT "identifies_sbot"
-
+#define IDENTIFIER_MALFBOT "identifies_malfbot"
 
 //Flags for the get_nearest_target
 #define TARGET_HUMAN_TURRETS (1<<0)

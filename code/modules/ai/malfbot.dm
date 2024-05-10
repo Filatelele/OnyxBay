@@ -1,34 +1,34 @@
-//Generic template for application to a xeno/ mob, contains specific obstacle dealing alongside targeting only humans, xenos of a different hive and sentry turrets
+#define ESCORTING_MAX_DISTANCE 10
 
-/datum/ai_behavior/xeno
+/datum/ai_behavior/malfbot
 	sidestep_prob = 25
-	identifier = IDENTIFIER_XENO
+	identifier = IDENTIFIER_MALFBOT
 	///List of abilities to consider doing every Process()
 	var/list/ability_list = list()
 	///If the mob parent can heal itself and so should flee
 	var/can_heal = TRUE
 
-/datum/ai_behavior/xeno/New(loc, parent_to_assign, escorted_atom, can_heal = TRUE)
+/datum/ai_behavior/malfbot/New(loc, parent_to_assign, escorted_atom, can_heal = TRUE)
 	..()
 	refresh_abilities()
 	mob_parent.a_intent = I_HURT //Killing time
 	src.can_heal = can_heal
 
-/datum/ai_behavior/xeno/start_ai()
+/datum/ai_behavior/malfbot/start_ai()
 	register_signal(mob_parent, COMSIG_OBSTRUCTED_MOVE, nameof(.proc/deal_with_obstacle))
 	//RegisterSignals(mob_parent, list(ACTION_GIVEN, ACTION_REMOVED), PROC_REF(refresh_abilities))
-	//RegisterSignal(mob_parent, COMSIG_XENOMORPH_TAKING_DAMAGE, PROC_REF(check_for_critical_health))
+	//RegisterSignal(mob_parent, COMSIG_malfbotMORPH_TAKING_DAMAGE, PROC_REF(check_for_critical_health))
 	return ..()
 
 ///Refresh abilities-to-consider list
-/datum/ai_behavior/xeno/proc/refresh_abilities()
+/datum/ai_behavior/malfbot/proc/refresh_abilities()
 	SIGNAL_HANDLER
 	ability_list = list()
 
-/datum/ai_behavior/xeno/think()
+/datum/ai_behavior/malfbot/think()
 	return ..()
 
-/datum/ai_behavior/xeno/look_for_new_state()
+/datum/ai_behavior/malfbot/look_for_new_state()
 	var/mob/living/living_parent = mob_parent
 	switch(current_action)
 		if(ESCORTING_ATOM)
@@ -48,11 +48,11 @@
 					try_to_heal() //If we have some damage, look for some healing
 					return
 
-				if(!goal_node) // We are randomly moving
-					var/atom/xeno_to_follow = get_nearest_target(mob_parent, ESCORTING_MAX_DISTANCE, TARGET_FRIENDLY_XENO, mob_parent.faction)
-					if(xeno_to_follow)
-						set_escorted_atom(null, xeno_to_follow, TRUE)
-						return
+				//if(!goal_node) // We are randomly moving
+				//	var/atom/malfbot_to_follow = get_nearest_target(mob_parent, ESCORTING_MAX_DISTANCE, TARGET_FRIENDLY_malfbot, mob_parent.faction)
+				//	if(malfbot_to_follow)
+				//		set_escorted_atom(null, malfbot_to_follow, TRUE)
+				//		return
 
 				return
 
@@ -63,22 +63,22 @@
 				return
 
 			var/atom/next_target = get_nearest_target(mob_parent, target_distance, TARGET_HOSTILE, mob_parent.faction)
-			if(!next_target)//We didn't find a target
+			if(!next_target)
 				cleanup_current_action()
 				late_initialize()
 				return
 
-			if(next_target == atom_to_walk_to)//We didn't find a better target
+			if(next_target == atom_to_walk_to)
 				return
 
-			change_action(null, next_target)//We found a better target, change course!
+			change_action(null, next_target)
 		if(MOVING_TO_SAFETY)
 			var/atom/next_target = get_nearest_target(escorted_atom, target_distance, TARGET_HOSTILE, mob_parent.faction)
 			if(!next_target)//We are safe, try to find some weeds
 				target_distance = initial(target_distance)
 				cleanup_current_action()
 				late_initialize()
-				//register_signal(mob_parent, COMSIG_XENOMORPH_TAKING_DAMAGE, PROC_REF(check_for_critical_health))
+				register_signal(mob_parent, SIGNAL_MALFBOT_TAKING_DAMAGE, nameof(.proc/check_for_critical_health))
 				return
 
 			if(next_target == atom_to_walk_to)
@@ -92,14 +92,12 @@
 
 			change_action(MOVING_TO_ATOM, next_target)
 
-/datum/ai_behavior/xeno/deal_with_obstacle(datum/source, direction)
-	var/turf/obstacle_turf = get_step(mob_parent, direction)
+/datum/ai_behavior/malfbot/deal_with_obstacle(datum/source, direction)
+	var/turf/obstacle_turf = source
 
 	for(var/thing in obstacle_turf.contents)
 		if(istype(thing, /obj/structure/window_frame))
-			//LAZYINCREMENT(mob_parent.do_actions, obstacle_turf)
 			mob_parent.forceMove(thing)
-			//addtimer(CALLBACK(src, PROC_REF(climb_window_frame), obstacle_turf), 2 SECONDS)
 			return COMSIG_OBSTACLE_DEALT_WITH
 
 		if(istype(thing, /obj/structure/closet))
@@ -111,20 +109,18 @@
 		if(istype(thing, /obj/structure))
 			var/obj/structure/obstacle = thing
 			qdel(thing)
-				//INVOKE_ASYNC(src, nameof(.proc/attack_target), null, obstacle)
 			return COMSIG_OBSTACLE_DEALT_WITH
 
 		else if(istype(thing, /obj/machinery/door))
 			var/obj/machinery/door/airlock/lock = thing
-			if(!lock.density) //Airlock is already open no need to force it open again
+			if(!lock.density)
 				continue
 
-			if(lock.operating) //Airlock already doing something
+			if(lock.operating)
 				continue
 
-			if(lock?.welded || lock?.locked) //It's welded or locked, can't force that open
+			if(lock?.welded || lock?.locked)
 				qdel(lock)
-				//INVOKE_ASYNC(src, nameof(.proc/attack_target), null, thing) //ai is cheating
 				continue
 
 			lock.open(TRUE)
@@ -133,33 +129,31 @@
 	if(ISDIAGONALDIR(direction) && ((deal_with_obstacle(null, turn(direction, -45)) & COMSIG_OBSTACLE_DEALT_WITH) || (deal_with_obstacle(null, turn(direction, 45)) & COMSIG_OBSTACLE_DEALT_WITH)))
 		return COMSIG_OBSTACLE_DEALT_WITH
 
-	//Ok we found nothing, yet we are still blocked. Check for blockers on our current turf
 	obstacle_turf = get_turf(mob_parent)
 	for(var/obj/structure/obstacle in obstacle_turf.contents)
 		if(obstacle.dir & direction)
 			INVOKE_ASYNC(src, nameof(.proc/attack_target), null, obstacle)
 			return COMSIG_OBSTACLE_DEALT_WITH
 
-/datum/ai_behavior/xeno/cleanup_current_action(next_action)
+/datum/ai_behavior/malfbot/cleanup_current_action(next_action)
 	. = ..()
 	if(next_action == MOVING_TO_NODE)
 		return
 
-
 	var/mob/living/living_mob = mob_parent
 	if(can_heal && living_mob.resting)
 		pass()
-		//SEND_SIGNAL(mob_parent, COMSIG_XENOABILITY_REST)
-		//UnregisterSignal(mob_parent, COMSIG_XENOMORPH_HEALTH_REGEN)
+		//SEND_SIGNAL(mob_parent, COMSIG_malfbotABILITY_REST)
+		//UnregisterSignal(mob_parent, COMSIG_malfbotMORPH_HEALTH_REGEN)
 
-/datum/ai_behavior/xeno/cleanup_signals()
+/datum/ai_behavior/malfbot/cleanup_signals()
 	. = ..()
 	unregister_signal(mob_parent, COMSIG_OBSTRUCTED_MOVE)
 	//UnregisterSignal(mob_parent, list(ACTION_GIVEN, ACTION_REMOVED))
-	//UnregisterSignal(mob_parent, COMSIG_XENOMORPH_TAKING_DAMAGE)
+	//UnregisterSignal(mob_parent, COMSIG_malfbotMORPH_TAKING_DAMAGE)
 
 ///Signal handler to try to attack our target
-/datum/ai_behavior/xeno/proc/attack_target(datum/soure, atom/attacked)
+/datum/ai_behavior/malfbot/proc/attack_target(datum/soure, atom/attacked)
 	SIGNAL_HANDLER
 	if(world.time < mob_parent.next_move)
 		return
@@ -172,7 +166,7 @@
 	mob_parent.face_atom(attacked)
 	mob_parent.UnarmedAttack(attacked, TRUE)
 
-/datum/ai_behavior/xeno/register_action_signals(action_type)
+/datum/ai_behavior/malfbot/register_action_signals(action_type)
 	switch(action_type)
 		if(MOVING_TO_ATOM)
 			register_signal(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE, nameof(.proc/attack_target))
@@ -186,7 +180,7 @@
 
 	return ..()
 
-/datum/ai_behavior/xeno/unregister_action_signals(action_type)
+/datum/ai_behavior/malfbot/unregister_action_signals(action_type)
 	switch(action_type)
 		if(MOVING_TO_ATOM)
 			unregister_signal(mob_parent, COMSIG_STATE_MAINTAINED_DISTANCE)
@@ -201,61 +195,61 @@
 	return ..()
 
 ///Will try finding and resting on weeds
-/datum/ai_behavior/xeno/proc/try_to_heal()
+/datum/ai_behavior/malfbot/proc/try_to_heal()
 	return TRUE
-	/*var/mob/living/carbon/xenomorph/living_mob = mob_parent
+	/*var/mob/living/carbon/malfbotmorph/living_mob = mob_parent
 	if(!living_mob.loc_weeds_type)
 		if(living_mob.resting)//We are resting on no weeds
-			SEND_SIGNAL(mob_parent, COMSIG_XENOABILITY_REST)
-			UnregisterSignal(mob_parent, list(COMSIG_XENOMORPH_HEALTH_REGEN, COMSIG_XENOMORPH_PLASMA_REGEN))
+			SEND_SIGNAL(mob_parent, COMSIG_malfbotABILITY_REST)
+			UnregisterSignal(mob_parent, list(COMSIG_malfbotMORPH_HEALTH_REGEN, COMSIG_malfbotMORPH_PLASMA_REGEN))
 		return FALSE
 	if(living_mob.resting)//Already resting
 		if(living_mob.on_fire)
 			living_mob.do_resist()
 		return TRUE
-	SEND_SIGNAL(mob_parent, COMSIG_XENOABILITY_REST)
-	RegisterSignal(mob_parent, COMSIG_XENOMORPH_HEALTH_REGEN, PROC_REF(check_for_health))
-	RegisterSignal(mob_parent, COMSIG_XENOMORPH_PLASMA_REGEN, PROC_REF(check_for_plasma))
+	SEND_SIGNAL(mob_parent, COMSIG_malfbotABILITY_REST)
+	RegisterSignal(mob_parent, COMSIG_malfbotMORPH_HEALTH_REGEN, PROC_REF(check_for_health))
+	RegisterSignal(mob_parent, COMSIG_malfbotMORPH_PLASMA_REGEN, PROC_REF(check_for_plasma))
 	return TRUE*/
 
-///Wait for the xeno to be full life and plasma to unrest
-/datum/ai_behavior/xeno/proc/check_for_health(mob/living/carbon/xenomorph, list/heal_data)
+///Wait for the malfbot to be full life and plasma to unrest
+/datum/ai_behavior/malfbot/proc/check_for_health(mob/living/carbon/malfbotmorph, list/heal_data)
 	pass()
 	//SIGNAL_HANDLER
-	//if(healing.health + heal_data[1] >= healing.maxHealth && healing.plasma_stored >= healing.xeno_caste.plasma_max * healing.xeno_caste.plasma_regen_limit)
-	//	SEND_SIGNAL(mob_parent, COMSIG_XENOABILITY_REST)
-	//	UnregisterSignal(mob_parent, list(COMSIG_XENOMORPH_HEALTH_REGEN, COMSIG_XENOMORPH_PLASMA_REGEN))
+	//if(healing.health + heal_data[1] >= healing.maxHealth && healing.plasma_stored >= healing.malfbot_caste.plasma_max * healing.malfbot_caste.plasma_regen_limit)
+	//	SEND_SIGNAL(mob_parent, COMSIG_malfbotABILITY_REST)
+	//	UnregisterSignal(mob_parent, list(COMSIG_malfbotMORPH_HEALTH_REGEN, COMSIG_malfbotMORPH_PLASMA_REGEN))
 
-///Wait for the xeno to be full life and plasma to unrest
-/datum/ai_behavior/xeno/proc/check_for_plasma(mob/living/carbon/xenomorph, list/plasma_data)
+///Wait for the malfbot to be full life and plasma to unrest
+/datum/ai_behavior/malfbot/proc/check_for_plasma(mob/living/carbon/malfbotmorph, list/plasma_data)
 	pass()
 	//SIGNAL_HANDLER
-	//if(healing.health >= healing.maxHealth && healing.plasma_stored + plasma_data[1] >= healing.xeno_caste.plasma_max * healing.xeno_caste.plasma_regen_limit)
-	//	SEND_SIGNAL(mob_parent, COMSIG_XENOABILITY_REST)
-	//	UnregisterSignal(mob_parent, list(COMSIG_XENOMORPH_HEALTH_REGEN, COMSIG_XENOMORPH_PLASMA_REGEN))
+	//if(healing.health >= healing.maxHealth && healing.plasma_stored + plasma_data[1] >= healing.malfbot_caste.plasma_max * healing.malfbot_caste.plasma_regen_limit)
+	//	SEND_SIGNAL(mob_parent, COMSIG_malfbotABILITY_REST)
+	//	UnregisterSignal(mob_parent, list(COMSIG_malfbotMORPH_HEALTH_REGEN, COMSIG_malfbotMORPH_PLASMA_REGEN))
 
 ///Called each time the ai takes damage; if we are below a certain health threshold, try to retreat
-/datum/ai_behavior/xeno/proc/check_for_critical_health(datum/source, damage)
+/datum/ai_behavior/malfbot/proc/check_for_critical_health(datum/source, damage)
 	SIGNAL_HANDLER
 	/*var/mob/living/living_mob = mob_parent
 	if(!can_heal || living_mob.health - damage > minimum_health * living_mob.maxHealth)
 		return
-	var/atom/next_target = get_nearest_target(mob_parent, target_distance, TARGET_HOSTILE, mob_parent.faction, mob_parent.get_xeno_hivenumber())
+	var/atom/next_target = get_nearest_target(mob_parent, target_distance, TARGET_HOSTILE, mob_parent.faction, mob_parent.get_malfbot_hivenumber())
 	if(!next_target)
 		return
 	target_distance = 15
 	change_action(MOVING_TO_SAFETY, next_target, INFINITY)
-	UnregisterSignal(mob_parent, COMSIG_XENOMORPH_TAKING_DAMAGE)*/
+	UnregisterSignal(mob_parent, COMSIG_malfbotMORPH_TAKING_DAMAGE)*/
 
 ///Move the ai mob on top of the window_frame
-/datum/ai_behavior/xeno/proc/climb_window_frame(turf/window_turf)
+/datum/ai_behavior/malfbot/proc/climb_window_frame(turf/window_turf)
 	/*mob_parent.loc = window_turf
 	mob_parent.last_move_time = world.time
 	LAZYDECREMENT(mob_parent.do_actions, window_turf)*/
 
-/datum/ai_behavior/xeno/ranged
+/datum/ai_behavior/malfbot/ranged
 	distance_to_maintain = 5
 	minimum_health = 0.3
 
-/datum/ai_behavior/xeno/suicidal
+/datum/ai_behavior/malfbot/suicidal
 	minimum_health = 0

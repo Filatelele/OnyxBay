@@ -44,33 +44,6 @@
 
 		. += nearby_mech
 
-///Returns the nearest target that has the right target flag
-/proc/get_nearest_target(atom/source, distance, target_flags, attacker_faction)
-	if(!source)
-		return
-	var/atom/nearest_target
-	var/shorter_distance = distance + 1
-	if(target_flags & TARGET_HUMAN)
-		for(var/mob/living/nearby_human as anything in cheap_get_humans_near(source, distance))
-			if(nearby_human.is_ic_dead() || nearby_human.faction == attacker_faction)
-				continue
-
-			if(get_dist(source, nearby_human) < shorter_distance)
-				nearest_target = nearby_human
-				shorter_distance = get_dist(source, nearby_human) //better to recalculate than to save the var
-
-	if(target_flags & TARGET_HUMAN_TURRETS)
-		for(var/atom/nearby_turret as anything in GLOB.all_turrets)
-			if(source.z != nearby_turret.z)
-				continue
-
-			if(!(get_dist(source, nearby_turret) < shorter_distance))
-				continue
-
-			nearest_target = nearby_turret
-
-	return nearest_target
-
 /**
  * This proc attempts to get an instance of an atom type within distance, with center as the center.
  * Arguments

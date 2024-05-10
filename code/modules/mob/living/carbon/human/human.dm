@@ -354,9 +354,9 @@
 // called when something steps onto a human
 // this handles mulebots and vehicles
 /mob/living/carbon/human/Crossed(atom/movable/AM)
-	if(istype(AM, /mob/living/bot/mulebot))
-		var/mob/living/bot/mulebot/MB = AM
-		MB.runOver(src)
+	//if(istype(AM, /mob/living/bot/mulebot))
+	//	var/mob/living/bot/mulebot/MB = AM
+	//	MB.runOver(src)
 
 	if(istype(AM, /obj/vehicle))
 		var/obj/vehicle/V = AM

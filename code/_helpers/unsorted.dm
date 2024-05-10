@@ -602,7 +602,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(exclude_mobs && isliving(atom))
 				continue
 			else
-				return FALSE
+				return TRUE
 
 	return FALSE
 

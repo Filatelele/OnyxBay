@@ -184,6 +184,8 @@
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 // Reads L or an empty list if L is not a list.  Note: Does NOT assign, L may be an expression.
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
+#define LAZYINCREMENT(L, K) if(!L) { L = list(); } L[K]++;
+#define LAZYDECREMENT(L, K) if(L) { if(L[K]) { L[K]--; if(!L[K]) L -= K; } if(!length(L)) L = null; }
 
 // Adds value V to associati list L[K]
 #define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);

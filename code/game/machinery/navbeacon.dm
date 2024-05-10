@@ -15,10 +15,12 @@ GLOBAL_LIST_EMPTY(wayfindingbeacons)
 	var/location = ""	// location response text
 	var/list/codes = list()		// assoc. list of transponder codes
 
+	var/obj/effect/ai_node/supporting/node
+
 	req_access = list(access_engine)
 
-/obj/machinery/navbeacon/New()
-	..()
+/obj/machinery/navbeacon/Initialize()
+	. = ..()
 
 	if(wayfinding)
 		if(!location)
@@ -28,6 +30,8 @@ GLOBAL_LIST_EMPTY(wayfindingbeacons)
 			else
 				var/area/AR = get_area(src)
 				location = AR?.name || "Unknown"
+
+		node = new(get_turf(src))
 		codes += list("wayfinding" = "[location]")
 		GLOB.wayfindingbeacons += src
 
@@ -35,6 +39,10 @@ GLOBAL_LIST_EMPTY(wayfindingbeacons)
 	hide(!T.is_plating())
 
 	navbeacons += src
+
+/obj/machinery/navbeacon/Destroy()
+	QDEL_NULL(node)
+	return ..()
 
 /obj/machinery/navbeacon/hide(intact)
 	set_invisibility(intact ? 101 : 0)

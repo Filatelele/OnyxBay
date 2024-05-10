@@ -177,3 +177,6 @@
 		. = polar2turf(x, y, z, angle, ideal_distance)
 		ideal_distance -= 1
 	while (!. && ideal_distance > 0)
+
+#define get_dist_euclidean_square(A, B) (A && B ? A.z == B.z ? (A.x - B.x)**2 + (A.y - B.y)**2 : INFINITY : INFINITY)
+#define get_dist_euclidean(A, B) (sqrt(get_dist_euclidean_square(A, B)))

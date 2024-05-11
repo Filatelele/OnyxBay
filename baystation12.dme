@@ -800,6 +800,7 @@
 #include "code\game\machinery\biogenerator.dm"
 #include "code\game\machinery\bioprinter.dm"
 #include "code\game\machinery\bluespacerelay.dm"
+#include "code\game\machinery\borgizer.dm"
 #include "code\game\machinery\buttons.dm"
 #include "code\game\machinery\CableLayer.dm"
 #include "code\game\machinery\cell_charger.dm"

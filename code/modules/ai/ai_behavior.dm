@@ -47,7 +47,7 @@
 	/// Should we lose the escorted atom if we change action
 	var/weak_escort = FALSE
 	/// Delay before bot tries to switch pathfinding modes between node and tile-based in order to unstuck itself
-	var/unstuck_delay = 2 SECONDS
+	var/unstuck_delay = 4 SECONDS
 
 /datum/ai_behavior/New(loc, mob/parent_to_assign, atom/escorted_atom)
 	..()
@@ -385,29 +385,35 @@ These are parameter based so the ai behavior can choose to (un)register the sign
 
 		if(!get_dir(mob_parent, atom_to_walk_to)) //We're right on top, move out of it
 			step_dir = pick(GLOB.alldirs)
+			mob_parent.moving = TRUE
 			if(!mob_parent.Move(get_step(mob_parent, step_dir), step_dir))
 				SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, get_step(mob_parent, step_dir))
 			else if(ISDIAGONALDIR(step_dir))
 				mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown //Not perfect but good enough
+			mob_parent.moving = FALSE
 			return
 		if(prob(sidestep_prob))
 			step_dir = pick(LeftAndRightOfDir(get_dir(mob_parent, atom_to_walk_to)))
+			mob_parent.moving = TRUE
 			if(!mob_parent.Move(get_step(mob_parent, step_dir), step_dir))
 				SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, step_dir)
 			else if(ISDIAGONALDIR(step_dir))
 				mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown
+			mob_parent.moving = FALSE
 		return
 	if(get_dist(mob_parent, atom_to_walk_to) < distance_to_maintain) //We're too close, back it up
 		step_dir = get_dir(atom_to_walk_to, mob_parent)
 	else
 		step_dir = get_dir(mob_parent, atom_to_walk_to)
 	var/turf/next_turf = get_step(mob_parent, step_dir)
+	mob_parent.moving = TRUE
 	if(!mob_parent.Move(next_turf, step_dir) && !(SEND_SIGNAL(mob_parent, COMSIG_OBSTRUCTED_MOVE, next_turf) & COMSIG_OBSTACLE_DEALT_WITH))
 		step_dir = pick(LeftAndRightOfDir(step_dir))
 		next_turf = get_step(mob_parent, step_dir)
 		mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown
 	else if(ISDIAGONALDIR(step_dir))
 		mob_parent.next_move_slowdown += (DIAG_MOVEMENT_ADDED_DELAY_MULTIPLIER - 1) * mob_parent.cached_slowdown
+	mob_parent.moving = FALSE
 
 ///Returns the nearest target that has the right target flag
 /datum/ai_behavior/proc/get_nearest_target(atom/source, distance, target_flags, attacker_faction)

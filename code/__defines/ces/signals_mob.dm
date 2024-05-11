@@ -30,3 +30,15 @@
 
 /// Called on `/atom/proc/examine` (mob/user, list/examine_result)
 #define SIGNAL_MOB_EXAMINED_MORE "mob_examined_more"
+
+/// Called on `/datum/action/proc/Grant` (/mob/living)
+#define SIGNAL_MOB_ACTION_GIVEN "mob_action_given"
+
+/// Called on `/datum/action/proc/Remove` (/mob/living)
+#define SIGNAL_MOB_ACTION_REMOVED "mob_removed_an_action"
+
+/// Called on `/mob/proc/start_pulling()` (/mob, /atom/pulled)
+#define SIGNAL_MOB_STARTED_PULLING "mob_started_pulling"
+
+/// Called on `/mob/proc/stop_pulling()` (/mob, /atom/pulled)
+#define SIGNAL_MOB_STOPPED_PULLING "mob_stopped_pulling"

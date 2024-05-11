@@ -578,8 +578,6 @@
 
 
 /mob/living/proc/can_pull()
-	if(!moving)
-		return FALSE
 	if(pulling.anchored)
 		return FALSE
 	if(!isturf(pulling.loc))

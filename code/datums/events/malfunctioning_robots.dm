@@ -99,13 +99,18 @@
 /datum/random_map/droppod/malfunctioning_robots
 	descriptor = "drop pod"
 	initial_wall_cell = FALSE
-	limit_x = 3
-	limit_y = 3
+	limit_x = 5
+	limit_y = 5
 	preserve_map = FALSE
+	auto_open_doors = TRUE
+	spawnchair = FALSE
 
 	wall_type = /turf/simulated/wall/titanium
 	floor_type = /turf/simulated/floor/reinforced
 	door_type = /obj/structure/droppod_door
 	drop_type = /mob/living/carbon/human/malf_robot
+	supplied_drop_types = list(
 
-/mob/living/carbon/human/malf_robot
+	)
+
+/datum/random_map/droppod/malfunctioning_robots/get_spawned_drop(turf/T)

@@ -107,9 +107,7 @@
 
 	for(var/thing in obstacle_turf.contents)
 		if(istype(thing, /obj/structure/window_frame))
-			//LAZYINCREMENT(mob_parent.do_actions, obstacle_turf)
 			mob_parent.forceMove(thing)
-			//addtimer(CALLBACK(src, PROC_REF(climb_window_frame), obstacle_turf), 2 SECONDS)
 			return COMSIG_OBSTACLE_DEALT_WITH
 
 		if(istype(thing, /obj/structure/closet))

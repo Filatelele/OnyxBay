@@ -23,6 +23,7 @@
 		IDENTIFIER_XENO = list(NODE_LAST_VISITED = 0),
 		IDENTIFIER_ZOMBIE = list(NODE_LAST_VISITED = 0),
 		IDENTIFIER_SBOT = list(NODE_LAST_VISITED = 0),
+		IDENTIFIER_MALFBOT = list(NODE_LAST_VISITED = 0),
 		)
 
 /obj/effect/ai_node/Initialize(mapload)

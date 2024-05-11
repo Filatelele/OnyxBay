@@ -37,6 +37,7 @@
 "N" = (/obj/effect/floor_decal/industrial/hatch/yellow,/obj/effect/ai_node,/turf/simulated/floor/tiled,/area/engineering/toilet)
 "P" = (/obj/map_ent/info_maptext{ev_text = "Map entities showcase"},/turf/simulated/floor/tiled,/area/engineering/toilet)
 "S" = (/obj/effect/ai_node,/turf/simulated/floor/tiled,/area/engineering/toilet)
+"W" = (/obj/machinery/implantchair,/obj/effect/ai_node/supporting,/turf/simulated/floor/tiled,/area/engineering/toilet)
 "X" = (/obj/effect/landmark/joinlate,/turf/simulated/floor/tiled,/area/engineering/toilet)
 
 (1,1,1) = {"
@@ -53,7 +54,7 @@ JJJJJJJJJJJJJJJJcaaaaaaaaaaaaaaacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcabbbdbbSbbdbbbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcabSbbbfgfbbbSbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcabbbbbfffbbbbhacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJJJJJcaibbbjfNfbbbbkacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJJJJJcaiWbbjfNfbbbbkacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcabbbbbbbbbbmbbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJyyyJcabbbbbbXbbbnopacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJzAzccaqSbbbbrlbbSbbacJJJJJJJJJJJJJJJ

@@ -634,6 +634,7 @@
 		pulling.set_glide_size(8)
 		unregister_signal(pulling, SIGNAL_QDELETING)
 		pulling.pulledby = null
+		SEND_SIGNAL(src, SIGNAL_MOB_STOPPED_PULLING, src, pulling)
 		pulling = null
 
 		var/datum/movement_handler/mob/delay/delay = GetMovementHandler(/datum/movement_handler/mob/delay)
@@ -646,7 +647,7 @@
 	remove_movespeed_modifier(/datum/movespeed_modifier/pull_slowdown)
 
 /mob/proc/start_pulling(atom/movable/AM)
-	if ( !AM || !usr || src==AM || !isturf(src.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
+	if(!AM || src == AM || !isturf(src.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
 		return
 
 	AM.on_pulling_try(src)
@@ -712,6 +713,8 @@
 	if(ismob(AM))
 		var/mob/pulled = AM
 		pulled.inertia_dir = 0
+
+	SEND_SIGNAL(src, SIGNAL_MOB_STARTED_PULLING, src, pulling)
 
 /mob/proc/can_use_hands()
 	return

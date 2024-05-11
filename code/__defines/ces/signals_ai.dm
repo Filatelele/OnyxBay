@@ -12,3 +12,6 @@
 #define SIGNAL_CLEANBOT_CLEANED "signal_cleanbot_cleaned"
 
 #define SIGNAL_MALFBOT_TAKING_DAMAGE "signal_malfbot_taking_damage"
+#define SIGNAL_MALFBOT_ABILITY_RESET "signal_malfbot_ability_reset"
+
+#define SIGNAL_MALFBOT_HEALTH_REGEN "signal_malfbot_health_regen"

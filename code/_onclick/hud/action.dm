@@ -47,7 +47,8 @@
 	owner = T
 	owner.actions.Add(src)
 	owner.update_action_buttons()
-	return
+
+	SEND_SIGNAL(T, SIGNAL_MOB_ACTION_GIVEN, T)
 
 /datum/action/proc/Remove(mob/living/T)
 	if(button)
@@ -58,7 +59,8 @@
 	T.actions.Remove(src)
 	T.update_action_buttons()
 	owner = null
-	return
+
+	SEND_SIGNAL(T, SIGNAL_MOB_ACTION_REMOVED, T)
 
 /datum/action/proc/Trigger()
 	if(!Checks())
@@ -359,3 +361,11 @@
 	text_cooldown = TRUE
 	click_to_activate = TRUE
 	shared_cooldown = MOB_SHARED_COOLDOWN_1
+
+/// C
+/datum/action/proc/ai_should_start_consider()
+	return FALSE
+
+// /When called, see if based on the surroundings should the AI use this ability
+/datum/action/proc/ai_should_use(target)
+	return FALSE

@@ -610,7 +610,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 	return 1
 
 /mob/proc/ssd_check()
-	return !client && !teleop
+	var/datum/component/ai_controller/ai = get_component(/datum/component/ai_controller)
+	return !client && !teleop && !LAZYISIN(GLOB.ai_instances_active, ai)
 
 /mob/proc/jittery_damage()
 	return //Only for living/carbon/human/

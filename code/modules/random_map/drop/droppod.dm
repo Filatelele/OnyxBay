@@ -17,6 +17,7 @@
 	var/door_type = /obj/structure/droppod_door
 	var/drop_type = /mob/living/simple_animal/parrot
 	var/auto_open_doors
+	var/spawnchair = TRUE
 
 	var/placement_explosion_dev =   1
 	var/placement_explosion_heavy = 2
@@ -124,8 +125,9 @@
 		get_spawned_drop(T)
 
 /datum/random_map/droppod/proc/get_spawned_drop(turf/T)
-	var/obj/structure/bed/chair/C = new(T)
-	C.set_light(0.5, 0.1, 3, 2, l_color = "#cc0000")
+	if(spawnchair)
+		var/obj/structure/bed/chair/C = new(T)
+		C.set_light(0.5, 0.1, 3, 2, l_color = "#cc0000")
 	var/mob/living/drop
 	// This proc expects a list of mobs to be passed to the spawner.
 	// Use the supply pod if you don't want to drop mobs.

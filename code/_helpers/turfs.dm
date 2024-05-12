@@ -171,7 +171,7 @@
 			var/turf/checked_turf = turf_list[I]
 			var/area/turf_area = get_area(checked_turf)
 
-			if(!checked_turf.density && !(turf_area.area_flags & AREA_FLAG_EXTERNAL))
+			if(!isspaceturf(checked_turf) && !checked_turf.density && !(turf_area.area_flags & AREA_FLAG_EXTERNAL))
 				var/clear = TRUE
 				for(var/obj/checked_object in checked_turf)
 					if(checked_object.density)

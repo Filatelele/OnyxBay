@@ -12,10 +12,20 @@
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 	var/dirt = 0
+	var/atom/movable/ai_node/node = null
 
 /turf/simulated/Initialize(mapload, ...)
 	. = ..()
 	add_think_ctx("unwet_context", CALLBACK(src, nameof(.proc/unwet_floor)), 0 )
+	node = new (src)
+	return INITIALIZE_HINT_LATELOAD
+
+/turf/simulated/LateInitialize()
+	. = ..()
+
+/turf/simulated/Destroy()
+	QDEL_NULL(node)
+	return ..()
 
 /turf/simulated/post_change()
 	..()

@@ -17,11 +17,11 @@
 	/// Prob chance of sidestepping (left or right) when distance maintained with target
 	var/sidestep_prob = 0
 	/// Current node to use for calculating action states: this is the mob's node
-	var/obj/effect/ai_node/current_node
+	var/atom/movable/ai_node/current_node
 	/// The node goal of this ai
-	var/obj/effect/ai_node/goal_node
+	var/atom/movable/ai_node/goal_node
 	/// A list of nodes the ai should go to in order to go to goal_node
-	var/list/obj/effect/ai_node/goal_nodes
+	var/list/atom/movable/ai_node/goal_nodes
 	/// A list of turfs the ai should go in order to get to atom_to_walk_to
 	var/list/turf/turfs_in_path
 	/// What the ai is doing right now
@@ -172,7 +172,7 @@
 	if(ignore_current_node || !current_node)
 		var/closest_distance = MAX_NODE_RANGE
 		var/avoid_node = current_node
-		for(var/obj/effect/ai_node/ai_node as anything in GLOB.all_nodes)
+		for(var/atom/movable/ai_node/ai_node as anything in GLOB.all_nodes)
 			if(!ai_node)
 				continue
 
@@ -207,7 +207,7 @@
 	change_action(MOVING_TO_NODE, current_node)
 
 /// Set the current node to next_node
-/datum/ai_behavior/proc/set_current_node(obj/effect/ai_node/next_node)
+/datum/ai_behavior/proc/set_current_node(atom/movable/ai_node/next_node)
 	if(current_node)
 		unregister_signal(current_node, SIGNAL_QDELETING)
 	if(next_node)
@@ -275,7 +275,7 @@
 	pass()
 
 /// Set the goal node
-/datum/ai_behavior/proc/set_goal_node(datum/source, identifier, obj/effect/ai_node/new_goal_node)
+/datum/ai_behavior/proc/set_goal_node(datum/source, identifier, atom/movable/ai_node/new_goal_node)
 	//SIGNAL_HANDLER
 	if(identifier && src.identifier != identifier)
 		return

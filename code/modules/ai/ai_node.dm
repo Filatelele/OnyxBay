@@ -1,11 +1,11 @@
 //The node with a physical presence on the map; mainly exists as a actual object to be able to be highlighted easily for easy debugging and viewing purposes
 //It also holds the datum ai_node, containing getter procs and handle info like weights
 
-/obj/effect/ai_node //A effect that has a ai_node datum in it, used by AIs to pathfind over long distances as well as knowing what's happening at it
+/atom/movable/ai_node //A effect that has a ai_node datum in it, used by AIs to pathfind over long distances as well as knowing what's happening at it
 	name = "AI Node"
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "ai_node" //Pure white 'X' with word "AI" beneath
-	anchored = TRUE //No pulling those nodes yo
+	anchored = TRUE
 	#ifdef TESTING
 	invisibility = 0
 	#else
@@ -26,19 +26,24 @@
 		IDENTIFIER_MALFBOT = list(NODE_LAST_VISITED = 0),
 		)
 
-/obj/effect/ai_node/Initialize(mapload)
+/atom/movable/ai_node/Initialize(mapload)
 	..()
 	GLOB.all_nodes += src
 	unique_id = id_counter++
+	if(!mapload)
+		for(var/atom/movable/ai_node/N in world)
+			if(N != src && N.unique_id == unique_id)
+				to_chat(world, "REDIT PENIS")
+				pass()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/effect/ai_node/LateInitialize()
+/atom/movable/ai_node/LateInitialize()
 	make_adjacents()
 	if(SSadvanced_pathfinding.initialized)
 		rustg_add_node_astar(json_encode(serialize()))
 
 /// Serialize nodes information
-/obj/effect/ai_node/proc/serialize()
+/atom/movable/ai_node/proc/serialize()
 	. = list()
 	.["unique_id"] = unique_id
 	.["x"] = x
@@ -46,23 +51,23 @@
 	.["z"] = z
 	.["connected_nodes_id"] = list()
 	for(var/key in adjacent_nodes)
-		var/obj/effect/ai_node/connected_node = adjacent_nodes[key]
+		var/atom/movable/ai_node/connected_node = adjacent_nodes[key]
 		.["connected_nodes_id"] += connected_node.unique_id
 
 ///Adds to the specific weight of a specific identifier of this node
-/obj/effect/ai_node/proc/increment_weight(identifier, name, amount)
+/atom/movable/ai_node/proc/increment_weight(identifier, name, amount)
 	weights[identifier][name] += amount
 
 ///Sets the specific weight of a specific identifier of this node
-/obj/effect/ai_node/proc/set_weight(identifier, name, amount)
+/atom/movable/ai_node/proc/set_weight(identifier, name, amount)
 	weights[identifier][name] = amount
 
-/obj/effect/ai_node/Destroy()
+/atom/movable/ai_node/Destroy()
 	GLOB.all_nodes[unique_id + 1] = null
 	rustg_remove_node_astar("[unique_id]")
 	//Remove our reference to self from nearby adjacent node's adjacent nodes
 	for(var/direction as anything in adjacent_nodes)
-		var/obj/effect/ai_node/node = adjacent_nodes[direction]
+		var/atom/movable/ai_node/node = adjacent_nodes[direction]
 		node.make_adjacents()
 	adjacent_nodes.Cut()
 	return ..()
@@ -77,16 +82,16 @@
  * GetBestAdjNode(list(NODE_LAST_VISITED = -1), IDENTIFIER_XENO)
  * Returns an adjacent node that was last visited; when a AI chose to visit a node, it will set NODE_LAST_VISITED to world.time
  */
-/obj/effect/ai_node/proc/get_best_adj_node(list/weight_modifiers, identifier)
+/atom/movable/ai_node/proc/get_best_adj_node(list/weight_modifiers, identifier)
 	//No weight modifiers, return a adjacent random node
 	if(!length(weight_modifiers) || !identifier)
 		return adjacent_nodes[safepick(adjacent_nodes)]
 
-	var/obj/effect/ai_node/node_to_return
+	var/atom/movable/ai_node/node_to_return
 	var/current_best_node_score = -INFINITY
 	var/current_score = 0
 	for(var/direction in adjacent_nodes) //We keep a score for the nodes and see which one is best
-		var/obj/effect/ai_node/node = adjacent_nodes[direction]
+		var/atom/movable/ai_node/node = adjacent_nodes[direction]
 		current_score = 0
 		for(var/weight in weight_modifiers)
 			current_score += NODE_GET_VALUE_OF_WEIGHT(identifier, node, weight) * weight_modifiers[weight]
@@ -100,37 +105,24 @@
 	return adjacent_nodes[safepick(adjacent_nodes)]
 
 ///Clears the adjacencies of src and repopulates it, it will consider nodes "adjacent" to src should it be less 15 turfs away
-/obj/effect/ai_node/proc/make_adjacents(bypass_diagonal_check = FALSE)
+/atom/movable/ai_node/proc/make_adjacents(bypass_diagonal_check = FALSE)
 	adjacent_nodes = list()
-	for(var/obj/effect/ai_node/node as anything in GLOB.all_nodes)
-		if(!node || node == src || node.z != z || get_dist(src, node) > MAX_NODE_RANGE)
+	for(var/dir in GLOB.cardinal)
+		var/turf/stepturf = get_step(src, dir)
+		if(is_blocked_turf(stepturf, src, TRUE, list(
+			/obj/machinery/door/airlock,
+			/obj/machinery/borgizer
+		)))
 			continue
 
-		if(get_dist(src, adjacent_nodes["[get_dir(src, node)]"]) < get_dist(src, node))
-			continue
-
-		if(!is_in_line_of_sight(get_turf(node)))
+		var/atom/movable/ai_node/node = locate() in stepturf
+		if(!istype(node) || node == src || node.z != z)
 			continue
 
 		adjacent_nodes["[get_dir(src, node)]"] = node
 		node.adjacent_nodes["[get_dir(node, src)]"] = src
 
-///Returns true if the turf in argument is in line of sight
-/obj/effect/ai_node/proc/is_in_line_of_sight(turf/target_loc)
-	var/turf/turf_to_check = get_turf(src)
-
-	while(turf_to_check != target_loc)
-		if(is_blocked_turf(turf_to_check, null, TRUE, list(
-			/obj/machinery/door,
-			/obj/structure/table,
-		)))
-			return FALSE
-
-		turf_to_check = get_step(turf_to_check, get_dir(turf_to_check, target_loc))
-
-	return TRUE
-
-/obj/effect/ai_node/debug //A debug version of the AINode; makes it visible to allow for easy var editing
+/atom/movable/ai_node/debug //A debug version of the AINode; makes it visible to allow for easy var editing
 	icon_state = "x6" //Pure white 'X' with black borders
 	color = "#ffffff"
 	invisibility = 0

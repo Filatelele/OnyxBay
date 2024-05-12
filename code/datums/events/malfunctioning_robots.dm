@@ -81,8 +81,13 @@
 	announce()
 
 /datum/event/malfunctioning_robots/proc/spawn_malf_robots(num_groups, group_size_min = 1, group_size_max = 3)
-	var/turf/target = get_safe_random_station_turf(GLOB.station_areas)
-	new /datum/random_map/droppod/malfunctioning_robots(null, target.x, target.y, target.z, do_not_announce = TRUE)
+	var/turf/center = get_safe_random_station_turf()
+	var/datum/map_template/malfbot_droppod/dlevel = new /datum/map_template/malfbot_droppod()
+	dlevel.load(center, TRUE, TRUE)
+	var/amt = pick(group_size_min, group_size_max)
+	for(var/i = 1 to amt)
+		new /mob/living/carbon/human/malf_robot(center)
+	new /obj/machinery/borgizer(center)
 
 /datum/event/malfunctioning_robots/proc/announce()
 	if(severity == EVENT_LEVEL_MAJOR)
@@ -96,21 +101,26 @@
 			/datum/announce/malfunctioning_robots_arrival
 		)))
 
-/datum/random_map/droppod/malfunctioning_robots
-	descriptor = "drop pod"
-	initial_wall_cell = FALSE
-	limit_x = 5
-	limit_y = 5
-	preserve_map = FALSE
-	auto_open_doors = TRUE
-	spawnchair = FALSE
+/datum/map_template/malfbot_droppod
+	mappaths = list("maps/malfbot_droppod.dmm")
 
-	wall_type = /turf/simulated/wall/titanium
-	floor_type = /turf/simulated/floor/reinforced
-	door_type = /obj/structure/droppod_door
-	drop_type = /mob/living/carbon/human/malf_robot
-	supplied_drop_types = list(
+/obj/machinery/door/airlock/vault/malfbot_lock/Initialize()
+	. = ..()
+	set_next_think(world.time + 2 SECONDS)
 
-	)
+/obj/machinery/door/airlock/vault/malfbot_lock/think()
+	for(var/dir in GLOB.cardinal)
+		var/turf/neighbour = get_step(src.loc, dir)
+		if(neighbour.c_airblock(loc) & AIR_BLOCKED)
+			continue
 
-/datum/random_map/droppod/malfunctioning_robots/get_spawned_drop(turf/T)
+		for(var/obj/O in src.loc)
+			if(istype(O, /obj/machinery/door))
+				continue
+
+			. |= O.c_airblock(neighbour)
+		if(. & AIR_BLOCKED)
+			continue
+
+	open(TRUE)
+	lock(TRUE)

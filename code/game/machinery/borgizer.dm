@@ -2,6 +2,8 @@
 #define OPTYPE_FULL_FBP    2
 #define OPTYPE_BORGIZATION 3
 
+GLOBAL_LIST_EMPTY(borgizer_list)
+
 /obj/machinery/borgizer
 	name = "Autodoc"
 	desc = "Autodoc designed for prosthetics operations of any degree of complexity."
@@ -17,9 +19,11 @@
 
 /obj/machinery/borgizer/Initialize()
 	. = ..()
+	GLOB.borgizer_list += src
 
 /obj/machinery/borgizer/Destroy()
 	occupant = null
+	GLOB.borgizer_list -= src
 	return ..()
 
 /obj/machinery/borgizer/attack_hand(mob/user)
@@ -98,13 +102,14 @@
 	if(!istype(occupant))
 		return
 
-	var/list/detachable_bp_tags = BP_ALL_LIMBS
+	var/list/detachable_bp_tags = list(BP_L_LEG, BP_R_LEG, BP_L_ARM, BP_R_ARM)
 	var/list/detachable_limbs = occupant.organs.Copy()
 	for(var/obj/item/organ/external/E in detachable_limbs)
-		if(LAZYISIN(detachable_bp_tags, E.organ_tag))
-			continue
+		if(BP_IS_ROBOTIC(E))
+			detachable_limbs -= E
 
-		detachable_limbs -= E
+		if(!LAZYISIN(detachable_bp_tags, E.organ_tag))
+			detachable_limbs -= E
 
 	var/obj/item/organ/external/organ_to_remove = safepick(detachable_limbs)
 	if(!organ_to_remove)
@@ -122,7 +127,9 @@
 		return
 
 	playsound(get_turf(src), 'sound/effects/bonebreak1.ogg', 100, 1)
-	organ_to_remove.droplimb(pick(TRUE, FALSE), DROPLIMB_EDGE)
+	organ_to_remove.robotize("Unbranded")
+	occupant.reagents.add_reagent(/datum/reagent/painkiller/tramadol/oxycodone, 1)
+	to_chat(occupant, SPAN_NOTICE("You feel a tiny prick!"))
 
 /obj/machinery/borgizer/proc/finish_with_implant()
 	if(!occupant)

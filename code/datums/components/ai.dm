@@ -63,7 +63,7 @@
 		ai_behavior = null
 		return
 
-	for(var/obj/effect/ai_node/node in range(7))
+	for(var/atom/movable/ai_node/node in range(7))
 		ai_behavior.current_node = node
 		break
 

@@ -210,8 +210,12 @@
 
 		if(iscuffed(carbon_target) && !istype(mob_parent.pulling))
 			mob_parent.start_pulling(carbon_target)
-			var/obj/effect/ai_node/supporting/impnode = locate(/obj/effect/ai_node/supporting) in world
-			set_goal_node(null, null, impnode)
+			var/obj/machinery/borgizer/borgizer = safepick(GLOB.borgizer_list)
+			if(!istype(borgizer))
+				return
+
+			var/atom/movable/ai_node/node = locate() in get_turf(borgizer)
+			set_goal_node(null, null, node)
 			look_for_next_node(TRUE, FALSE)
 
 /datum/ai_behavior/malfbot/register_action_signals(action_type)
@@ -287,13 +291,12 @@
 	mob_parent.next_move_slowdown = world.time
 	//LAZYDECREMENT(mob_parent.do_actions, window_turf)
 
-
 /datum/ai_behavior/malfbot/finished_node_move()
 	if(current_node == goal_node)
 		if(mob_parent.pulling)
-			var/obj/machinery/implantchair/impchair = locate(/obj/machinery/implantchair) in view(2, mob_parent)
-			if(istype(impchair))
-				impchair.put_mob(mob_parent.pulling)
+			var/obj/machinery/borgizer/borgizer = locate(/obj/machinery/borgizer) in view(2, mob_parent)
+			if(istype(borgizer))
+				borgizer.put_mob(mob_parent.pulling)
 
 	return ..()
 

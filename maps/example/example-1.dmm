@@ -2,7 +2,6 @@
 "b" = (/turf/simulated/floor/tiled,/area/engineering/toilet)
 "c" = (/turf/simulated/wall/r_wall,/area/space)
 "d" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/tiled,/area/engineering/toilet)
-"f" = (/obj/effect/floor_decal/industrial/hatch/yellow,/turf/simulated/floor/tiled,/area/engineering/toilet)
 "g" = (/turf/simulated/wall,/area/engineering/toilet)
 "h" = (/obj/machinery/light_switch{on = 1; pixel_x = 25},/turf/simulated/floor/tiled,/area/engineering/toilet)
 "i" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/tiled,/area/engineering/toilet)
@@ -34,10 +33,8 @@
 "I" = (/obj/machinery/light,/turf/simulated/floor/tiled,/area/engineering/toilet)
 "J" = (/turf/space,/area/space)
 "K" = (/obj/effect/floor_decal/industrial/hatch/yellow,/obj/map_ent/trigger_mob{pixel_x = -7; ev_tag = "ent_tp_wv"; tag = "ent_tp_trigger"},/obj/map_ent/func_teleport{pixel_x = 14; ev_dest_tag = "ent_showcase_tp_dest"; tag = "ent_tp_src"},/obj/map_ent/func_write_var{pixel_y = 9; ev_activate_writer = 1; ev_read_tag = "ent_tp_trigger"; ev_table = list("ev_tag"="ev_triggered"); ev_write_tag = "ent_tp_src"; tag = "ent_tp_wv"},/turf/simulated/floor/tiled,/area/engineering/toilet)
-"N" = (/obj/effect/floor_decal/industrial/hatch/yellow,/obj/effect/ai_node,/turf/simulated/floor/tiled,/area/engineering/toilet)
+"N" = (/obj/effect/floor_decal/industrial/hatch/yellow,/turf/simulated/floor/tiled,/area/engineering/toilet)
 "P" = (/obj/map_ent/info_maptext{ev_text = "Map entities showcase"},/turf/simulated/floor/tiled,/area/engineering/toilet)
-"S" = (/obj/effect/ai_node,/turf/simulated/floor/tiled,/area/engineering/toilet)
-"W" = (/obj/machinery/implantchair,/obj/effect/ai_node/supporting,/turf/simulated/floor/tiled,/area/engineering/toilet)
 "X" = (/obj/effect/landmark/joinlate,/turf/simulated/floor/tiled,/area/engineering/toilet)
 
 (1,1,1) = {"
@@ -51,18 +48,18 @@ JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcccccccccccccccccJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcaaaaaaaaaaaaaaacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJJJJJcabbbdbbSbbdbbbacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJJJJJcabSbbbfgfbbbSbacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJJJJJcabbbbbfffbbbbhacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJJJJJcaiWbbjfNfbbbbkacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJJJJJcabbbdbbbbbdbbbacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJJJJJcabbbbbNgNbbbbbacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJJJJJcabbbbbNNNbbbbhacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJJJJJcaibbbjNNNbbbbkacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcabbbbbbbbbbmbbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJyyyJcabbbbbbXbbbnopacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJzAzccaqSbbbbrlbbSbbacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJzBzaaabbbbbbSbbbsotacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJzAzccaqbbbbbrlbbbbbacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJzBzaaabbbbbbbbbbsotacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJDCEuvwbbbbbbbbbbxbbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJyyyaaaibbbbbbbbbbbkacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJccaFbbbbbbbbbbbbacJJJJJJJJJJJJJJJ
-JJJJJJJJJJJJJJJJcaGSbbbbPbbbbSbacJJJJJJJJJJJJJJJ
+JJJJJJJJJJJJJJJJcaGbbbbbPbbbbbbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcaHbbIbbKbbIbbbacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcaaaaaaaaaaaaaaacJJJJJJJJJJJJJJJ
 JJJJJJJJJJJJJJJJcccccccccccccccccJJJJJJJJJJJJJJJ

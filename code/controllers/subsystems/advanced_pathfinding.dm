@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(advanced_pathfinding)
 
 /datum/controller/subsystem/advanced_pathfinding/Initialize()
 	var/list/nodes = list()
-	for(var/obj/effect/ai_node/ai_node as anything in GLOB.all_nodes)
+	for(var/atom/movable/ai_node/ai_node as anything in GLOB.all_nodes)
 		nodes += list(ai_node.serialize())
 	rustg_register_nodes_astar(json_encode(nodes))
 	return ..()
@@ -28,8 +28,8 @@ SUBSYSTEM_DEF(advanced_pathfinding)
 	var/rust_iterations = 0
 
 	for(var/i in 1 to run_number)
-		var/obj/effect/ai_node/start_node = pick(GLOB.all_nodes)
-		var/obj/effect/ai_node/goal_node = pick(GLOB.all_nodes)
+		var/atom/movable/ai_node/start_node = pick(GLOB.all_nodes)
+		var/atom/movable/ai_node/goal_node = pick(GLOB.all_nodes)
 
 		while (start_node.z != goal_node.z || goal_node == start_node)
 			goal_node = pick(GLOB.all_nodes)
@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(goal_nodes)
 		//Check all possible next atoms, create an atom path for all of them
 		switch(pathing_type)
 			if(NODE_PATHING)
-				var/obj/effect/ai_node/current_node = current_atom
+				var/atom/movable/ai_node/current_node = current_atom
 				list_of_direction = current_node.adjacent_nodes
 			if(TILE_PATHING)
 				list_of_direction = GLOB.alldirs
@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(goal_nodes)
 		for(var/direction in list_of_direction)
 			switch(pathing_type)
 				if(NODE_PATHING)
-					var/obj/effect/ai_node/current_node = current_atom
+					var/atom/movable/ai_node/current_node = current_atom
 					atom_to_check = current_node.adjacent_nodes[direction]
 				if(TILE_PATHING)
 					var/turf/turf_to_check = get_step(current_atom, direction)
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(goal_nodes)
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "landmark_aura_green"
 
-/obj/effect/ai_node/goal
+/atom/movable/ai_node/goal
 	name = "AI goal"
 	invisibility = INVISIBILITY_OBSERVER
 	///The identifier of this ai goal
@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(goal_nodes)
 	///The image added to the creator screen
 	var/image/goal_image
 
-/obj/effect/ai_node/goal/Initialize(mapload, mob/creator)
+/atom/movable/ai_node/goal/Initialize(mapload, mob/creator)
 	. = ..()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_AI_GOAL_SET, null, identifier, src)
 	register_global_signal(COMSIG_GLOB_AI_GOAL_SET, nameof(.proc/clean_goal_node))
@@ -177,32 +177,32 @@ GLOBAL_LIST_EMPTY(goal_nodes)
 	animate(pixel_y = pixel_y + 3, time = 7, loop = -1, easing = EASE_OUT)
 	creator.client.images += goal_image
 
-/obj/effect/ai_node/goal/LateInitialize()
+/atom/movable/ai_node/goal/LateInitialize()
 	make_adjacents(TRUE)
 	rustg_add_node_astar(json_encode(serialize()))
 
-/obj/effect/ai_node/goal/Destroy()
+/atom/movable/ai_node/goal/Destroy()
 	. = ..()
 	GLOB.goal_nodes -= identifier
 	if(creator)
 		creator.client.images -= goal_image
 
 ///Null creator to prevent harddel
-/obj/effect/ai_node/goal/proc/clean_creator()
+/atom/movable/ai_node/goal/proc/clean_creator()
 	SIGNAL_HANDLER
 	creator.client.images -= goal_image
 	creator = null
 
 ///Delete this ai_node goal
-/obj/effect/ai_node/goal/proc/clean_goal_node()
+/atom/movable/ai_node/goal/proc/clean_goal_node()
 	qdel_self()
 
-/obj/effect/ai_node/goal/zombie
+/atom/movable/ai_node/goal/zombie
 	name = "Ai zombie goal"
 	identifier = IDENTIFIER_ZOMBIE
 
-/obj/effect/ai_node/supporting
+/atom/movable/ai_node/supporting
 	name = "AI station bot supporting node"
 
-/obj/effect/ai_node/goal/sbot
+/atom/movable/ai_node/goal/sbot
 	identifier = IDENTIFIER_SBOT

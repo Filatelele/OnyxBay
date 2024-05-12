@@ -89,13 +89,13 @@
 /datum/ai_behavior/station_bot/look_for_next_node(ignore_current_node = TRUE, should_reset_goal_nodes = FALSE)
 	if(patrolling && !goal_node)
 		var/list/possible_nodes = list()
-		for(var/obj/effect/ai_node/supporting/S in GLOB.all_nodes)
+		for(var/atom/movable/ai_node/supporting/S in GLOB.all_nodes)
 			if(S.z != mob_parent.z)
 				continue
 
 			possible_nodes |= S
 
-		var/obj/effect/ai_node/supporting/new_goal = safepick(possible_nodes)
+		var/atom/movable/ai_node/supporting/new_goal = safepick(possible_nodes)
 		if(new_goal)
 			set_goal_node(null, IDENTIFIER_SBOT, new_goal)
 			return ..(TRUE, FALSE)

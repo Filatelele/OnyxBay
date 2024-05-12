@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(wayfindingbeacons)
 	var/location = ""	// location response text
 	var/list/codes = list()		// assoc. list of transponder codes
 
-	var/obj/effect/ai_node/supporting/node
+	var/atom/movable/ai_node/supporting/node
 
 	req_access = list(access_engine)
 

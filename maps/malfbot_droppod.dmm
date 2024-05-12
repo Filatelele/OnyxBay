@@ -1,0 +1,11 @@
+"a" = (/turf/simulated/wall/titanium,/area/creaker)
+"R" = (/obj/machinery/door/airlock/vault/malfbot_lock,/turf/simulated/floor/misc/fixed/vox/vox4,/area/creaker)
+"Z" = (/turf/simulated/floor/misc/fixed/vox/vox4,/area/creaker)
+
+(1,1,1) = {"
+aaRaa
+aZZZa
+RZZZR
+aZZZa
+aaRaa
+"}

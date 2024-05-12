@@ -112,7 +112,6 @@
 	. = ..()
 	if(!surpress_send) send_status()
 
-
 /obj/machinery/door/airlock/Bumped(atom/AM)
 	..(AM)
 	if(istype(AM, /obj/mecha))

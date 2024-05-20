@@ -124,11 +124,16 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 		"Atheism"
 		)
 
+	var/obj/structure/overmap/overmap
+	var/overmap_type = null
+
 /datum/map/New()
 	if(!allowed_jobs)
 		allowed_jobs = subtypesof(/datum/job)
 	if(!shuttle_types)
 		util_crash_with("[src] has no shuttle_types!")
+	if(!isnull(overmap_type))
+		overmap = new overmap_type()
 
 /datum/map/proc/level_has_trait(z, trait)
 	return map_levels[z].has_trait(trait)

@@ -20,6 +20,9 @@
 #define ZTRAIT_EMPTY    "Empty"
 /// This level has radio.
 #define ZTRAIT_CONTACT  "Contact"
+#define ZTRAIT_OVERMAP "overmap"
+#define ZTRAIT_RESERVED "reserved"
+#define ZTRAIT_BOARDABLE_SHIP "boardable"
 
 // Engines
 #define MAP_ENG_RANDOM      "random"

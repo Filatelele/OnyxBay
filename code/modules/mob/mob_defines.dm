@@ -141,6 +141,11 @@
 
 	var/inertia_dir = 0
 
+	var/list/mousemove_intercept_objects //NSV13 - Overmap movement
+
+	///Allows a datum to intercept all click calls this mob is the source of
+	var/datum/click_intercept
+
 //	var/job = null//Living
 
 	var/can_pull_size = ITEM_SIZE_NO_CONTAINER // Maximum w_class the mob can pull.

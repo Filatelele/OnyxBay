@@ -13,3 +13,6 @@
 #define SIGNAL_ELEMENT_ATTACH "element_attach"
 /// Fires on the target datum when an element is attached to it (/datum/element).
 #define SIGNAL_ELEMENT_DETACH "element_detach"
+
+/// When SSmapping loads new Z level
+#define SIGNAL_NEW_Z "new_z"

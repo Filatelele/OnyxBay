@@ -43,3 +43,15 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/lateload_map_zlevels()
 	GLOB.using_map.perform_map_generation(TRUE)
+
+/datum/controller/subsystem/mapping/proc/add_new_initialized_zlevel(name, traits = list(), z_type = /datum/space_level)
+	add_new_zlevel(name, traits)
+	SSatoms.InitializeAtoms(block(locate(1,1,world.maxz),locate(world.maxx,world.maxy,world.maxz)))
+	//setup_map_transitions(z_list[world.maxz])
+
+/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level)
+	SEND_GLOBAL_SIGNAL(SIGNAL_NEW_Z, args)
+	var/new_z = world.maxz + 1
+	// TODO: sleep here if the Z level needs to be cleared
+	var/datum/space_level/S = new z_type(new_z, name, traits)
+	return S

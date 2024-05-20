@@ -28,6 +28,7 @@
 #define SS_INIT_MAPPING          7
 #define SS_INIT_OPEN_SPACE       6
 #define SS_INIT_CIRCUIT          5
+#define SS_INIT_STARMAP          5
 #define SS_INIT_ATOMS            4
 #define SS_INIT_ICON_UPDATE      3
 #define SS_INIT_RUNECHAT         2
@@ -36,9 +37,9 @@
 #define SS_INIT_AIR             -1
 #define SS_INIT_MISC_LATE       -2
 #define SS_INIT_ALARM           -3
-#define SS_INIT_SHUTTLE         -4
-#define SS_INIT_LIGHTING        -5
-#define SS_INIT_OVERLAYS        -6
+#define SS_INIT_SHUTTLE         -5
+#define SS_INIT_LIGHTING        -6
+#define SS_INIT_OVERLAYS        -7
 #define SS_INIT_XENOARCH        -10
 #define SS_INIT_BAY_LEGACY      -12
 #define SS_INIT_STORYTELLER     -15
@@ -47,7 +48,8 @@
 #define SS_INIT_ANNOUNCERS      -90
 #define SS_INIT_VOTE      		-95
 #define SS_INIT_STATPANELS      -99
-#define SS_INIT_ORDER_CHAT 		-100 // Should be last to ensure chat remains smooth during init.
+#define SS_INIT_OVERMAP         -100
+#define SS_INIT_ORDER_CHAT 		-200 // Should be last to ensure chat remains smooth during init.
 
 // Explosion Subsystem subtasks
 #define SSEXPLOSIONS_MOVABLES 1

@@ -11,6 +11,8 @@
 	company_short = "NT"
 	system_name   = "Nyx"
 
+	overmap_type = /obj/structure/overmap/example_ship
+
 	shuttle_types = list(
 		/datum/shuttle/autodock/ferry/example
 	)

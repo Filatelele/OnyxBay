@@ -332,7 +332,7 @@
 				examine_result += SPAN_NOTICE("<i>You examine [to_axamine] closer, but find nothing of interest...</i>")
 		else
 			examine_result = to_axamine.examine(src)
-			LAZYINITLIST(client.recent_examines)
+			LAZYINITLIST(client?.recent_examines)
 			client.recent_examines[to_examine_ref] = world.time + 1 SECOND
 
 		set_next_think_ctx("remove_from_examine_context", world.time + 1 SECOND)
@@ -630,6 +630,8 @@
 	stop_pulling() // Verbs are less CPU time efficient than procs.
 
 /mob/proc/stop_pulling()
+	SEND_SIGNAL(src, SIGNAL_MOB_STOPPED_PULLING, src, pulling)
+
 	if(pulling)
 		pulling.set_glide_size(8)
 		unregister_signal(pulling, SIGNAL_QDELETING)
@@ -646,7 +648,7 @@
 	remove_movespeed_modifier(/datum/movespeed_modifier/pull_slowdown)
 
 /mob/proc/start_pulling(atom/movable/AM)
-	if ( !AM || !usr || src==AM || !isturf(src.loc) )	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
+	if(!AM || src == AM || !isturf(src.loc))	//if there's no person pulling OR the person is pulling themself OR the object being pulled is inside something: abort!
 		return
 
 	AM.on_pulling_try(src)

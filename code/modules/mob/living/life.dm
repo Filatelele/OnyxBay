@@ -70,7 +70,7 @@
 
 /mob/living/proc/update_pulling()
 	if(pulling)
-		if(incapacitated())
+		if(incapacitated() && isnull(ai_controller))
 			stop_pulling()
 
 //This updates the health and status of the mob (conscious, unconscious, dead)

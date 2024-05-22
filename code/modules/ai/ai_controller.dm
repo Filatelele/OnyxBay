@@ -297,12 +297,6 @@ multiple modular subtrees with behaviors
 
 
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-
-		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
-		// Then pick the max of this and the seconds_per_tick passed to ai_controller.process()
-		// Action cooldowns cannot happen faster than seconds_per_tick, so seconds_per_tick should be the value used in this scenario.
-		var/action_seconds_per_tick = (current_behavior.get_cooldown(src) * 0.1)
-
 		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
 			if(!current_movement_target)
 				util_crash_with("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
@@ -317,7 +311,7 @@ multiple modular subtrees with behaviors
 
 				if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
 					continue
-				ProcessBehavior(action_seconds_per_tick, current_behavior)
+				ProcessBehavior(current_behavior)
 				set_next_think(world.time + 0.5 SECONDS)
 				return
 
@@ -327,13 +321,13 @@ multiple modular subtrees with behaviors
 			if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) //If we can move and perform then do so.
 				if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
 					continue
-				ProcessBehavior(action_seconds_per_tick, current_behavior)
+				ProcessBehavior(current_behavior)
 				set_next_think(world.time + 0.5 SECONDS)
 				return
 		else //No movement required
 			if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
 				continue
-			ProcessBehavior(action_seconds_per_tick, current_behavior)
+			ProcessBehavior(current_behavior)
 			set_next_think(world.time + 0.5 SECONDS)
 			return
 
@@ -414,8 +408,8 @@ multiple modular subtrees with behaviors
 		behavior_args -= behavior_type
 	SEND_SIGNAL(src, SIGNAL_AI_CONTROLLER_BEHAVIOR_QUEUED(behavior_type), arguments)
 
-/datum/ai_controller/proc/ProcessBehavior(seconds_per_tick, datum/ai_behavior/behavior)
-	var/list/arguments = list(seconds_per_tick, src)
+/datum/ai_controller/proc/ProcessBehavior(datum/ai_behavior/behavior)
+	var/list/arguments = list(src)
 	var/list/stored_arguments = behavior_args[behavior.type]
 	if(stored_arguments)
 		arguments += stored_arguments

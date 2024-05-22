@@ -10,7 +10,7 @@
 		///	continue
 		///COOLDOWN_START(controller, movement_cooldown, controller.movement_delay)
 
-		var/atom/movable/movable_pawn = controller.pawn
+		var/mob/living/movable_pawn = controller.pawn
 
 		// Check if this controller can actually run, so we don't chase people with corpses
 		if(!controller.able_to_run())
@@ -29,6 +29,7 @@
 		var/current_loc = get_turf(movable_pawn)
 
 		if(can_move)
+			movable_pawn.moving = TRUE
 			step_to(movable_pawn, controller.current_movement_target, controller.blackboard[BB_CURRENT_MIN_MOVE_DISTANCE], controller.movement_delay)
 
 		if(current_loc == get_turf(movable_pawn)) //Did we even move after trying to move?
@@ -36,4 +37,5 @@
 			if(controller.pathing_attempts >= max_pathing_attempts)
 				controller.CancelActions()
 
+		movable_pawn.moving = FALSE
 	set_next_think(world.time + 1)

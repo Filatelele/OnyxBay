@@ -4,7 +4,7 @@
 	/// Is this the last thing we do? (if we set a movement target, this will usually be yes)
 	var/end_planning = TRUE
 
-/datum/ai_planning_subtree/basic_melee_attack_subtree/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
+/datum/ai_planning_subtree/basic_melee_attack_subtree/SelectBehaviors(datum/ai_controller/controller)
 	. = ..()
 	if(!controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
 		return

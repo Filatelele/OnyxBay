@@ -20,7 +20,7 @@
 
 ///Called by the AI controller when this action is performed
 ///Returns a set of flags defined in [code/__DEFINES/ai/ai.dm]
-/datum/ai_behavior/proc/perform(seconds_per_tick, datum/ai_controller/controller, ...)
+/datum/ai_behavior/proc/perform(datum/ai_controller/controller, ...)
 	return
 
 ///Called when the action is finished. This needs the same args as perform besides the default ones

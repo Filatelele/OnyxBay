@@ -30,3 +30,6 @@
 
 /// Called on `/atom/proc/examine` (mob/user, list/examine_result)
 #define SIGNAL_MOB_EXAMINED_MORE "mob_examined_more"
+
+/// Called on `/mob/stop_pulling` (/mob, /pulling)
+#define SIGNAL_MOB_STOPPED_PULLING "stopped_pulling"

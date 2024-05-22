@@ -17,10 +17,10 @@
 
 	set_movement_target(controller, target)
 
-/datum/ai_behavior/basic_melee_attack/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
-	if (isliving(controller.pawn))
+/datum/ai_behavior/basic_melee_attack/perform(datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
+	if(isliving(controller.pawn))
 		var/mob/living/pawn = controller.pawn
-		if (world.time < pawn.next_move)
+		if(world.time < pawn.next_move)
 			return AI_BEHAVIOR_INSTANT
 
 	var/mob/living/basic_mob = controller.pawn
@@ -35,10 +35,11 @@
 
 	controller.set_blackboard_key(hiding_location_key, hiding_target)
 
-	if(hiding_target) //Slap it!
-		basic_mob.UnarmedAttack(hiding_target)
+	basic_mob.zone_sel.selecting = ran_zone()
+	if(hiding_target)
+		INVOKE_ASYNC(basic_mob, nameof(/mob/living.proc/UnarmedAttack), hiding_target)
 	else
-		basic_mob.UnarmedAttack(target)
+		INVOKE_ASYNC(basic_mob, nameof(/mob/living.proc/UnarmedAttack), target)
 
 	if(terminate_after_action)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

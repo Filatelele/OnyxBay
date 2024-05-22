@@ -5,12 +5,7 @@
 ///Put your movement behavior in here!
 /datum/ai_movement/rustg/think()
 	for(var/datum/ai_controller/controller as anything in moving_controllers)
-
-		//if(!COOLDOWN_FINISHED(controller, movement_cooldown))
-		//	continue
-		//COOLDOWN_START(controller, movement_cooldown, controller.movement_delay)
-
-		var/atom/movable/movable_pawn = controller.pawn
+		var/mob/living/movable_pawn = controller.pawn
 
 		// Check if this controller can actually run, so we don't chase people with corpses
 		if(!controller.able_to_run())
@@ -25,9 +20,6 @@
 			continue
 
 		var/minimum_distance = controller.max_target_distance
-		// right now I'm just taking the shortest minimum distance of our current behaviors, at some point in the future
-		// we should let whatever sets the current_movement_target also set the min distance and max path length
-		// (or at least cache it on the controller)
 		if(LAZYLEN(controller.current_behaviors))
 			for(var/datum/ai_behavior/iter_behavior as anything in controller.current_behaviors)
 				if(iter_behavior.required_distance < minimum_distance)
@@ -41,10 +33,10 @@
 			var/list/pos = controller.movement_path[controller.movement_path.len - 1]
 			var/turf/next_step = locate(pos["x"], pos["y"], pos["z"])
 
+			movable_pawn.moving = TRUE
 			movable_pawn.Move(next_step)
+			movable_pawn.moving = FALSE
 
-			// this check if we're on exactly the next tile may be overly brittle for dense pawns who may get bumped slightly
-			// to the side while moving but could maybe still follow their path without needing a whole new path
 			if(get_turf(movable_pawn) == next_step)
 				controller.movement_path.Cut(controller.movement_path.len - 1, controller.movement_path.len)
 			else
@@ -53,20 +45,16 @@
 			generate_path = TRUE
 
 		if(generate_path)
-			//if(!COOLDOWN_FINISHED(controller, repath_cooldown))
-			//	continue
-
 			controller.pathing_attempts++
 			if(controller.pathing_attempts >= max_pathing_attempts)
 				controller.CancelActions()
 				continue
 
-			//COOLDOWN_START(controller, repath_cooldown, 2 SECONDS)
 			var/result = rustg_generate_path_astar(\
 				json_encode(list("x" = movable_pawn.x, "y" = movable_pawn.y, "z" = movable_pawn.z)),\
 				json_encode(list("x" = controller.current_movement_target.x, "y" = controller.current_movement_target.y, "z" = controller.current_movement_target.z)),\
 				NODE_TURF_BIT,\
-				(NODE_DENSE_BIT | NODE_SPACE_BIT),\
+				(NODE_TURF_BIT),\
 				null\
 			)
 
@@ -85,9 +73,3 @@
 /datum/ai_movement/rustg/stop_moving_towards(datum/ai_controller/controller)
 	controller.movement_path = null
 	return ..()
-
-/datum/ai_movement/rustg/bot
-	max_pathing_attempts = 25
-
-/datum/ai_movement/rustg/bot/travel_to_beacon
-	//maximum_length = 200

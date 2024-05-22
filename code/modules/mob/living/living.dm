@@ -576,7 +576,6 @@
 		for(var/mob/living/carbon/metroid/M in view(1, src))
 			M.UpdateFeed()
 
-
 /mob/living/proc/can_pull()
 	if(!moving)
 		return FALSE

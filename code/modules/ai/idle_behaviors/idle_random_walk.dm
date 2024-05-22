@@ -24,7 +24,7 @@
 	/// Where do we look for a target?
 	var/target_key = BB_BASIC_MOB_CURRENT_TARGET
 
-/datum/idle_behavior/idle_random_walk/no_target/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
+/datum/idle_behavior/idle_random_walk/no_target/perform_idle_behavior(datum/ai_controller/controller)
 	if (!controller.blackboard_key_exists(target_key))
 		return
 	return ..()
@@ -34,7 +34,7 @@
 	///What is the spot we have to stand on?
 	var/target_key
 
-/datum/idle_behavior/idle_random_walk/not_while_on_target/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
+/datum/idle_behavior/idle_random_walk/not_while_on_target/perform_idle_behavior(datum/ai_controller/controller)
 	var/atom/target = controller.blackboard[target_key]
 
 	//Don't move, if we are are already standing on it
@@ -52,7 +52,7 @@
 	/// key that holds target
 	var/target_key
 
-/datum/idle_behavior/walk_near_target/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
+/datum/idle_behavior/walk_near_target/perform_idle_behavior(datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	//if(LAZYLEN(living_pawn.do_afters))

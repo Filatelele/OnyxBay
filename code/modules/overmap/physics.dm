@@ -104,15 +104,18 @@
 				T.assume_air(removed)
 
 #undef RELEASE_PRESSURE
-#define THINK_TIME 1
 
 /obj/structure/overmap/think()
+	set waitfor = FALSE
+	var/time = min(world.time - last_process, 10)
+	time /= 10 // fuck off deciseconds - I don't even know what you were thinking here Monster, but okay.
+	last_process = world.time
+
 	last_offset.copy(offset)
 	var/last_angle = angle
 	if(!move_by_mouse && !ai_controlled)
 		desired_angle = angle + keyboard_delta_angle_left + keyboard_delta_angle_right + movekey_delta_angle
 		movekey_delta_angle = 0
-
 	var/desired_angular_velocity = 0
 	if(isnum(desired_angle))
 		// do some finagling to make sure that our angles end up rotating the short way
@@ -122,24 +125,24 @@
 		while(angle < desired_angle - 180)
 			angle += 360
 			last_angle += 360
-		if(abs(desired_angle - angle) < (max_angular_acceleration * THINK_TIME))
-			desired_angular_velocity = (desired_angle - angle) / THINK_TIME
+		if(abs(desired_angle - angle) < (max_angular_acceleration * time))
+			desired_angular_velocity = (desired_angle - angle) / time
 		else if(desired_angle > angle)
 			desired_angular_velocity = 2 * sqrt((desired_angle - angle) * max_angular_acceleration * 0.25)
 		else
 			desired_angular_velocity = -2 * sqrt((angle - desired_angle) * max_angular_acceleration * 0.25)
 
-	var/angular_velocity_adjustment = Clamp(desired_angular_velocity - angular_velocity, -max_angular_acceleration * THINK_TIME, max_angular_acceleration * THINK_TIME)
+	var/angular_velocity_adjustment = Clamp(desired_angular_velocity - angular_velocity, -max_angular_acceleration*time, max_angular_acceleration*time)
 	if(angular_velocity_adjustment)
-		last_rotate = angular_velocity_adjustment / THINK_TIME
+		last_rotate = angular_velocity_adjustment / time
 		angular_velocity += angular_velocity_adjustment
 	else
 		last_rotate = 0
-	angle += angular_velocity * THINK_TIME
+	angle += angular_velocity * time
 	// calculate drag and shit
 
 	var/velocity_mag = velocity.ln() // magnitude
-	/*if(velocity_mag > 0 && !(z in GLOB.using_map.get_levels_with_trait(ZTRAIT_OVERMAP)))
+	if(velocity_mag > 0 && (z in GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION)))
 		var/drag = 0
 		var/has_gravity = has_gravity(get_center())
 		for(var/turf/T in locs)
@@ -148,7 +151,6 @@
 
 			drag += 0.001
 			var/floating = TRUE
-			//var/floating = (movement_type & FLYING)
 			if(has_gravity && velocity_mag >= 4)
 				floating = TRUE // Count them as "flying" if theyre going fast enough indoors. If you slow down, you start to scrape due to no lift or something
 			var/datum/gas_mixture/env = T.return_air()
@@ -157,22 +159,20 @@
 			if(pressure >= 10) //Space doesn't have air resistance or much gravity, so we'll assume theyre floating if theyre in space.
 				if((!floating && has_gravity)) // brakes are a kind of magboots okay?
 					drag += 0.5 // some serious drag. Damn.
-					if(velocity_mag <= 2 && isfloor(T) && prob(30))
-						var/turf/simulated/floor/floor = T
-						if(istype(floor)) // Can be unsim too. Fuck that.
-							floor.make_plating() // pull up some floor tiles. Stop going so damn slow, ree.
-							//take_damage(3, BRUTE, "melee", FALSE)
+					if(velocity_mag <= 2 && istype(T, /turf/simulated/floor) && prob(30))
+						var/turf/simulated/floor/TF = T
+						TF.make_plating() // pull up some floor tiles. Stop going so damn slow, ree.
+						take_damage(3, BRUTE, "melee", FALSE)
 
 		if(velocity_mag > 20)
-			drag = max(drag, (velocity_mag - 20) / THINK_TIME)
+			drag = max(drag, (velocity_mag - 20) / time)
 		if(drag)
-			var/drag_factor = 1 - Clamp(drag * THINK_TIME / velocity_mag, 0, 1)
+			var/drag_factor = 1 - Clamp(drag * time / velocity_mag, 0, 1)
 			velocity.a *= drag_factor
 			velocity.e *= drag_factor
 			if(angular_velocity != 0)
-				var/drag_factor_spin = 1 - Clamp(drag * 30 * THINK_TIME / abs(angular_velocity), 0, 1)
+				var/drag_factor_spin = 1 - Clamp(drag * 30 * time / abs(angular_velocity), 0, 1)
 				angular_velocity *= drag_factor_spin
-	*/
 
 	// Alright now calculate the THRUST
 	var/thrust_x
@@ -185,8 +185,8 @@
 	last_thrust_right = 0
 	if(brakes) //If our brakes are engaged, attempt to slow them down
 		// basically calculates how much we can brake using the thrust
-		var/forward_thrust = -((fx * velocity.a) + (fy * velocity.e)) / THINK_TIME
-		var/right_thrust = -((sx * velocity.a) + (sy * velocity.e)) / THINK_TIME
+		var/forward_thrust = -((fx * velocity.a) + (fy * velocity.e)) / time
+		var/right_thrust = -((sx * velocity.a) + (sy * velocity.e)) / time
 		forward_thrust = Clamp(forward_thrust, -backward_maxthrust, forward_maxthrust)
 		right_thrust = Clamp(right_thrust, -side_maxthrust, side_maxthrust)
 		thrust_x += forward_thrust * fx + right_thrust * sx;
@@ -216,16 +216,16 @@
 	velocity.a = clamp(velocity.a, -speed_limit, speed_limit)
 	velocity.e = clamp(velocity.e, -speed_limit, speed_limit)
 
-	velocity.a += thrust_x //And speed us up based on how long we've been thrusting (up to a point)
-	velocity.e += thrust_y
+	velocity.a += thrust_x * time //And speed us up based on how long we've been thrusting (up to a point)
+	velocity.e += thrust_y * time
 	if(inertial_dampeners) //An optional toggle to make capital ships more "fly by wire" and help you steer in only the direction you want to go.
 		var/side_movement = (sx*velocity.a) + (sy*velocity.e)
-		var/friction_impulse = ((mass / 10) + side_maxthrust) * THINK_TIME //Weighty ships generate more space friction
+		var/friction_impulse = ((mass / 10) + side_maxthrust) * time //Weighty ships generate more space friction
 		var/clamped_side_movement = Clamp(side_movement, -friction_impulse, friction_impulse)
 		velocity.a -= clamped_side_movement * sx
 		velocity.e -= clamped_side_movement * sy
 
-	offset._set(offset.a + velocity.a * THINK_TIME, offset.e +  velocity.e * THINK_TIME, TRUE)
+	offset._set(offset.a + velocity.a * time, offset.e +  velocity.e * time, TRUE)
 
 	position._set(x * 32 + offset.a * 32, y * 32 + offset.e * 32)
 
@@ -333,7 +333,17 @@
 	pixel_x = last_offset.a*32
 	pixel_y = last_offset.e*32
 
-	animate(src, transform=mat_to, pixel_x = offset.a*32, pixel_y = offset.e*32, time = THINK_TIME * 10, flags=ANIMATION_END_NOW)
+	animate(src, transform=mat_to, pixel_x = offset.a*32, pixel_y = offset.e*32, time = time*10, flags=ANIMATION_END_NOW)
+	/*
+	if(last_target)
+		var/target_angle = Get_Angle(src,last_target)
+		var/matrix/final = matrix()
+		final.Turn(target_angle)
+		if(last_fired)
+			last_fired.transform = final
+	else if(last_fired)
+		last_fired.transform = mat_to
+	*/ //We don't use these overlays for now, but we may wish to later.
 
 	for(var/mob/living/M as() in operators)
 		var/client/C = M.client
@@ -342,11 +352,32 @@
 
 		C.pixel_x = last_offset.a*32
 		C.pixel_y = last_offset.e*32
-		animate(C, pixel_x = offset.a*32, pixel_y = offset.e*32, time = THINK_TIME * 10, flags = ANIMATION_END_NOW)
+		animate(C, pixel_x = offset.a*32, pixel_y = offset.e*32, time = time*10, flags=ANIMATION_END_NOW)
 	user_thrust_dir = 0
 	update_icon()
 
-	set_next_think(world.time + 1 SECOND)
+	set_next_think(world.time + 1.5)
+
+	/*
+	if(autofire_target && !aiming)
+		if(!gunner) //Just...just no. If we don't have this, you can get shot to death by your own fighter after youve already left it :))
+			autofire_target = null
+			return
+		fire(autofire_target)
+
+	// Lock handling
+	for(var/obj/structure/overmap/OM in target_painted)
+		if(target_painted[OM]) // Datalink target, something else is handling tracking for us
+			continue
+		if(overmap_dist(src, OM) < max(dradis ? dradis.sensor_range * 2 : SENSOR_RANGE_DEFAULT, OM.sensor_profile) && OM.is_sensor_visible(src))
+			target_last_tracked[OM] = world.time // We can see the target, update tracking time
+			continue
+		if(target_last_tracked[OM] + target_loss_time < world.time)
+			if(gunner)
+				to_chat(gunner, "<span class='warning'>Target [OM] lost.</span>")
+			dump_lock(OM) // We lost the track
+	*/
+
 
 /obj/structure/overmap/small_craft/collide(obj/structure/overmap/other, datum/collision_response/c_response, collision_velocity)
 	pass()

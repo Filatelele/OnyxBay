@@ -1,9 +1,3 @@
-
-/////////////////////////////////////////////////////////////////////////////////
-// ACKNOWLEDGEMENTS:  Credit to yogstation (Monster860) for the movement code. //
-// I had no part in writing the movement engine, that's his work               //
-/////////////////////////////////////////////////////////////////////////////////
-
 /mob
 	var/obj/structure/overmap/overmap_ship //Used for relaying movement, hotkeys etc.
 
@@ -267,6 +261,8 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 
 	is_poi = TRUE
 
+	var/obj/structure/overmap/last_overmap = null
+
 /obj/structure/overmap/Initialize(mapload)
 	GLOB.overmap_objects += src
 	. = ..()
@@ -463,13 +459,13 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 		//stop_piloting(M)
 
 	GLOB.overmap_objects -= src
-	//relay('nsv13/sound/effects/ship/damage/ship_explode.ogg')
-	//relay_to_nearby('nsv13/sound/effects/ship/damage/disable.ogg') //Kaboom.
+	//relay('sound/effects/ship/damage/ship_explode.ogg')
+	//relay_to_nearby('sound/effects/ship/damage/disable.ogg') //Kaboom.
 
 	//new /obj/effect/temp_visual/fading_overmap(get_turf(src), name, icon, icon_state)
 
 	if(role == MAIN_OVERMAP)
-		//priority_announce("WARNING: ([rand(10,100)]) Attempts to establish DRADIS uplink with [station_name()] have failed. Unable to ascertain operational status. Presumed status: TERMINATED","Central Intelligence Unit", 'nsv13/sound/effects/ship/reactor/explode.ogg')
+		//priority_announce("WARNING: ([rand(10,100)]) Attempts to establish DRADIS uplink with [station_name()] have failed. Unable to ascertain operational status. Presumed status: TERMINATED","Central Intelligence Unit", 'sound/effects/ship/reactor/explode.ogg')
 		GLOB.cinematic.station_explosion_cinematic(0,null)
 		SSticker.mode.check_finished(TRUE)
 		//SSticker.news_report = SHIP_DESTROYED
@@ -625,7 +621,7 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 			movekey_delta_angle = 15
 			user_thrust_dir = direction - EAST
 
-	//relay('nsv13/sound/effects/ship/rcs.ogg')
+	//relay('sound/effects/ship/rcs.ogg')
 
 /// This is overly expensive, most of these checks are already ran in physics. TODO: optimize
 /obj/structure/overmap/on_update_icon()
@@ -641,7 +637,7 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 		return //No RCS needed if we're already facing where we want to go
 
 	//if(prob(20) && desired_angle)
-		//playsound(src, 'nsv13/sound/effects/ship/rcs.ogg', 30, 1)
+		//playsound(src, 'sound/effects/ship/rcs.ogg', 30, 1)
 	var/list/left_thrusts = list()
 	left_thrusts.len = 8
 	var/list/right_thrusts = list()
@@ -833,7 +829,7 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 	var/damage_sound = null
 	//if(!bypasses_shields && shields && shields.absorb_hit(damage_amount))
 	//	blocked = TRUE
-		//damage_sound = pick('nsv13/sound/effects/ship/damage/shield_hit.ogg', 'nsv13/sound/effects/ship/damage/shield_hit2.ogg')
+		//damage_sound = pick('sound/effects/ship/damage/shield_hit.ogg', 'sound/effects/ship/damage/shield_hit2.ogg')
 		//if(!impact_sound_cooldown)
 			//add_overlay(new /obj/effect/temp_visual/overmap_shield_hit(get_turf(src), src))
 	if(!impact_sound_cooldown && damage_sound)

@@ -80,7 +80,7 @@
 			if(linked.ftl_drive.cancel_ftl())
 				return TRUE
 				//linked.stop_relay(CHANNEL_IMPORTANT_SHIP_ALERT)
-				//linked.relay('nsv13/sound/effects/ship/ftl_stop.ogg', channel=CHANNEL_IMPORTANT_SHIP_ALERT)
+				//linked.relay('sound/effects/ship/ftl_stop.ogg', channel=CHANNEL_IMPORTANT_SHIP_ALERT)
 
 /obj/machinery/computer/ship/navigation/tgui_data(mob/user)
 	if(!has_overmap())

@@ -45,18 +45,18 @@
 	if(isobserver(user))
 		return FALSE
 	if(!has_overmap())
-		//var/sound = pick('nsv13/sound/effects/computer/error.ogg','nsv13/sound/effects/computer/error2.ogg','nsv13/sound/effects/computer/error3.ogg')
+		//var/sound = pick('sound/effects/computer/error.ogg','sound/effects/computer/error2.ogg','sound/effects/computer/error3.ogg')
 		//playsound(src, sound, 100, 1)
 		to_chat(user, "<span class='warning'>A warning flashes across [src]'s screen: Unable to locate thrust parameters, no registered ship stored in microprocessor.</span>")
 		return FALSE
 
 	if((position & (OVERMAP_USER_ROLE_PILOT | OVERMAP_USER_ROLE_GUNNER)) && linked.ai_controlled)
-		//var/sound = pick('nsv13/sound/effects/computer/error.ogg','nsv13/sound/effects/computer/error2.ogg','nsv13/sound/effects/computer/error3.ogg')
+		//var/sound = pick('sound/effects/computer/error.ogg','sound/effects/computer/error2.ogg','sound/effects/computer/error3.ogg')
 		//playsound(src, sound, 100, 1)
 		to_chat(user, "<span class='warning'>A warning flashes across [src]'s screen: Automated flight protocols are still active. Unable to comply.</span>")
 		return FALSE
 
-	//playsound(src, 'nsv13/sound/effects/computer/startup.ogg', 75, 1)
+	//playsound(src, 'sound/effects/computer/startup.ogg', 75, 1)
 	if(!position)
 		return TRUE
 
@@ -123,7 +123,7 @@
 		G.ManualFollow(linked)
 		return
 
-	//playsound(src, 'nsv13/sound/effects/computer/hum.ogg', 100, 1)
+	//playsound(src, 'sound/effects/computer/hum.ogg', 100, 1)
 	linked.observe_ship(user)
 	//internal_dradis.attack_hand(user)
 
@@ -136,5 +136,5 @@
 		G.ManualFollow(linked)
 		return
 
-	//playsound(src, 'nsv13/sound/effects/computer/hum.ogg', 100, 1)
+	//playsound(src, 'sound/effects/computer/hum.ogg', 100, 1)
 	linked.start_piloting(user, OVERMAP_USER_ROLE_OBSERVER)

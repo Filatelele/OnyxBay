@@ -35,7 +35,7 @@
 	icon_state = "base"
 */
 
-#define ARMOUR_DING pick('nsv13/sound/effects/ship/freespace2/ding1.wav', 'nsv13/sound/effects/ship/freespace2/ding2.wav', 'nsv13/sound/effects/ship/freespace2/ding3.wav', 'nsv13/sound/effects/ship/freespace2/ding4.wav', 'nsv13/sound/effects/ship/freespace2/ding5.wav')
+#define ARMOUR_DING pick('sound/effects/ship/freespace2/ding1.wav', 'sound/effects/ship/freespace2/ding2.wav', 'sound/effects/ship/freespace2/ding3.wav', 'sound/effects/ship/freespace2/ding4.wav', 'sound/effects/ship/freespace2/ding5.wav')
 
 /obj/structure/overmap/proc/take_quadrant_hit(damage, quadrant)
 	if(!quadrant)

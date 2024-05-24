@@ -585,10 +585,10 @@ SUBSYSTEM_DEF(overmap_mode)
 		keyboard_delta_angle_left = 0
 		keyboard_delta_angle_right = 0
 		if(helm)
-			playsound(helm, 'nsv13/sound/effects/computer/hum.ogg', 100, 1)
+			playsound(helm, 'sound/effects/computer/hum.ogg', 100, 1)
 	if(gunner && M == gunner)
 		if(tactical)
-			playsound(tactical, 'nsv13/sound/effects/computer/hum.ogg', 100, 1)
+			playsound(tactical, 'sound/effects/computer/hum.ogg', 100, 1)
 		gunner = null
 		target_lock = null
 	if(LAZYFIND(gauss_gunners, M))

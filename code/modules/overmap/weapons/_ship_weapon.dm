@@ -16,7 +16,6 @@
 	var/obj/structure/overmap/holder = null
 	var/requires_physical_guns = TRUE //Set this to false for any fighter weapons we may have
 	var/lateral = TRUE //Does this weapon need you to face the enemy? Mostly no.
-	var/special_fire_proc = null //Override this if you need to replace the firing weapons behaviour with a custom proc. See torpedoes and missiles for this.
 	var/screen_shake = 0
 	var/firing_arc = null //If this weapon only fires in an arc (for ai ships)
 	var/weapon_class = WEAPON_CLASS_HEAVY //Do AIs need to resupply with ammo to use this weapon?
@@ -53,7 +52,6 @@
 	select_alert = "<span class='notice'>Primary mount selected.</span>"
 	failure_alert = "<span class='warning'>DANGER: Primary mount not responding to fire command.</span>"
 	lateral = FALSE
-	special_fire_proc = /obj/structure/overmap/proc/primary_fire
 
 /datum/ship_weapon/fighter_secondary
 	name = "Secondary Equipment Mount"
@@ -71,5 +69,25 @@
 		'sound/effects/ship/freespace2/m_wasp.wav')
 	overmap_select_sound = 'sound/effects/ship/reload.ogg'
 	firing_arc = 45 //Broad side of a barn...
-	special_fire_proc = /obj/structure/overmap/proc/secondary_fire
 	ai_fire_delay = 1 SECONDS
+
+/datum/ship_weapon/proc/fire(atom/target, ai_aim = FALSE)
+	if(next_firetime > world.time)
+		return FALSE
+
+	if(special_fire(target, ai_aim=ai_aim) == FIRE_INTERCEPTED)
+		next_firetime = world.time + fire_delay
+		return TRUE
+	if(screen_shake)
+		holder.shake_everyone(screen_shake)
+	next_firetime = world.time + fire_delay
+	return TRUE
+
+/datum/ship_weapon/proc/special_fire(atom/target, ai_aim = FALSE)
+	if(fire_delay)
+		next_firetime = world.time + fire_delay
+	if(!requires_physical_guns)
+		holder.hardpoint_fire(target)
+
+		return FIRE_INTERCEPTED
+	return FALSE

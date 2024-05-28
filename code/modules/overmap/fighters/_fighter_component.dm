@@ -14,8 +14,8 @@
 	var/power_usage = 0
 	/// Used if this is a weapon style hardpoint
 	var/fire_mode = null
-	var/active = TRUE
-	var/integrity = 0
+	var/active = FALSE
+	var/integrity = 50
 	var/max_integrity = 0
 
 /obj/item/fighter_component/examine(mob/user, infix)

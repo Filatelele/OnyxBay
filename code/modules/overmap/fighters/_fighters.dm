@@ -289,7 +289,6 @@
 			if(!engine)
 				to_chat(usr, "<span class='warning'>You can't send fuel to an APU that isn't installed.</span>")
 			APU.toggle_fuel_line()
-			playsound(src, 'sound/effects/fighters/warmup.ogg', 100, FALSE)
 
 		if("battery")
 			var/obj/item/fighter_component/battery/battery = loadout.get_slot(HARDPOINT_SLOT_BATTERY)
@@ -499,7 +498,7 @@
 	mobs_in_ship |= user
 	//user.last_overmap = src //Allows update_overmap to function properly when the pilot leaves their fighter
 	if(engines_active()) //Disable ambient sounds to shut up the noises.
-		DIRECT_OUTPUT(user, sound('sound/effects/fighters/cockpit.ogg', repeat = TRUE, wait = 0, volume = 50, channel = SOUND_CHANNEL_SHIP_ALERT))
+		DIRECT_OUTPUT(user, sound('sound/effects/fighters/cockpit.wav', repeat = TRUE, wait = 0, volume = 50, channel = SOUND_CHANNEL_SHIP_ALERT))
 
 /obj/structure/overmap/small_craft/proc/handle_moved()
 	pass()
@@ -507,18 +506,15 @@
 /obj/structure/overmap/small_craft/can_move()
 	return engines_active()
 
-//Burst arg currently unused for this proc.
-/obj/structure/overmap/proc/primary_fire(obj/structure/overmap/target, ai_aim = FALSE, burst = 1)
-	hardpoint_fire(target, FIRE_MODE_ANTI_AIR)
-
-/obj/structure/overmap/proc/hardpoint_fire(obj/structure/overmap/target, fireMode)
+/obj/structure/overmap/proc/hardpoint_fire(atom/target, fireMode)
 	if(istype(src, /obj/structure/overmap/small_craft))
 		var/obj/structure/overmap/small_craft/F = src
 		for(var/slot in F.loadout.equippable_slots)
 			var/obj/item/fighter_component/weapon = F.loadout.hardpoint_slots[slot]
 			//Look for any "primary" hardpoints, be those guns or utility slots
-			if(!weapon || weapon.fire_mode != fireMode)
+			if(!weapon || !weapon.active)
 				continue
+
 			var/datum/ship_weapon/SW = weapon_types[weapon.fire_mode]
 			spawn()
 				for(var/I = 0; I < SW.burst_size; I++)
@@ -526,10 +522,6 @@
 					sleep(1)
 			return TRUE
 	return FALSE
-
-//Burst arg currently unused for this proc.
-/obj/structure/overmap/proc/secondary_fire(obj/structure/overmap/target, ai_aim = FALSE, burst = 1)
-	hardpoint_fire(target, FIRE_MODE_TORPEDO)
 
 //Ensure we get the genericised equipment mounts.
 /obj/structure/overmap/small_craft/apply_weapons()

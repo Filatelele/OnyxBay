@@ -1,0 +1,155 @@
+"ai" = (/obj/structure/cable/cyan{icon_state = "4-8"; d2 = 8; d1 = 4},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"aJ" = (/obj/item/modular_computer/console/preset/medical,/obj/effect/floor_decal/techfloor{dir = 1},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"bd" = (/obj/structure/cable/cyan{icon_state = "2-4"; d2 = 4; d1 = 2},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"bt" = (/obj/structure/table/woodentable,/obj/item/material/ashtray/bronze{pixel_y = -4},/obj/item/flame/lighter/random{pixel_x = -7; pixel_y = 8},/obj/item/storage/fancy/cigarettes/dromedaryco{pixel_x = 5; pixel_y = 9},/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"ct" = (/obj/structure/table/reinforced,/turf/simulated/floor/tiled/mono,/area/bridge)
+"cx" = (/obj/effect/floor_decal/techfloor{dir = 1},/obj/effect/floor_decal/techfloor,/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"cY" = (/obj/structure/window_frame/reinforced/hull,/obj/machinery/door/firedoor/border_only,/obj/machinery/door/blast/regular/open{name = "Bridge Blast Doors"; dir = 4; id = "bridge entrance blast"},/turf/simulated/floor/plating,/area/bridge)
+"eq" = (/obj/structure/closet/secure_closet/hop,/obj/effect/floor_decal/carpet{dir = 1},/turf/simulated/floor/trim/carpet,/area/crew_quarters/heads/hop)
+"eP" = (/obj/machinery/door/window/brigdoor/southleft{dir = 1},/obj/effect/floor_decal/industrial/warning/red{dir = 8},/obj/effect/floor_decal/industrial/warning/red{dir = 10},/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"fP" = (/obj/structure/table/reinforced,/obj/effect/floor_decal/techfloor{dir = 9},/obj/item/paper_bin{pixel_y = 6},/obj/item/plant_pot/random{pixel_x = -7; pixel_y = 7},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"hd" = (/obj/structure/sink{dir = 4; pixel_x = 11},/obj/structure/mirror{pixel_x = 28},/turf/simulated/floor/tiled/freezer,/area/crew_quarters/captain)
+"ij" = (/obj/effect/floor_decal/corner/red{dir = 9},/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/glass_security{name = "Security Wing"; req_access = list(1); id_tag = "BrigFoyer"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/navbeacon/wayfinding/sec,/turf/simulated/floor/tiled/rough,/area/hallway/primary/central_fore)
+"iw" = (/obj/effect/floor_decal/corner/red{dir = 6},/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/glass_security{name = "Security Wing"; req_access = list(1); id_tag = "BrigFoyer"},/obj/structure/disposalpipe/segment,/turf/simulated/floor/tiled/rough,/area/hallway/primary/central_fore)
+"iX" = (/obj/structure/flora/pottedplant/pink,/turf/simulated/floor/tiled/mono,/area/bridge)
+"jw" = (/obj/structure/cable/cyan{icon_state = "2-8"; d2 = 8; d1 = 2},/turf/simulated/floor/tiled/rough,/area/bridge)
+"jD" = (/obj/effect/floor_decal/techfloor{dir = 8},/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"kH" = (/obj/structure/cable/cyan{icon_state = "2-4"; d2 = 4; d1 = 2},/turf/simulated/floor/trim/darkwood,/area/crew_quarters/heads/hop)
+"kT" = (/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"lb" = (/obj/structure/cable/cyan{icon_state = "2-4"; d2 = 4; d1 = 2},/turf/simulated/floor/trim/darkwood,/area/crew_quarters/captain)
+"ld" = (/obj/structure/window_frame/reinforced/hull,/obj/machinery/door/firedoor/border_only,/obj/machinery/door/blast/regular/open{name = "Bridge Blast Doors"; dir = 4; id = "bridge entrance blast"},/turf/simulated/floor/plating,/area/hallway/primary/central_fore)
+"lG" = (/turf/simulated/wall/r_wall,/area/crew_quarters/captain)
+"lM" = (/obj/structure/table/woodentable,/turf/simulated/floor/trim/darkwood,/area/crew_quarters/heads/hop)
+"lQ" = (/obj/structure/table/steel_reinforced,/obj/effect/floor_decal/spline/plain/black,/obj/effect/floor_decal/spline/plain/black{dir = 4},/obj/effect/floor_decal/industrial/outline/red,/obj/item/crowbar,/obj/item/crowbar,/obj/item/device/flashlight/maglight,/obj/item/device/flashlight/maglight,/obj/item/device/radio/headset/tactical/sec,/obj/item/device/radio/headset/tactical/sec,/obj/structure/window/reinforced{dir = 1; health = 1e+06},/obj/structure/window/reinforced{dir = 8; health = 1e+06},/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"mF" = (/obj/effect/floor_decal/techfloor{dir = 10},/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/obj/structure/cable/cyan{icon_state = "2-4"; d2 = 4; d1 = 2},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"mH" = (/obj/effect/floor_decal/spline/plain/black{dir = 8},/obj/structure/bed/chair/comfy/black{dir = 4},/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"mN" = (/obj/structure/toilet/gold,/turf/simulated/floor/tiled/freezer,/area/crew_quarters/captain)
+"mP" = (/obj/structure/cable/cyan{icon_state = "1-4"; d2 = 4; d1 = 1},/obj/structure/cable/cyan{icon_state = "4-8"; d2 = 8; d1 = 4},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"mS" = (/turf/simulated/wall/r_wall,/area/bridge)
+"nl" = (/obj/structure/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/tiled/rough,/area/bridge)
+"nw" = (/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"nI" = (/obj/structure/window_frame/grille/rglass,/obj/structure/cable,/obj/machinery/door/firedoor/border_only,/turf/simulated/floor/plating,/area/hallway/primary/central_fore)
+"oE" = (/obj/structure/railing/steel,/obj/effect/floor_decal/techfloor{dir = 10},/obj/effect/floor_decal/techfloor/corner{dir = 4},/obj/structure/table/reinforced,/obj/machinery/photocopier/faxmachine{department = "Bridge"},/turf/simulated/floor/tiled/techfloor/maint,/area/bridge)
+"oQ" = (/turf/simulated/wall/r_wall,/area/hallway/primary/central_fore)
+"pK" = (/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"pZ" = (/obj/machinery/shower{dir = 4; pixel_x = 5; pixel_y = -5},/obj/structure/curtain/black,/obj/item/soap/deluxe,/obj/item/bikehorn/rubberducky,/turf/simulated/floor/tiled/freezer,/area/crew_quarters/captain)
+"qP" = (/obj/structure/cable/cyan{icon_state = "1-4"; d2 = 4; d1 = 1},/turf/simulated/floor/tiled/rough,/area/bridge)
+"qZ" = (/obj/structure/flora/pottedplant/ugly,/obj/effect/floor_decal/spline/plain/black{dir = 9},/turf/simulated/floor/tiled/techfloor,/area/bridge)
+"rc" = (/obj/structure/bed/padded,/obj/item/bedsheet/hop,/obj/effect/floor_decal/carpet{dir = 1},/obj/machinery/power/apc{name = "east bump"; dir = 4; pixel_x = 24},/obj/structure/cable/cyan,/turf/simulated/floor/trim/carpet,/area/crew_quarters/heads/hop)
+"rj" = (/obj/structure/railing/steel{dir = 4},/obj/effect/floor_decal/stairs,/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"sm" = (/obj/effect/floor_decal/techfloor{dir = 1},/obj/effect/floor_decal/techfloor,/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"ub" = (/obj/machinery/papershredder,/turf/simulated/floor/tiled/mono,/area/bridge)
+"ul" = (/obj/machinery/door/airlock/hatch{name = "Captain's Quarters"; req_access = list(20)},/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/dark/rough,/area/crew_quarters/captain)
+"uo" = (/obj/effect/floor_decal/industrial/warning/red{dir = 4},/obj/effect/floor_decal/industrial/warning/red{dir = 8},/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"up" = (/obj/structure/railing/steel,/obj/machinery/photocopier,/turf/simulated/floor/tiled/rough,/area/bridge)
+"uS" = (/obj/structure/bed/chair/shuttle/black{dir = 1},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"ve" = (/obj/effect/floor_decal/corner/red{dir = 6},/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/glass_security{name = "Security Wing"; req_access = list(1); id_tag = "BrigFoyer"},/obj/machinery/door/blast/regular{name = "Security Blast Door"; icon_state = "pdoor0"; opacity = 0; density = 0; id = "Prison Gate"},/obj/structure/disposalpipe/segment,/turf/simulated/floor/tiled/rough,/area/hallway/primary/central_fore)
+"vr" = (/obj/structure/cable/cyan{icon_state = "1-8"; d2 = 8; d1 = 1},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"wz" = (/obj/effect/floor_decal/techfloor,/obj/machinery/computer/ship/helm,/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"xY" = (/obj/effect/floor_decal/spline/plain/black{dir = 1},/obj/structure/table/woodentable,/obj/item/book/wiki/nt_regs,/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"yo" = (/turf/simulated/floor/tiled/dirty,/area/hallway/primary/central_fore)
+"yN" = (/obj/structure/table/rack,/obj/item/clothing/suit/armor/laserproof,/obj/item/clothing/mask/gas/old,/obj/item/clothing/head/helmet/ablative,/obj/effect/floor_decal/industrial/outline/red,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1; health = 1e+06},/obj/structure/window/reinforced{dir = 4},/obj/effect/floor_decal/industrial/outline/red,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"zb" = (/obj/item/gun/energy/ionrifle,/obj/structure/table/rack,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/effect/floor_decal/industrial/outline/red,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"zd" = (/obj/effect/floor_decal/spline/plain/black{dir = 8},/obj/item/modular_computer/console/preset/command,/turf/simulated/floor/tiled/techfloor,/area/bridge)
+"ze" = (/obj/effect/floor_decal/stairs,/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"zw" = (/obj/structure/closet/crate/secure/weapon,/obj/item/ammo_magazine/mc9mmt/rubber,/obj/item/ammo_magazine/mc9mmt/rubber,/obj/item/ammo_magazine/mc9mmt/rubber,/obj/item/ammo_magazine/mc9mmt/rubber,/obj/item/storage/box/shotgun/beanbags,/obj/item/storage/box/shotgun/beanbags,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8; health = 1e+06},/obj/effect/floor_decal/industrial/outline/red,/obj/item/storage/box/flashbangs,/obj/item/storage/box/teargas,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"BR" = (/obj/machinery/power/smes/buildable/preset,/obj/structure/cable/cyan{icon_state = "0-2"; d2 = 2},/turf/simulated/floor/tiled/rough,/area/bridge)
+"BS" = (/obj/structure/window_frame/grille/rglass,/obj/machinery/door/blast/regular{name = "Security Blast Door"; icon_state = "pdoor0"; opacity = 0; density = 0; id = "Prison Gate"},/obj/structure/cable,/obj/machinery/door/firedoor/border_only,/turf/simulated/floor/plating,/area/hallway/primary/central_fore)
+"Cx" = (/obj/effect/floor_decal/industrial/warning/red{dir = 8},/obj/effect/floor_decal/industrial/warning/red{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"Cz" = (/obj/structure/bed/chair/comfy/black{dir = 1},/turf/simulated/floor/trim/darkwood,/area/crew_quarters/heads/hop)
+"CJ" = (/obj/effect/floor_decal/corner/red{dir = 9},/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/glass_security{name = "Security Wing"; req_access = list(1); id_tag = "BrigFoyer"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/door/blast/regular{name = "Security Blast Door"; icon_state = "pdoor0"; opacity = 0; density = 0; id = "Prison Gate"},/obj/machinery/navbeacon/wayfinding/sec,/turf/simulated/floor/tiled/rough,/area/hallway/primary/central_fore)
+"Dw" = (/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/mono,/area/bridge)
+"Ek" = (/turf/simulated/floor/tiled/rough,/area/hallway/primary/central_fore)
+"Es" = (/turf/simulated/floor/trim/darkwood,/area/crew_quarters/captain)
+"Fq" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/table/rack,/obj/item/clothing/suit/armor/riot,/obj/item/shield/riot,/obj/item/clothing/mask/balaclava,/obj/item/clothing/head/helmet/riot,/obj/item/melee/baton/loaded,/obj/structure/window/reinforced{dir = 1; health = 1e+06},/obj/effect/floor_decal/industrial/outline/red,/obj/structure/window/reinforced,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"FN" = (/obj/item/modular_computer/console/preset/security,/obj/effect/floor_decal/techfloor{dir = 1},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"Hb" = (/obj/effect/floor_decal/stairs,/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"HH" = (/obj/machinery/door/window/brigdoor/southleft{dir = 1},/obj/effect/floor_decal/industrial/warning/red{dir = 4},/obj/effect/floor_decal/industrial/warning/red{dir = 6},/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"JW" = (/obj/structure/bed/padded,/obj/item/bedsheet/captain,/obj/random_multi/single_item/captains_spare_id{weight = 10},/obj/effect/floor_decal/carpet{dir = 8},/turf/simulated/floor/trim/carpet,/area/crew_quarters/captain)
+"Ka" = (/obj/structure/filingcabinet/filingcabinet,/turf/simulated/floor/trim/darkwood,/area/crew_quarters/heads/hop)
+"Kg" = (/obj/structure/table/rack,/obj/item/gun/energy/laser,/obj/item/gun/energy/egun,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/effect/floor_decal/industrial/outline/red,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"Kp" = (/obj/structure/table/rack,/obj/item/gun/projectile/automatic/wt550,/obj/item/gun/projectile/shotgun/pump,/obj/item/clothing/accessory/storage/bandolier,/obj/item/clothing/accessory/storage/bandolier,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/effect/floor_decal/industrial/outline/red,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"KE" = (/obj/structure/railing/steel{dir = 4},/turf/simulated/floor/tiled/mono,/area/bridge)
+"KF" = (/obj/effect/floor_decal/techfloor,/obj/effect/floor_decal/techfloor{dir = 1},/obj/structure/railing/steel,/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"KP" = (/obj/structure/table/reinforced,/obj/effect/floor_decal/techfloor{dir = 8},/obj/item/material/ashtray/plastic{pixel_y = 6; pixel_x = 4},/obj/item/pen,/obj/item/storage/fancy/cigarettes/carcinomas{pixel_y = 1; pixel_x = -6},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"Lp" = (/turf/simulated/floor/tiled/mono,/area/bridge)
+"LQ" = (/obj/effect/floor_decal/spline/plain/black{dir = 5},/obj/structure/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"MR" = (/obj/effect/floor_decal/spline/plain/black{dir = 8},/obj/item/modular_computer/console/preset/engineering,/turf/simulated/floor/tiled/techfloor,/area/bridge)
+"MV" = (/obj/structure/railing/steel{dir = 8},/obj/effect/floor_decal/stairs,/obj/structure/cable/cyan{icon_state = "1-2"; d2 = 2; d1 = 1},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"NG" = (/obj/machinery/door/airlock/hatch{name = "HoP's Office"; req_access = list(19)},/obj/structure/cable/cyan{icon_state = "4-8"; d2 = 8; d1 = 4},/turf/simulated/floor/trim/darkwood,/area/crew_quarters/heads/hop)
+"Op" = (/obj/effect/floor_decal/spline/plain/black{dir = 8},/turf/simulated/floor/tiled/techfloor,/area/bridge)
+"Pu" = (/obj/structure/bed/chair/shuttle/black{dir = 4},/obj/machinery/power/apc{name = "north bump"; dir = 1; pixel_y = 24},/obj/effect/floor_decal/oldflood,/obj/structure/cable/cyan{icon_state = "0-2"; d2 = 2},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"PU" = (/obj/effect/floor_decal/techfloor,/obj/item/cigbutt/cigarbutt,/obj/structure/cable/cyan{icon_state = "1-8"; d2 = 8; d1 = 1},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"Qf" = (/obj/effect/floor_decal/spline/plain/black{dir = 8},/obj/machinery/computer/crew,/turf/simulated/floor/tiled/techfloor,/area/bridge)
+"Qj" = (/obj/machinery/computer/ship/navigation,/obj/machinery/button/remote/blast_door{name = "Bridge Window Shutters Control"; dir = 1; pixel_x = 1; pixel_y = 24; id = "bridge blast"; req_access = list(19)},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"Qv" = (/obj/structure/table/rack,/obj/item/tank/jetpack/oxygen,/obj/item/clothing/suit/space/void/captain/prepared,/obj/item/clothing/mask/gas/captain,/obj/effect/floor_decal/carpet{dir = 8},/turf/simulated/floor/trim/carpet,/area/crew_quarters/captain)
+"QN" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/table/rack,/obj/item/clothing/suit/armor/bulletproof,/obj/effect/floor_decal/industrial/outline/red,/obj/item/clothing/mask/balaclava,/obj/item/clothing/head/helmet/ballistic,/obj/structure/window/reinforced,/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"QR" = (/turf/simulated/wall,/area/hallway/primary/central_fore)
+"QU" = (/turf/template_noop,/area/template_noop)
+"Sa" = (/obj/machinery/door/airlock{name = "Private Restroom"},/obj/effect/floor_decal/floordetail/edgedrain,/turf/simulated/floor/tiled/freezer,/area/crew_quarters/captain)
+"SX" = (/obj/effect/floor_decal/spline/plain/black{dir = 9},/obj/structure/bed/chair/comfy/black{dir = 4},/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"Th" = (/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/tiled/dark/rough,/area/hallway/primary/central_fore)
+"Tj" = (/obj/structure/table/woodentable,/obj/item/paper_bin{pixel_x = -3; pixel_y = 7},/obj/item/pen/multi,/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"Ua" = (/obj/effect/floor_decal/techfloor{dir = 8},/obj/effect/floor_decal/techfloor{dir = 4},/obj/structure/table/reinforced,/obj/item/clothing/mask/smokable/pipe,/obj/item/stamp/captain{pixel_x = -4; pixel_y = 3},/obj/item/stamp/denied{pixel_x = 4; pixel_y = 3},/obj/item/flame/lighter/zippo/cap,/obj/item/reagent_containers/vessel/bottle/vodka/fivelakes{pixel_y = 5; pixel_x = 7},/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"Vs" = (/turf/simulated/floor/tiled/white/rough,/area/hallway/primary/central_fore)
+"Vu" = (/obj/effect/floor_decal/techfloor{dir = 8},/obj/effect/floor_decal/techfloor{dir = 4},/obj/structure/table/reinforced,/turf/simulated/floor/tiled/dark/rough,/area/bridge)
+"Wm" = (/turf/simulated/wall/r_wall,/area/crew_quarters/heads/hop)
+"Xp" = (/obj/effect/floor_decal/spline/plain/black{dir = 4},/obj/structure/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"Xx" = (/turf/simulated/floor/tiled/rough,/area/bridge)
+"Yc" = (/obj/structure/closet/secure_closet/captains,/obj/effect/floor_decal/carpet{dir = 8},/obj/structure/cable/cyan{icon_state = "0-8"; d2 = 8},/turf/simulated/floor/trim/carpet,/area/crew_quarters/captain)
+"YQ" = (/obj/effect/floor_decal/stairs,/obj/structure/railing/steel{dir = 4},/turf/simulated/floor/tiled/techfloor/grid,/area/bridge)
+"ZO" = (/obj/effect/floor_decal/spline/plain/black{dir = 1},/obj/structure/table/woodentable,/obj/item/folder/red,/obj/item/reagent_containers/vessel/mug/NT{pixel_x = -7},/turf/simulated/floor/tiled/dark/mono,/area/bridge)
+"ZW" = (/obj/machinery/door/airlock/glass_command{name = "Bridge"; req_access = list(19); id_tag = "sbridgedoor"},/turf/simulated/floor/tiled/rough,/area/hallway/primary/central_fore)
+
+(1,1,1) = {"
+QUQUQUQUQUQUoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQQUQUQUQUQUQUQUQUQUQUQUQUQUoQoQQRoQoQoQoQoQoQoQoQQUQUQUQU
+QUQUQUQUQUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQoQQUQUQUQUQUQUQUQUQUQUQUQUoQyoyoyoyoyoyoyoyoyooQoQQUQUQU
+QUQUQUQUQUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQoQoQQUQUQUQUQUQUQUQUQUQUQUoQyoyoyoyoyoyoyoyoyoyooQQUQUQU
+QUQUQUQUQUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQoQoQoQoQoQoQoQQUQUQUQUoQoQoQyoyoyoyoyoyoyoyoyoyooQQUQUQU
+QUQUQUQUQUoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQoQQRQRQRoQyoyoyoyoyoyoyoyoyoyoyoyooQQUQUQU
+QUQUQUQUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoyoyoyoyoyoyoyoyoyolGlGlGQUQU
+QUQUoQoQoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoyoyoyoyoyoyoyoyooQlGmNlGQUQU
+QUQUQRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoyoyoyoyoyoyoyoyooQpZhdlGQUQU
+QUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoyoyoyoyoyoyoyoyooQlGSalGlGQU
+oQoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoyoyoyoQRlQePThHHKplGEsQvlGQU
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQRyoyoyoyoijnIiwQRFquoyNCxKglGEsJWlGQU
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoEkEkEkQRQNuozwCxzblGlbYclGQU
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRyoyoyoyoyoEkEkEkQRoQoQoQoQoQlGullGlGmS
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQRyoQRQRQRQRQRQRQRQRyoyoyoyoCJBSveoQmSiXubctmSVujDPuQjcY
+oQoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQREkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkldBRXxXxnlmSUamFPUwzcY
+QUQRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkZWqPjwXxupmSoEsmcxKFmS
+QUQRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkEkldLpDwKEfPaJFNMVrjqZcY
+QUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkEkQRQRQRQRQRQRQRQRQRyooQWmWmWmWmHbzeYQKPuSpKnwkTOpcY
+QUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkQRQRVsVsVsyoyoQRyoyoyoyoWmlMKaWmbdmPaiaiaiaivrkTzdcY
+QUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkQRVsVsVsVsyoyoyoyoyoyoyoWmCzkHNGvrSXxYZOLQkTkTkTMRcY
+QUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkQRVsVsVsVsyoyoyoyoyoyoyoWmeqrcWmkTmHbtTjXpkTkTkTQfcY
+oQoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkQRVsVsVsVsyoyoyoyoyoyoyoWmWmWmWmcYmSmSmScYcYmSmSmSmS
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkQRVsVsVsVsyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQQU
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkQRQRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQQU
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkEkEkEkEkEkEkEkyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+QRyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkEkEkEkEkEkEkEkyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+oQoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoEkEkEkEkEkEkEkEkEkEkyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+QUQUoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+QUQUQUoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+QUQUQUQUoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+QUQUQUQUoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoQRQU
+QUQUQUQUQUoQoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQQU
+QUQUQUQUQUQUoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQQU
+QUQUQUQUQUQUoQoQyoyoyoyoyoyoyoyoyoyoyooQoQQRQRoQoQyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyooQQU
+QUQUQUQUQUQUoQoQyoyoyoyoyoyoyoyoyoyoyooQoQQUQUQUoQyoyoyoyoyoyoyoyoyooQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQoQQU
+QUQUQUQUQUQUQUoQyoyoyoyooQoQoQoQoQQRoQoQQUQUQUQUoQQRQRoQyoyoyoyoyooQoQQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUoQQRQRQRoQoQoQQUQUQUQUQUQUQUQUQUQUQUQUQUoQoQQRQRQRoQoQQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU
+"}

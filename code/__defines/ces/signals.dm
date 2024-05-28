@@ -16,3 +16,10 @@
 
 /// When SSmapping loads new Z level
 #define SIGNAL_NEW_Z "new_z"
+
+/// '/client/MouseDown()' (atom/object, turf/location, control, params)
+#define SIGNAL_MOB_MOUSEDOWN "mob_mousedown"
+/// '/client/MouseUp()' (atom/object, turf/location, control, params)
+#define SIGNAL_MOB_MOUSEUP   "mob_mouseup"
+/// '/client/MouseDrag()' (atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
+#define SIGNAL_MOB_MOUSEDRAG "mob_mousedrag"

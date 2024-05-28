@@ -11,6 +11,12 @@
 	var/fire_delay = 0
 	var/allowed_roles = OVERMAP_USER_ROLE_GUNNER
 	var/bypass_safety = FALSE
+	active = TRUE
+
+/obj/item/fighter_component/primary/Initialize()
+	. = ..()
+	var/mag = new /obj/item/ammo_magazine/box/a556(src)
+	load(src, mag)
 
 /obj/item/fighter_component/primary/dump_contents()
 	. = ..()
@@ -31,7 +37,7 @@
 		return FALSE
 
 	if(magazine)
-		if(magazine.stored_ammo.len >= magazine.max_ammo)
+		if(magazine.stored_ammo?.len >= magazine?.max_ammo)
 			return FALSE
 
 		else
@@ -42,7 +48,7 @@
 	playsound(target, 'sound/effects/ship/mac_load.ogg', 100, 1)
 	return TRUE
 
-/obj/item/fighter_component/primary/fire(obj/structure/overmap/target)
+/obj/item/fighter_component/primary/fire(obj/target)
 	var/obj/structure/overmap/small_craft/F = loc
 	if(!istype(F))
 		return FALSE
@@ -53,8 +59,7 @@
 
 	var/obj/item/ammo_casing/chambered = ammo[ammo.len]
 	var/datum/ship_weapon/SW = F.weapon_types[fire_mode]
-	SW.default_projectile_type = chambered.projectile_type
-	SW.fire_fx_only(target)
+	SW.fire_fx_only(target, chambered.projectile_type)
 	ammo -= chambered
 	qdel(chambered)
 	return TRUE
@@ -77,20 +82,20 @@
 	ammo = list()
 
 //Dumbed down proc used to allow fighters to fire their weapons in a sane way.
-/datum/ship_weapon/proc/fire_fx_only(atom/target, lateral = FALSE)
+/datum/ship_weapon/proc/fire_fx_only(atom/target, proj_type, lateral = FALSE)
 	if(overmap_firing_sounds)
 		var/sound/chosen = pick(overmap_firing_sounds)
 		holder.relay_to_nearby(chosen)
 
-	holder.fire_projectile(default_projectile_type, target, lateral = lateral)
+	holder.fire_projectile(proj_type, target, lateral = lateral)
 
-/obj/structure/overmap/proc/fire_projectile(proj_type, atom/target, speed=null, user_override=null, lateral=FALSE, ai_aim = FALSE, miss_chance=5, max_miss_distance=5, broadside=FALSE) //Fire one shot. Used for big, hyper accelerated shots rather than PDCs
+/obj/structure/overmap/proc/fire_projectile(proj_type, obj/structure/overmap/target, speed=null, user_override=null, lateral=FALSE, ai_aim = FALSE, miss_chance=5, max_miss_distance=5, broadside=FALSE) //Fire one shot. Used for big, hyper accelerated shots rather than PDCs
 	if(!z || QDELETED(src))
 		return FALSE
 
 	var/turf/T = get_center()
 	var/obj/item/projectile/proj = new proj_type(T)
-	if(ai_aim && !proj.can_home && !proj.hitscan)
+	if(ai_aim && !proj.hitscan)
 		target = calculate_intercept(target, proj, miss_chance=miss_chance, max_miss_distance=max_miss_distance)
 	proj.starting = T
 	if(user_override)
@@ -99,43 +104,63 @@
 		proj.firer = gunner
 	else
 		proj.firer = src
-	proj.def_zone = "chest"
+
 	proj.original = target
-	proj.overmap_firer = src
-	proj.pixel_x = round(pixel_x)
-	proj.pixel_y = round(pixel_y)
-	proj.faction = faction
-	if(physics2d && physics2d.collider2d)
-		proj.setup_collider()
-	if(proj.can_home)	// Handles projectile homing and alerting the target
-		if(!isturf(target))
-			proj.set_homing_target(target)
-		else if((length(target_painted) > 0))
-			if(!target_lock) // no selected target, fire at the first one in our list
-				proj.set_homing_target(target_painted[1])
-			else if(target_painted.Find(target_lock)) // Fire at a manually selected target
-				proj.set_homing_target(target_lock)
-			else // something fucked up, dump the lock
-				target_lock = null
-		if(isovermap(proj.homing_target))
-			var/obj/structure/overmap/overmap_target = proj.homing_target
-			overmap_target.on_missile_lock(src, proj)
+	proj.previous = get_turf(loc)
+	proj.def_zone = ran_zone()
+	proj.firer = src
+	var/direct_target
+	if(get_turf(target) == get_turf(src))
+		direct_target = target
 
-	LAZYINITLIST(proj.impacted) //The spawn call after this might be causing some issues so the list should exist before async actions.
+	proj.preparePixelProjectileOvermap(target, src, null, 0, lateral)
 
-	spawn()
-		proj.preparePixelProjectileOvermap(target, src, null, round((rand() - 0.5) * proj.spread), lateral=lateral)
-		proj.fire()
-		if(!lateral)
-			proj.setAngle(src.angle)
-		if(broadside)
-			if(angle2dir_ship(overmap_angle(src, target) - angle) == SOUTH)
-				proj.setAngle(src.angle + rand(90 - proj.spread, 90 + proj.spread))
-			else
-				proj.setAngle(src.angle + rand(270 - proj.spread, 270 + proj.spread))
-		//Sometimes we want to override speed.
-		if(speed)
-			proj.set_pixel_speed(speed)
-	//	else
-	//		proj.set_pixel_speed(proj.speed)
-	return proj
+	proj.fire(null, direct_target)
+
+/obj/structure/overmap/bullet_act(obj/item/projectile/P, def_zone)
+	return PROJECTILE_CONTINUE
+
+/**
+* Given target ship and projectile speed, calculate aim point for intercept
+* See: https://stackoverflow.com/a/3487761
+* If they're literally moving faster than a bullet just aim right at them
+*/
+
+/obj/structure/overmap/proc/calculate_intercept(obj/structure/overmap/target, obj/item/projectile/P, miss_chance=5, max_miss_distance=5)
+	if(!target || !istype(target) || !target.velocity || !P || !istype(P))
+		return target
+	var/turf/my_center = get_center()
+	var/turf/their_center = target.get_center()
+	if(!my_center || !their_center)
+		return target
+
+	var/dx = their_center.x - my_center.x
+	var/dy = their_center.y - my_center.y
+	var/tvx = target.velocity.a
+	var/tvy = target.velocity.e
+	var/projectilespeed = 32 / P.speed
+
+	var/a = tvx * tvx + tvy * tvy - (projectilespeed * projectilespeed)
+	var/b = 2 * (tvx * dx + tvy * dy)
+	var/c = dx * dx + dy * dy
+	var/list/solutions = SolveQuadratic(a, b, c)
+	if(!solutions.len)
+		return their_center
+
+	var/time = 0
+	if(solutions.len > 1)
+		// If both are valid take the smaller time
+		if((solutions[1] > 0) && (solutions[2] > 0))
+			time = min(solutions[1], solutions[2])
+		else if(solutions[1] > 0)
+			time = solutions[1]
+		else if(solutions[2] > 0)
+			time = solutions[2]
+		else
+			return their_center
+
+	var/targetx = their_center.x + target.velocity.a * time
+	var/targety = their_center.y + target.velocity.e * time
+	var/turf/newtarget = locate(targetx, targety, target.z)
+
+	return newtarget

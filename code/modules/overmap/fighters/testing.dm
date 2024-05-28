@@ -20,4 +20,5 @@
 						/obj/item/fighter_component/canopy,
 						/obj/item/fighter_component/docking_computer,
 						/obj/item/fighter_component/battery,
+						/obj/item/fighter_component/primary,
 						)

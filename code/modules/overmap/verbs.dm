@@ -113,7 +113,7 @@
 	if(!verb_check())
 		return
 
-	//fire_countermeasure()
+	fire_countermeasure()
 
 //Large Craft Specifc Verbs
 /obj/structure/overmap/verb/show_tactical()

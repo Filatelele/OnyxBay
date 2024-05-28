@@ -53,7 +53,7 @@
 		active = TRUE
 		rpm = ENGINE_RPM_SPUN
 		playsound(loc, 'sound/effects/fighters/startup.ogg', 100, FALSE)
-		F.relay('sound/effects/fighters/cockpit.ogg', "<span class='warning'>You hear a loud noise as [F]'s engine kicks in.</span>", loop=TRUE, channel = SOUND_CHANNEL_SHIP_ALERT)
+		F.relay('sound/effects/fighters/cockpit.wav', "<span class='warning'>You hear a loud noise as [F]'s engine kicks in.</span>", loop=TRUE, channel = SOUND_CHANNEL_SHIP_ALERT)
 		return
 	else
 		playsound(loc, 'sound/effects/fighters/steam_whoosh.ogg', 100, TRUE)

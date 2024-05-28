@@ -16,11 +16,10 @@
 /// Helper proc to get the actual center of the ship, if the ship's hitbox is placed in the bottom left corner like they usually are.
 /obj/structure/overmap/proc/get_center()
 	RETURN_TYPE(/turf)
-	return (bound_height > 32 && bound_height > 32) ? get_turf(locate((src.x+(pixel_collision_size_x/32)/2), src.y+((pixel_collision_size_y/32)/2), z)) : get_turf(src)
+	return (bound_height > 32 && bound_height > 32) ? get_turf(locate((src.x + (pixel_collision_size_x / 32)/ 2), src.y + ((pixel_collision_size_y / 32) / 2), z)) : get_turf(src)
 
 /obj/structure/overmap/proc/get_pixel_bounds()
 	for(var/turf/T in obounds(src, pixel_x + pixel_collision_size_x/4, pixel_y + pixel_collision_size_y/4, pixel_x  + -pixel_collision_size_x/4, pixel_y + -pixel_collision_size_x/4) )//Forms a zone of 4 quadrants around the desired overmap using some math fuckery.
-		to_chat(world, "FOO!")
 		T.SpinAnimation()
 
 /obj/structure/overmap/proc/show_bounds()

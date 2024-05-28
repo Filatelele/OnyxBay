@@ -499,11 +499,14 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 /obj/structure/overmap/proc/find_area()
 	pass()
 
-/obj/structure/overmap/proc/InterceptClickOn(mob/user, params, atom/target)
+/obj/structure/overmap/proc/InterceptClickOn(atom/target, atom/location, control, params)
+	var/mob/user = usr
 	if(user.incapacitated() || !isliving(user))
 		return FALSE
+
 	if(weapon_safety && !can_friendly_fire())
 		return FALSE
+
 	if(istype(target, /obj/machinery/button))
 		return target.attack_hand(user)
 	var/list/params_list = params2list(params)
@@ -517,7 +520,35 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 		start_lockon(target)
 		ams_shots_fired = 0
 		return TRUE
+	fire(target)
 	return TRUE
+
+/obj/structure/overmap/proc/fire(atom/target)
+	if(weapon_safety)
+		if(gunner)
+			to_chat(gunner, "<span class='warning'>Weapon safety interlocks are active! Use the ship verbs tab to disable them!</span>")
+		return
+
+	handle_cloak(CLOAK_TEMPORARY_LOSS)
+	last_target = target
+	//var/obj/structure/overmap/ship = target
+	//if(ai_controlled) //Let the AI switch weapons according to range
+	////	ai_fire(target)
+	//	return	//end if(ai_controlled)
+	//if(istype(target, /obj/structure/overmap))
+	//	ship.add_enemy(src)
+	fire_weapon(target)
+
+/obj/structure/overmap/proc/fire_weapon(atom/target, mode=fire_mode, lateral=(mass > MASS_TINY), mob/user_override=gunner, ai_aim=FALSE) //"Lateral" means that your ship doesnt have to face the target
+	var/datum/ship_weapon/SW = weapon_types[mode]
+	if(SW?.fire(target, ai_aim=ai_aim))
+		return TRUE
+	else
+		if(user_override && SW) //Tell them we failed
+			if(world.time < SW.next_firetime) //Silence, SPAM.
+				return FALSE
+
+			to_chat(user_override, SW.failure_alert)
 
 // Placeholder to allow targeting with utility modules
 /obj/structure/overmap/proc/can_friendly_fire()
@@ -920,6 +951,7 @@ Proc to spool up a new Z-level for a player ship and assign it a treadmill.
 			to_chat(pilot, "<span class='warning'>[user] has kicked you off the ship controls!</span>")
 			stop_piloting(pilot)
 		pilot = user
+		register_signal(pilot, SIGNAL_MOB_MOUSEDOWN, nameof(.proc/InterceptClickOn))
 		LAZYOR(user.mousemove_intercept_objects, src)
 	if(position & OVERMAP_USER_ROLE_GUNNER)
 		if(gunner)

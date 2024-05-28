@@ -9,6 +9,7 @@
 
 /obj/item/fighter_component/apu/proc/toggle_fuel_line()
 	fuel_line = !fuel_line
+	playsound(src, 'sound/effects/fighters/warmup.ogg', 100, FALSE)
 
 /obj/item/fighter_component/apu/think()
 	if(!..())

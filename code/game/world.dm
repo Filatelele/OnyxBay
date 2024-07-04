@@ -184,6 +184,10 @@ var/server_name = "OnyxBay"
 
 	callHook("startup")
 
+	//Emergency Fix
+	load_mods()
+	//end-emergency fix
+	initialize_cooking_recipes()
 	. = ..()
 
 	Master.Initialize(10, FALSE)

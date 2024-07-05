@@ -487,10 +487,6 @@
 			return global.meteors_threatening;
 		if("minevendor_list")
 			return global.minevendor_list;
-		if("mining_floors")
-			return global.mining_floors;
-		if("mining_walls")
-			return global.mining_walls;
 		if("minor_air_alarms")
 			return global.minor_air_alarms;
 		if("mob_hat_cache")
@@ -1256,10 +1252,6 @@
 			global.meteors_threatening=newval;
 		if("minevendor_list")
 			global.minevendor_list=newval;
-		if("mining_floors")
-			global.mining_floors=newval;
-		if("mining_walls")
-			global.mining_walls=newval;
 		if("minor_air_alarms")
 			global.minor_air_alarms=newval;
 		if("mob_hat_cache")
@@ -1807,8 +1799,6 @@
 	"mil_branches",
 	"minevendor_list",
 	"minevendor_prison_list",
-	"mining_floors",
-	"mining_walls",
 	"minor_air_alarms",
 	"minor_announcement",
 	"mob_hat_cache",

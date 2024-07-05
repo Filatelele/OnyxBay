@@ -484,7 +484,7 @@
 
 /turf/simulated/floor/natural/beach/sand/desert
 	icon_state = "desert"
-	has_resources = 1
+	is_mineable = TRUE
 
 /turf/simulated/floor/natural/beach/sand/desert/New()
 	icon_state = "desert[rand(0,5)]"

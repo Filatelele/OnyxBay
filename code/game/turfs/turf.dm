@@ -79,6 +79,9 @@
 
 	var/z_flags = FALSE
 
+	/// If TRUE, then it will have a mineable extension attached to it in `Initialize()`
+	var/is_mineable = FALSE
+
 /datum/rad_resist/turf
 	alpha_particle_resist = 38 MEGA ELECTRONVOLT
 	beta_particle_resist = 50 KILO ELECTRONVOLT

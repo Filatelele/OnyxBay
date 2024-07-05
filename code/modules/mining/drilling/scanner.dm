@@ -1,5 +1,3 @@
-/turf/simulated/var/surveyed
-
 /obj/item/mining_scanner
 	name = "ore detector"
 	desc = "A complex device used to locate ore deep underground."
@@ -27,12 +25,12 @@
 		"exotic matter" = 0
 		)
 	var/new_data = 0
-	for(var/turf/simulated/T in range(2, get_turf(user)))
-
-		if(!T.has_resources)
+	for(var/turf/T in RANGE_TURFS(2, (get_turf(user))))
+		var/datum/component/mineable/mineable = T.get_component(/datum/component/mineable)
+		if(!istype(mineable))
 			continue
 
-		for(var/metal in T.resources)
+		for(var/metal in mineable.resources)
 			var/ore_type
 			var/data_value = 1
 
@@ -49,12 +47,7 @@
 					ore_type = "exotic matter"
 					data_value = 4
 
-			if(ore_type) metals[ore_type] += T.resources[metal]
-
-			if(!T.surveyed)
-				new_data += data_value * T.resources[metal]
-
-		T.surveyed = 1
+			if(ore_type) metals[ore_type] += mineable.resources[metal]
 
 	to_chat(user, "\icon[src] <span class='notice'>The scanner beeps and displays a readout.</span>")
 

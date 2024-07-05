@@ -34,7 +34,7 @@ var/list/mining_floors = list()
 	var/obj/item/last_find
 	var/datum/artifact_find/artifact_find
 	var/image/ore_overlay
-	has_resources = 1
+	is_mineable = TRUE
 	var/ore_left = 0
 
 /turf/simulated/mineral/medium
@@ -564,7 +564,7 @@ var/list/mining_floors = list()
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	var/overlay_detail
 	var/floor_variance = 0
-	has_resources = 1
+	is_mineable = TRUE
 	footstep_sound = SFX_FOOTSTEP_ASTEROID
 
 /turf/simulated/floor/asteroid/Initialize()

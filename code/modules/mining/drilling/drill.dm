@@ -86,16 +86,19 @@
 
 	//Dig out the tasty ores.
 	if(resource_field.len)
-		var/turf/simulated/harvesting = pick(resource_field)
+		var/turf/harvesting = pick(resource_field)
+		var/datum/component/mineable/mineable = harvesting.get_component(/datum/component/mineable)
+		if(!istype(mineable))
+			return
 
-		while(resource_field.len && !harvesting.resources)
-			harvesting.has_resources = 0
-			harvesting.resources = null
+		while(resource_field.len && !mineable.resources)
+			mineable.resources = null
 			resource_field -= harvesting
 			if(resource_field.len)
 				harvesting = pick(resource_field)
 
-		if(!harvesting || !harvesting.resources) return
+		if(!harvesting || !mineable?.resources)
+			return
 
 		var/total_harvest = harvest_speed //Ore harvest-per-tick.
 		var/found_resource = 0 //If this doesn't get set, the area is depleted and the drill errors out.
@@ -113,27 +116,26 @@
 				total_harvest = capacity - contents.len
 
 			if(total_harvest <= 0) break
-			if(harvesting.resources[metal])
+			if(mineable.resources[metal])
 
 				found_resource  = 1
 
 				var/create_ore = 0
-				if(harvesting.resources[metal] >= total_harvest)
-					harvesting.resources[metal] -= total_harvest
+				if(mineable.resources[metal] >= total_harvest)
+					mineable.resources[metal] -= total_harvest
 					create_ore = total_harvest
 					total_harvest = 0
 				else
-					total_harvest -= harvesting.resources[metal]
-					create_ore = harvesting.resources[metal]
-					harvesting.resources[metal] = 0
+					total_harvest -= mineable.resources[metal]
+					create_ore = mineable.resources[metal]
+					mineable.resources[metal] = 0
 
 				for(var/i=1, i <= create_ore, i++)
 					var/oretype = ore_types[metal]
 					new oretype(src)
 
 		if(!found_resource)
-			harvesting.has_resources = 0
-			harvesting.resources = null
+			mineable.resources = null
 			resource_field -= harvesting
 	else
 		active = 0
@@ -253,9 +255,12 @@
 	resource_field = list()
 	need_update_field = 0
 
-	for(var/turf/simulated/S in range(2, src))
-		if(S.has_resources)
-			resource_field += S
+	for(var/turf/S in RANGE_TURFS(2, src))
+		var/datum/component/mineable/mineable = S.get_component(/datum/component/mineable)
+		if(!istype(mineable))
+			continue
+
+		resource_field |= S
 
 	if(!length(resource_field))
 		system_error("resources depleted")

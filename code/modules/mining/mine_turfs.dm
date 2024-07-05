@@ -1,6 +1,3 @@
-var/list/mining_walls = list()
-var/list/mining_floors = list()
-
 /**********************Mineral deposits**************************/
 /turf/unsimulated/mineral
 	name = "impassable rock"
@@ -49,16 +46,8 @@ var/list/mining_floors = list()
 
 /turf/simulated/mineral/Initialize()
 	. = ..()
-	if (!mining_walls["[src.z]"])
-		mining_walls["[src.z]"] = list()
-	mining_walls["[src.z]"] += src
 	update_icon()
 	add_debris_element()
-
-/turf/simulated/mineral/Destroy()
-	if (mining_walls["[src.z]"])
-		mining_walls["[src.z]"] -= src
-	return ..()
 
 /turf/simulated/mineral/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_ROCK, -10, 5, 1)
@@ -569,16 +558,8 @@ var/list/mining_floors = list()
 
 /turf/simulated/floor/asteroid/Initialize()
 	. = ..()
-	if (!mining_floors["[src.z]"])
-		mining_floors["[src.z]"] = list()
-	mining_floors["[src.z]"] += src
 	if(prob(20))
 		overlay_detail = "asteroid[rand(0,9)]"
-
-/turf/simulated/floor/asteroid/Destroy()
-	if (mining_floors["[src.z]"])
-		mining_floors["[src.z]"] -= src
-	return ..()
 
 /turf/simulated/floor/asteroid/ex_act(severity)
 	switch(severity)

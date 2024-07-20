@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/list/map_templates = list()
 	var/list/holodeck_templates = list()
+	var/list/outpost_templates = list()
 	///All possible biomes in assoc list as type || instance
 	var/list/biomes = list()
 
@@ -12,6 +13,7 @@ SUBSYSTEM_DEF(mapping)
 	initialize_biomes()
 	preloadTemplates()
 	preloadHolodeckTemplates()
+	preload_outpost_templates()
 	lateload_map_zlevels()
 	return ..()
 
@@ -34,6 +36,19 @@ SUBSYSTEM_DEF(mapping)
 
 		var/datum/map_template/holodeck/holodeck_template = new holodeck_type()
 		holodeck_templates[holodeck_template.template_id] = holodeck_template
+
+/datum/controller/subsystem/mapping/proc/preload_outpost_templates()
+	for(var/item in subtypesof(/datum/map_template/outpost))
+		var/datum/map_template/outpost/outpost_type = item
+		if(!initial(outpost_type.mappaths))
+			continue
+
+		var/datum/map_template/outpost/outpost_template = new outpost_type()
+		outpost_templates[item] = outpost_template
+		if(!outpost_template.essential)
+			continue
+
+		outpost_template.load_new_z(list(ZTRAIT_SEALED))
 
 /// Initialize all biomes, assoc as type || instance
 /datum/controller/subsystem/mapping/proc/initialize_biomes()

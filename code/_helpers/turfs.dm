@@ -151,7 +151,7 @@
 		target.transport_properties_from(source)
 
 	for(var/obj/O in source)
-		if(O.simulated)
+		if(istype(O, /obj/effect/landmark/start) || (O.simulated))
 			O.forceMove(target)
 
 	for(var/mob/M in source)

@@ -38,9 +38,9 @@
 #define SS_INIT_AIR             -1
 #define SS_INIT_MISC_LATE       -2
 #define SS_INIT_ALARM           -3
-#define SS_INIT_SHUTTLE         -4
-#define SS_INIT_LIGHTING        -5
-#define SS_INIT_OVERLAYS        -6
+#define SS_INIT_LIGHTING        -4
+#define SS_INIT_OVERLAYS        -5
+#define SS_INIT_SHUTTLE         -6
 #define SS_INIT_XENOARCH        -10
 #define SS_INIT_BAY_LEGACY      -12
 #define SS_INIT_STORYTELLER     -15

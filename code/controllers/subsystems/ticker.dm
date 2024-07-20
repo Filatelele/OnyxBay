@@ -427,6 +427,7 @@ Helpers
 			else
 				total_antagonists.Add(temprole) //If the role doesnt exist in the list, create it and add the mob
 				total_antagonists[temprole] += ": [Mind.name]([Mind.key])"
+		SSkpi.calculate_kpi_for(Mind.current)
 
 	//Now print them all into the log!
 	log_game("Antagonists at round end were...")

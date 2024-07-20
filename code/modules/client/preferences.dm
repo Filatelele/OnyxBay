@@ -395,6 +395,9 @@
 		for(var/path in organ_modules[tag])
 			var/obj/item/organ_module/module = new path(O)
 			module.install(O)
+			if(istype(module, /obj/item/organ_module/hormone_regulator))
+				var/obj/item/organ_module/hormone_regulator/hr = module
+				hr.from_roundstart = TRUE // So it will not be considered by the KPI handler
 
 	QDEL_NULL_LIST(character.worn_underwear)
 	character.worn_underwear = list()

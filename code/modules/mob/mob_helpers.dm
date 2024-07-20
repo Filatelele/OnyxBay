@@ -20,7 +20,7 @@
 		return FALSE //M is too small to wield this
 	return TRUE
 
-/mob/living/proc/isSynthetic()
+/mob/proc/isSynthetic()
 	return 0
 
 /mob/living/carbon/human/isSynthetic()

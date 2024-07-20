@@ -2675,6 +2675,7 @@
 #include "code\modules\overmap\starter.dm"
 #include "code\modules\overmap\verbs.dm"
 #include "code\modules\overmap\outposts.dm\_outpost.dm"
+#include "code\modules\overmap\outposts.dm\entrepot.dm"
 #include "code\modules\overmap\outposts.dm\starting.dm"
 #include "code\modules\overmap\engines\gas_thruster.dm"
 #include "code\modules\overmap\engines\ion_thruster.dm"

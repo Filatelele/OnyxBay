@@ -10,7 +10,9 @@
 	company_short = "NT"
 	system_name   = "Nyx"
 
-	allowed_spawns = list("Outpost")
+	shuttle_types = list(
+		/datum/shuttle/autodock/ferry/example
+	)
 
 	overmap_type = /obj/structure/overmap/example_ship
 

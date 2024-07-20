@@ -1,0 +1,185 @@
+"ae" = (/obj/item/device/radio/intercom{dir = 4; pixel_x = -22},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"al" = (/obj/item/clothing/head/radiation,/obj/structure/closet/radiation,/obj/effect/floor_decal/industrial/outline/yellow,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"as" = (/obj/effect/floor_decal/industrial/warning{dir = 6},/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"az" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"aM" = (/obj/machinery/door/airlock/external{name = "Arrivals Airlock"; icon_state = "door_locked"; frequency = 1380; locked = 1; req_access = list(13); id_tag = "centcom_dock_airlock"},/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"bb" = (/obj/effect/floor_decal/techfloor{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"bT" = (/turf/simulated/floor/tiled/mono,/area/shuttle/ferry/outpost/entrepot)
+"bY" = (/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"cb" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4; layer = 2.4; level = 2},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"cS" = (/obj/structure/cryofeed{dir = 4},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"cY" = (/obj/structure/window_frame/reinforced/hull,/obj/machinery/door/firedoor,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"et" = (/obj/machinery/gateway{dir = 10},/obj/effect/landmark/joinlate/gate,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"ev" = (/obj/structure/railing/steel{dir = 4},/obj/structure/railing/steel{dir = 1},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"eC" = (/obj/effect/floor_decal/techgrid{dir = 4},/obj/effect/floor_decal/techgrid{dir = 1},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"fO" = (/obj/machinery/door/airlock/glass{name = "Cryogenic Storage"},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"gg" = (/obj/structure/railing/steel{dir = 4},/obj/structure/railing/steel,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"gs" = (/obj/structure/window_frame/reinforced/hull,/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"hh" = (/turf/simulated/floor/shuttle/pod,/area/shuttle/ferry/outpost/entrepot)
+"ho" = (/obj/structure/bed/chair{dir = 8},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"ig" = (/obj/machinery/door/airlock/external{name = "Arrivals Airlock"; icon_state = "door_locked"; frequency = 1380; locked = 1; req_access = list(13); id_tag = "centcom_dock_airlock"},/obj/effect/floor_decal/industrial/warning{dir = 5},/obj/effect/shuttle_landmark/outpost/entrepot_away,/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"ir" = (/turf/space,/area/shuttle/ferry/outpost/entrepot)
+"iR" = (/obj/structure/railing/steel{dir = 8},/obj/structure/railing/steel{dir = 1},/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"ja" = (/obj/machinery/gateway{dir = 6},/obj/effect/landmark/joinlate/gate,/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"jq" = (/obj/machinery/door/airlock/multi_tile/glass,/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"jI" = (/obj/structure/lattice,/turf/template_noop,/area/shuttle/ferry/outpost/entrepot)
+"jJ" = (/obj/machinery/door/airlock/external{name = "Arrivals Airlock"; icon_state = "door_locked"; frequency = 1380; locked = 1; req_access = list(13); id_tag = "centcom_dock_airlock"},/obj/effect/floor_decal/industrial/warning{icon_state = "warning"; dir = 9},/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"km" = (/obj/structure/railing/steel{dir = 4},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"kr" = (/obj/machinery/cryopod{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"kA" = (/obj/effect/floor_decal/industrial/warning{icon_state = "warning"; dir = 9},/turf/simulated/floor/tiled/white/rough,/area/shuttle/ferry/outpost/entrepot)
+"kV" = (/obj/structure/closet/toolcloset,/obj/item/device/handcharger,/obj/effect/floor_decal/industrial/outline/yellow,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"lP" = (/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"ml" = (/obj/effect/floor_decal/techgrid,/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"mN" = (/obj/structure/railing/steel{dir = 1},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"mP" = (/obj/structure/lattice,/obj/structure/window_frame/reinforced/hull,/obj/machinery/door/firedoor,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"mW" = (/obj/structure/railing/steel{dir = 1},/obj/structure/railing/steel{dir = 8},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"nC" = (/turf/simulated/shuttle/wall/corner/smoothwhite/se,/area/shuttle/ferry/outpost/entrepot)
+"nH" = (/obj/structure/railing/steel{dir = 1},/obj/structure/railing/steel{dir = 4},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"nQ" = (/obj/machinery/gateway/centerstation,/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"oh" = (/obj/effect/floor_decal/industrial/loading,/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"oZ" = (/obj/structure/table/steel,/obj/item/material/ashtray/glass,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"pP" = (/obj/effect/floor_decal/techgrid,/obj/effect/floor_decal/techgrid{dir = 8},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"qs" = (/obj/machinery/vending/snack,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"qv" = (/obj/machinery/light/he,/obj/effect/floor_decal/techgrid{dir = 8},/obj/effect/floor_decal/techgrid,/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"qF" = (/turf/simulated/shuttle/wall/corner/smoothwhite/nw,/area/shuttle/ferry/outpost/entrepot)
+"qO" = (/turf/template_noop,/area/template_noop)
+"ri" = (/obj/effect/floor_decal/industrial/warning{dir = 4},/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"rB" = (/turf/template_noop,/area/shuttle/ferry/outpost/entrepot)
+"rS" = (/obj/effect/floor_decal/industrial/warning{dir = 6},/obj/machinery/alarm{dir = 1; pixel_y = -24},/turf/simulated/floor/tiled/white/rough,/area/shuttle/ferry/outpost/entrepot)
+"sc" = (/obj/structure/closet/l3closet/general/multi,/obj/effect/floor_decal/industrial/outline/yellow,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"sh" = (/obj/effect/floor_decal/industrial/warning{icon_state = "warning"; dir = 10},/obj/item/device/radio/intercom{dir = 1; pixel_y = -22},/turf/simulated/floor/tiled/white/rough,/area/shuttle/ferry/outpost/entrepot)
+"sk" = (/obj/structure/lattice,/turf/space,/area/shuttle/ferry/outpost/entrepot)
+"sm" = (/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"sM" = (/obj/effect/floor_decal/techgrid{dir = 8},/obj/effect/floor_decal/techgrid{dir = 1},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"th" = (/obj/structure/bed/chair{dir = 4},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"to" = (/turf/simulated/shuttle/wall{icon_state = "whiteship"},/area/shuttle/ferry/outpost/entrepot)
+"tt" = (/obj/machinery/cryopod,/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"tx" = (/obj/structure/railing/steel{dir = 8},/obj/structure/railing/steel{dir = 1},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"tQ" = (/obj/machinery/gateway,/obj/effect/landmark/joinlate/gate,/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"uc" = (/obj/structure/reagent_dispensers/watertank,/obj/effect/floor_decal/industrial/outline/yellow,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"uq" = (/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"us" = (/obj/machinery/light/he{dir = 8},/obj/machinery/camera/network/civilian_west{dir = 4; c_tag = "Main Module 1F - North Connector"},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"uO" = (/obj/effect/floor_decal/industrial/warning{dir = 5},/turf/simulated/floor/tiled/white/rough,/area/shuttle/ferry/outpost/entrepot)
+"wf" = (/turf/simulated/shuttle/wall/corner/smoothwhite/sw,/area/shuttle/ferry/outpost/entrepot)
+"wx" = (/obj/machinery/gateway{dir = 8},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"xf" = (/obj/machinery/light/he{dir = 4},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"xi" = (/obj/effect/floor_decal/industrial/outline/yellow,/obj/structure/closet/emcloset,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"xl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"xx" = (/obj/effect/floor_decal/industrial/warning{dir = 5},/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"xC" = (/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"xP" = (/obj/effect/floor_decal/techgrid{dir = 4},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"yK" = (/obj/structure/window_frame/grille,/turf/space,/area/shuttle/ferry/outpost/entrepot)
+"ze" = (/obj/structure/window_frame/reinforced/hull,/turf/template_noop,/area/shuttle/ferry/outpost/entrepot)
+"zm" = (/obj/effect/floor_decal/industrial/warning{icon_state = "warning"; dir = 9},/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"Ao" = (/obj/effect/floor_decal/techgrid,/obj/effect/floor_decal/techgrid{dir = 4},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"AK" = (/obj/machinery/door/blast/regular,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"Bj" = (/obj/machinery/door/airlock/autoname,/turf/simulated/floor/tiled/mono,/area/shuttle/ferry/outpost/entrepot)
+"Bu" = (/turf/simulated/shuttle/wall{icon_state = "whiteship"; dir = 1},/area/shuttle/ferry/outpost/entrepot)
+"Cb" = (/obj/structure/railing/steel{dir = 8},/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"Ci" = (/obj/structure/railing/steel{dir = 8},/obj/structure/railing/steel,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"CQ" = (/obj/machinery/door/blast/regular,/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"CT" = (/obj/effect/floor_decal/techgrid{dir = 8},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"Fm" = (/obj/structure/bed/chair{dir = 4},/obj/machinery/firealarm{dir = 8; pixel_x = -24},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"FA" = (/obj/effect/floor_decal/techgrid{dir = 1},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"Gu" = (/obj/machinery/vending/coffee,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"Gv" = (/obj/effect/floor_decal/industrial/loading,/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"GK" = (/obj/machinery/light/he{dir = 4},/obj/effect/floor_decal/techgrid{dir = 4},/obj/effect/floor_decal/techgrid,/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"Id" = (/obj/machinery/gateway{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"It" = (/turf/simulated/shuttle/wall{icon_state = "whiteship_straight"},/area/shuttle/ferry/outpost/entrepot)
+"Ji" = (/turf/simulated/shuttle/wall{icon_state = "whiteship_straight"; dir = 4},/area/shuttle/ferry/outpost/entrepot)
+"JI" = (/obj/machinery/door/airlock/glass{name = "Cryogenic Storage"},/obj/machinery/door/firedoor,/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Kr" = (/obj/machinery/cryopod,/obj/machinery/camera/network/civilian_east,/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Kx" = (/obj/structure/window_frame/grille/rglass,/obj/machinery/door/firedoor,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"KC" = (/obj/machinery/portable_atmospherics/canister/oxygen,/obj/effect/floor_decal/industrial/outline/yellow,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"KM" = (/obj/structure/table/steel,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"Ly" = (/obj/machinery/door/blast/regular/open{dir = 4},/turf/simulated/floor/shuttle/pod,/area/shuttle/ferry/outpost/entrepot)
+"LQ" = (/obj/effect/floor_decal/industrial/outline/yellow,/obj/structure/table/rack,/obj/item/storage/box/bodybags,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"LZ" = (/obj/machinery/light/he{dir = 8},/obj/effect/floor_decal/techgrid{dir = 8},/obj/effect/floor_decal/techgrid{dir = 1},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"Ma" = (/obj/effect/floor_decal/industrial/warning{dir = 8},/turf/simulated/floor/tiled/mono,/area/shuttle/ferry/outpost/entrepot)
+"Mf" = (/obj/effect/floor_decal/stairs{dir = 4},/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"Mr" = (/turf/simulated/wall/r_wall,/area/shuttle/ferry/outpost/entrepot)
+"MB" = (/obj/machinery/floodlight,/obj/effect/floor_decal/industrial/outline/yellow,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"MG" = (/obj/machinery/alarm{dir = 4; pixel_x = -22},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Nl" = (/obj/machinery/vending/cola,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"NX" = (/obj/machinery/light/he{dir = 1},/obj/effect/floor_decal/techgrid{dir = 4},/obj/effect/floor_decal/techgrid{dir = 1},/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"Op" = (/obj/structure/window_frame/reinforced/hull,/obj/machinery/door/firedoor,/turf/simulated/floor/grid/greengrid,/area/shuttle/ferry/outpost/entrepot)
+"OQ" = (/obj/structure/railing/steel{dir = 8},/obj/structure/railing/steel,/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"OR" = (/obj/effect/floor_decal/industrial/outline/yellow,/obj/structure/table/rack,/obj/item/storage/briefcase/inflatable,/obj/item/storage/briefcase/inflatable,/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"Qk" = (/obj/effect/floor_decal/techgrid{dir = 8},/obj/effect/floor_decal/techgrid,/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"Sm" = (/obj/structure/cryofeed,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"Sy" = (/obj/effect/floor_decal/techgrid{dir = 4},/obj/effect/floor_decal/techgrid,/turf/simulated/floor/tiled/dark/mono,/area/shuttle/ferry/outpost/entrepot)
+"SB" = (/obj/structure/bed/chair{dir = 4},/obj/structure/extinguisher_cabinet{pixel_x = -24},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"TG" = (/obj/machinery/gateway{dir = 9},/obj/machinery/light/he{dir = 1},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Uo" = (/obj/structure/railing/steel{dir = 8},/turf/simulated/floor/plating/rough,/area/shuttle/ferry/outpost/entrepot)
+"Vt" = (/obj/machinery/camera/network/civilian_east{dir = 8; c_tag = "Main Module 2F - Gateway"},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"VI" = (/obj/machinery/gateway{dir = 5},/obj/machinery/light/he{dir = 1},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Wa" = (/obj/effect/floor_decal/industrial/warning{dir = 4},/turf/simulated/floor/tiled/white/rough,/area/shuttle/ferry/outpost/entrepot)
+"Wg" = (/obj/structure/railing/steel,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"Wl" = (/obj/effect/floor_decal/industrial/warning{dir = 8},/turf/simulated/floor/tiled/white/rough,/area/shuttle/ferry/outpost/entrepot)
+"Wp" = (/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"Wr" = (/obj/machinery/vending/cigarette,/obj/machinery/light/he{dir = 8},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"Wu" = (/obj/machinery/gateway{dir = 1},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"WW" = (/obj/machinery/portable_atmospherics/canister/air,/obj/effect/floor_decal/industrial/outline/yellow,/obj/machinery/light/he{dir = 4},/turf/simulated/floor/tiled/dirty,/area/shuttle/ferry/outpost/entrepot)
+"Xd" = (/obj/machinery/atmospherics/unary/vent_scrubber/on{dir = 4},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Xv" = (/turf/simulated/shuttle/wall/corner/smoothwhite/ne,/area/shuttle/ferry/outpost/entrepot)
+"XM" = (/obj/effect/floor_decal/industrial/warning{dir = 5},/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"Yn" = (/obj/structure/window_frame/reinforced/hull,/turf/simulated/floor/plating,/area/shuttle/ferry/outpost/entrepot)
+"YC" = (/obj/machinery/door/airlock/external{name = "Arrivals Airlock"; icon_state = "door_locked"; frequency = 1380; locked = 1; req_access = list(13); id_tag = "centcom_dock_airlock"},/obj/effect/floor_decal/industrial/warning{dir = 5},/turf/simulated/floor/tiled/rough,/area/shuttle/ferry/outpost/entrepot)
+"YJ" = (/obj/effect/floor_decal/techfloor{dir = 8},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+"Zs" = (/obj/machinery/cryopod{dir = 4},/obj/machinery/computer/cryopod{pixel_y = 32},/turf/simulated/floor/tiled/dark/rough,/area/shuttle/ferry/outpost/entrepot)
+
+(1,1,1) = {"
+qOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOqOzejJYCzeqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOqOzeGvGvzeqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOqOzeaMaMzeqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrMrGvGvMrMrqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOgsCQCQCQgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOgsohohohgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOqOYnCQCQCQgsgsuququqgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOqOqOqOyKMrjJigMryKqOqOqOYnohohohuququququqgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOqOqOqOjIcYGvGvcYjIqOqOqOYnuquququququququqgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOqOyKyKyKcYaMaMcYyKyKyKqOYnuquququququququqgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOyKyKrBjIcYzmXMcYjIrByKyKYnuquququququququqgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrqOqOqOqOyKrBrBjIcYWpWpcYjIrBrByKYnuquququququququqgsqOqOqOqOqOqOqOqOqOqOqOqOqOqO
+qOMrWpWpWpWpMrMrMrMrMrMrjIjIjImPWpWpmPjIjIjIMrMruquququququququqMrMrMrMrMrMrMrMrMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrMrMrcYcYWpWpcYcYMrMrMrbTMfuququququququqxxqFJiJiJiJiXvMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrthoZhoYJxCxCbbbYkVucMrbTiRuququququququqriBuhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrSBKMhoYJxCxCbbbYbYbYMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrusbYbYYJxCxCbbbYalscMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrFmKMhoYJxCxCbbbYbYxfMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrthoZhoYJxCxCbbbYxixiMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrbYbYbYYJxCxCbbbYMBMBMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrGubYbYYJxCxCbbbYbYbYMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrWrbYKMYJxCxCbbbYKCWWMrbTUouququququququqriLyhhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrNlbYKMYJxCxCbbbYbYbYMrbTOQuququququququqritohhhhhhhhItMaMrqOqOqOqOqOqO
+qOMrWpWpWpWpWpWpWpWpWpMrqsbYbYYJxCxCbbbYLQORMrbTMfuququququququqaswfJiJiJiJinCMaMrqOqOqOqOqOqO
+MrMrMrMrMrMrMrMrMrMrMrMrMrKxKxMrjqxCMrKxKxMrMrMrMrMrMrMrMrMrMrMrMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrlPWgWgWgWgWgggxCxCCiWgWgWgWgWglPlPMrsmTGWuVIsmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmsmsmsmsmsmsmsmsmsmsmsmsmsmCblPMrsmwxnQIdsmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmmlQkpPqvQkQkQkQkqvQkQkCTsmCblPMrMGettQjasmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmSyOpOpOpOpOpOpOpOpOpOpsMsmCblPMrsmazxlxlsmMrAKAKAKAKAKAKBjMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmSyOpskiriririririrskOpsMsmCblPMraecbXdsmVtMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmGKOpiriririririririrOpLZsmCblPMrsmsmsmsmsmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrggsmSyOpiriririririririrOpsMsmCiWgMrMrfOfOMrMrMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrxCsmSyOpiriririririririrOpsMsmxCxCxCxCxCxCxCxCMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrxCsmSyOpiriririririririrOpsMsmxCxCxCxCxCxCxCxCMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrevsmSyOpiriririririririrOpsMsmtxMrMrMrJIJIMrMrMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmAoOpiriririririririrOpxCsmCbMrcSZskAuOKrSmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmGKOpskiriririririrskOpLZsmCbMrcSkrWlWattSmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmSyOpOpOpOpOpOpOpOpOpOpsMsmCbMrcSkrWlWattSmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmxPeCeCNXeCeCeCeCNXeCeCFAsmCbMrcSkrWlWattSmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrkmsmsmsmsmsmsmsmsmsmsmsmsmsmsmCbMrcSkrshrSttSmMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrlPmNmNmNmNmNnHxCxCmWmNmNmNmNmNlPMrMrMrMrMrMrMrMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBrBMrlPlPlPlPlPlPMaMrqOqOqOqOqOqO
+MrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrMrqOqOqOqOqOqO
+"}

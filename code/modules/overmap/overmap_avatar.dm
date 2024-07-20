@@ -151,8 +151,6 @@
 	var/plasma_caster = FALSE //Wehther the ship is allowed to have plasma gun or not
 	var/role = NORMAL_OVERMAP
 
-	var/list/missions = list()
-
 	var/last_radar_pulse = 0
 
 	//Our verbs tab
@@ -204,6 +202,12 @@
 	var/light_shots_left = 300
 	var/uses_integrity = TRUE
 
+	/// List of currently-accepted missions.
+	var/list/datum/mission/missions
+	/// The maximum number of currently active missions that a ship may take on.
+	var/max_missions = 2
+	var/datum/money_account/ship_account
+
 /obj/structure/overmap/Initialize(mapload)
 	. = ..()
 	GLOB.overmap_objects += src
@@ -216,6 +220,9 @@
 	velocity = new /matrix/vector(0, 0)
 
 	integrity = max_integrity
+
+	if(role == MAIN_OVERMAP)
+		ship_account = global.station_account
 
 	add_think_ctx("slowthink", CALLBACK(src, nameof(.proc/slowthink)), 0)
 	set_next_think(world.time + 10 SECONDS)

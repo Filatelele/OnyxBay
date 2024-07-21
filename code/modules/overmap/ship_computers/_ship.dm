@@ -28,11 +28,26 @@
 	if(.)
 		return
 
+	if(SSstar_system.ships[linked]["landed"])
+		if(SSstar_system.ships[linked]["moving"])
+			show_splash_text(user, "Maneuver in progress!", "Service is unavailable while \the [linked] is executing a maneuver.")
+			return
+
+		if(docked_or_landed_behavior(user))
+			return
+
+		show_splash_text(user, "Unavailable while docked/landed", "Service is unavailable while \the [linked] is docked or landed.")
+		return
+
 	tgui_interact(user)
 	var/datum/action/innate/cancel_camera/new_act = new off_action()
 	new_act.target = src
 	actions[user] = new_act
 	new_act.Grant(user)
+
+/// In case this console should have some special behavior. E.g. - helm, which allows to initiate takeoff/undocking. Otherwise - no interactions.
+/obj/machinery/computer/ship/proc/docked_or_landed_behavior(mob/user)
+	pass()
 
 /obj/machinery/computer/ship/proc/relay_sound(sound, message)
 	if(!can_sound)

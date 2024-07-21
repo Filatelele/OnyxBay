@@ -13,3 +13,19 @@
 /obj/machinery/computer/ship/helm/set_position(obj/structure/overmap/OM)
 	OM.helm = src
 	return
+
+/obj/machinery/computer/ship/helm/docked_or_landed_behavior(mob/user)
+	var/result = tgui_alert(user, "Initiate takeoff procedure?", "Helm control", "Yes, No")
+
+	if(result == "No")
+		return FALSE
+
+	if(istype(linked.loc, /obj/effect/overmap_anomaly/visitable/planetoid))
+		linked.takeoff()
+		return TRUE
+
+	if(istype(linked.loc, /obj/effect/overmap_anomaly/outpost))
+		linked.undock(linked.loc)
+		return TRUE
+
+	return FALSE

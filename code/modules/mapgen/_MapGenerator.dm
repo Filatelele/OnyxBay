@@ -74,18 +74,18 @@
 
 /// Builds a map's border
 /datum/map_generator/proc/generate_edge_turf(z)
-	var/turf/center = locate(world.maxx / 2, world.maxy / 2, z)
+	var/turf/center = locate(round(world.maxx / 2), round(world.maxy / 2), z)
 	if(!center)
 		return
 
 	var/list/turf/turfs = RANGE_TURFS(world.maxx / 2, center)
 	for(var/turf/gen_turf in turfs)
-		if(gen_turf.x <= TRANSITION_EDGE || gen_turf.x >= world.maxx - TRANSITION_EDGE)
+		if(gen_turf.x <= TRANSITION_EDGE || gen_turf.x >= world.maxx - TRANSITION_EDGE + 1)
 			gen_turf.ChangeTurf(edgeturf)
 			CHECK_TICK
 			continue
 
-		if(gen_turf.y <= TRANSITION_EDGE || gen_turf.y >= world.maxy - TRANSITION_EDGE)
+		if(gen_turf.y <= TRANSITION_EDGE || gen_turf.y >= world.maxy - TRANSITION_EDGE + 1)
 			gen_turf.ChangeTurf(edgeturf)
 			CHECK_TICK
 			continue

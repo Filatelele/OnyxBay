@@ -203,9 +203,9 @@
 	var/uses_integrity = TRUE
 
 	/// List of currently-accepted missions.
-	var/list/datum/mission/missions
+	var/list/datum/mission/missions = list()
 	/// The maximum number of currently active missions that a ship may take on.
-	var/max_missions = 2
+	var/max_missions = 6
 	var/datum/money_account/ship_account
 
 /obj/structure/overmap/Initialize(mapload)
@@ -233,6 +233,9 @@
 	. = ..()
 	if(role > NORMAL_OVERMAP)
 		SSstar_system.add_ship(src)
+		SSstar_system.ships[src]["landed"] = TRUE
+		var/datum/star_system/SS = SSstar_system.ships[src]["current_system"]
+		SS.remove_ship(src, target, remove_fully = FALSE)
 
 	vector_overlay = new()
 	vector_overlay.appearance_flags |= KEEP_APART
@@ -380,6 +383,11 @@
 	var/dist = modulus(bounds_dist(src, target))
 	if(istype(target, /obj/effect/overmap_anomaly/visitable) && dist <= 32)
 		land(target)
+		stop_piloting(user)
+		return TRUE
+
+	if(istype(target, /obj/effect/overmap_anomaly/outpost) && dist <= 32)
+		dock(target)
 		stop_piloting(user)
 		return TRUE
 
@@ -896,6 +904,7 @@
 /obj/structure/overmap/proc/land(obj/effect/overmap_anomaly/visitable/planetoid/overmap)
 	set background = TRUE
 
+	SSstar_system.ships[src]["moving"] = TRUE
 	if(ftl_drive?.jumping)
 		return
 
@@ -955,19 +964,23 @@
 	SSmapgen.generate(mapgen, spawned)
 
 	while(SSmapgen.current_mapgen)
-		sleep(1)
+		stoplag()
 
-	relay('sound/effects/ship/radio_100m.wav', null, FALSE, SOUND_CHANNEL_SHIP_ALERT)
+	mapgen.generate_edge_turf(1)
+
+	INVOKE_ASYNC(src, nameof(.proc/relay), 'sound/effects/ship/radio_100m.wav', null, FALSE, SOUND_CHANNEL_SHIP_ALERT)
 	if(!isnull(mapgen?.weather_controller_type))
 		mapgen.weather_controller_type = new mapgen.weather_controller_type(z)
 	for(var/area/A in areas_to_mask)
 		A.icon = initial(A.icon)
 
-	relay('sound/effects/ship/radio_landing_touch_01.wav', null, FALSE, SOUND_CHANNEL_SHIP_ALERT)
+	INVOKE_ASYNC(src, nameof(.proc/relay), 'sound/effects/ship/radio_landing_touch_01.wav', null, FALSE, SOUND_CHANNEL_SHIP_ALERT)
 	sound.stop()
+	SSstar_system.ships[src]["moving"] = FALSE
+	SEND_GLOBAL_SIGNAL(SIGNAL_OVERMAP_LANDED, src, SS, overmap)
 
 /obj/structure/overmap/proc/takeoff()
-	SSstar_system.ships[src]["landed"] = FALSE
+	SSstar_system.ships[src]["moving"] = TRUE
 	SSannounce.play_announce(/datum/announce/comm_program, "", "Helm announcement", "Command Room", 'sound/misc/notice2.ogg', FALSE, TRUE, GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION))
 	var/datum/looping_sound/sound = new /datum/looping_sound/ship/engine(list(), FALSE, TRUE, channel = SOUND_CHANNEL_REACTOR_ALERT)
 	var/list/predicates = area_repository.get_areas_by_z_level(GLOB.is_station_but_not_space_or_shuttle_area)
@@ -1010,5 +1023,89 @@
 
 	sound.stop()
 	var/datum/star_system/SS = SSstar_system.ships[src]["current_system"]
-	SSstar_system.ships[src]["landed"] = FALSE
 	SS.add_ship(src)
+	SSstar_system.ships[src]["moving"] = FALSE
+	SSstar_system.ships[src]["landed"] = FALSE
+	SEND_GLOBAL_SIGNAL(SIGNAL_OVERMAP_TOOK_OFF, src, SS)
+
+/**
+ * Docking behavior
+ */
+/obj/structure/overmap/proc/dock(obj/effect/overmap_anomaly/outpost/target)
+	set background = TRUE
+
+	ASSERT(target)
+	SSstar_system.ships[src]["moving"] = TRUE
+
+	if(ftl_drive?.jumping)
+		return
+
+	if(!target.shuttle)
+		return
+
+	// Preventing people from watching at an empty space
+	if(pilot)
+		stop_piloting(pilot)
+	if(gunner)
+		stop_piloting(gunner)
+
+	var/datum/star_system/SS = SSstar_system.ships[src]["current_system"]
+	SS.remove_ship(src, target, remove_fully = FALSE)
+
+	for(var/datum/shuttle/autodock/ferry/outpost/shuttle in SSshuttle.shuttles)
+		if(shuttle.location)
+			continue
+
+		shuttle.short_jump(shuttle.waypoint_offsite)
+
+	SSannounce.play_announce(/datum/announce/comm_program, "", "Helm announcement", "Command Room", 'sound/misc/notice2.ogg', FALSE, TRUE, GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION))
+	var/datum/looping_sound/sound = new /datum/looping_sound/ship/engine(list(), FALSE, TRUE, channel = SOUND_CHANNEL_REACTOR_ALERT)
+
+	GLOB.using_map.apply_mask()
+
+	for(var/zlevel = 1 to GLOB.using_map.map_levels.len)
+		if(!(zlevel in GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION)))
+			continue
+
+		var/datum/space_level/L = GLOB.using_map.map_levels[zlevel]
+		L.assume_atmosphere(target.atmosphere)
+
+	target.shuttle.short_jump(target.shuttle.waypoint_station)
+
+	sound.stop()
+	SEND_GLOBAL_SIGNAL(SIGNAL_OVERMAP_DOCKED, src, SS, target)
+	SSstar_system.ships[src]["landed"] = TRUE
+	SSstar_system.ships[src]["moving"] = FALSE
+	SSstoryteller.generate_overmap_missions_for(src)
+
+/**
+ * Docking behavior
+ */
+/obj/structure/overmap/proc/undock(obj/effect/overmap_anomaly/outpost/current)
+	set background = TRUE
+
+	ASSERT(current)
+
+	if(!current.shuttle)
+		return
+
+	SSstar_system.ships[src]["moving"] = TRUE
+	SSannounce.play_announce(/datum/announce/comm_program, "", "Helm announcement", "Command Room", 'sound/misc/notice2.ogg', FALSE, TRUE, GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION))
+	var/datum/looping_sound/sound = new /datum/looping_sound/ship/engine(list(), FALSE, TRUE, channel = SOUND_CHANNEL_REACTOR_ALERT)
+	sleep(30 SECONDS)
+
+	current.shuttle.short_jump(current.shuttle.waypoint_offsite)
+
+	for(var/zlevel = 1 to GLOB.using_map.map_levels.len)
+		if(!(zlevel in GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION)))
+			continue
+
+		var/datum/space_level/L = GLOB.using_map.map_levels[zlevel]
+		L.assume_atmosphere(null)
+
+	var/datum/star_system/SS = SSstar_system.ships[src]["current_system"]
+	SS.add_ship(src)
+	SSstar_system.ships[src]["landed"] = FALSE
+	SSstar_system.ships[src]["moving"] = FALSE
+	sound.stop()
+	SEND_GLOBAL_SIGNAL(SIGNAL_OVERMAP_UNDOCKED, src, SS, current)

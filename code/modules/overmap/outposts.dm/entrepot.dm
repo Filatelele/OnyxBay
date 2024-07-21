@@ -18,5 +18,4 @@
 /datum/map_template/outpost/entrepot
 	name = "Entrepot"
 	mappaths = list('maps/outposts/entrepot.dmm')
-	essential = TRUE
 	shuttle_datum = /datum/shuttle/autodock/ferry/outpost/entrepot

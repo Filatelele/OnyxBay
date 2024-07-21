@@ -14,6 +14,8 @@
 
 	weather_controller_type = /datum/weather_controller/lush
 
+	edgeturf = /turf/unsimulated/wall/mineral_edge
+
 	biome_table = list(
 		BIOME_COLDEST = list(
 			BIOME_LOWEST_HUMIDITY = /datum/biome/waste/crater,

@@ -3,6 +3,7 @@
 #define STATE_VIEWMESSAGE	3
 #define STATE_STATUSDISPLAY	4
 #define STATE_ALERT_LEVEL	5
+#define STATE_MC_MENU       6
 /datum/computer_file/program/comm
 	filename = "comm"
 	filedesc = "Command and Communications Program"
@@ -93,6 +94,15 @@
 			processed_evac_options[++processed_evac_options.len] = option
 	data["evac_options"] = processed_evac_options
 
+	var/obj/structure/overmap/overmap = program.holder.get_overmap()
+	var/list/missions = list()
+	for(var/datum/mission/mission in overmap.missions)
+		var/list/mission_data = list()
+		mission_data["name"] = mission.name
+		mission_data["reward"] = mission.reward
+		missions[++missions.len] = mission_data
+
+	data["missions"] = missions
 	ui = SSnano.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "communication.tmpl", name, 550, 420, state = state)

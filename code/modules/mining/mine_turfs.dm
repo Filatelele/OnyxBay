@@ -1041,3 +1041,12 @@ var/list/mining_floors = list()
 
 /turf/simulated/wall/mineral/Initialize(mapload)
 	. = ..(mapload, MATERIAL_WASTELAND, MATERIAL_WASTELAND) //3strong
+
+/turf/unsimulated/wall/mineral_edge
+	name = "wall"
+	desc = "A huge chunk of metal used to seperate rooms."
+	icon = 'icons/turf/wall_masks.dmi'
+	icon_state = "waste"
+
+	ceiling_type = /turf/unsimulated/wall/mineral_edge
+	airless_celing_type = /turf/unsimulated/wall/mineral_edge

@@ -6,6 +6,7 @@
 			<div class=item>{{:helper.link('Make an announcement', null, {'action' : 'announce'}, data.isAI || !data.net_comms ? 'disabled' : null)}} </div>
 			<div class=item>{{:helper.link('Change alert level', null, {'action' : 'sw_menu', 'target' : 5}, data.isAI || !data.net_syscont || !data.net_comms ? 'disabled' : null)}} </div>
 			<div class=item>{{:helper.link('Set status display', null, {'action' : 'sw_menu', 'target' : 4}, !data.net_syscont ? 'disabled' : null)}} </div>
+			<div class=item>{{:helper.link('CentComm Mission Control', null, {'action' : 'sw_menu', 'target' : 6}, !data.net_syscont ? 'disabled' : null)}} </div>
 		</div>
 
 		<h4>Communications</h4>
@@ -75,7 +76,7 @@
                 {{:helper.link(data.message_line2 ? data.message_line2 : '(none)', null, {'action' : 'setstatus', 'target' : 'line2'})}}
             </div>
         </div>
-        
+
         <div class="item">
             <div class="itemLabel">
                 <b>Alert:</b>
@@ -103,7 +104,15 @@
 		{{/if}}
 		</br>
 		<div class=item>{{:helper.link('Back', null, {'action' : 'sw_menu', 'target' : 1})}} </div>
-	{{else}}
+		{{else data.state === 6}}
+			Messages:
+			{{for data.missions}}
+				<div class=item>{{:helper.link(value.title, null, {'action' : 'viewmessage', 'target' : value.id})}}</div>
+			{{empty}}
+				<div class=item>There are no active missions.</div>
+			{{/for}}
+			<div class=item>{{:helper.link('Back', null, {'action' : 'sw_menu', 'target' : 1})}}</div>
+		{{else}}
 		Something went wrong. Please reset your console.
 		<div class=item>{{:helper.link('Back', null, {'action' : 'sw_menu', 'target' : 1})}}</div>
 	{{/if}}

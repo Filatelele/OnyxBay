@@ -3,10 +3,6 @@
 	var/essential = FALSE
 	var/shuttle_datum = /datum/shuttle/autodock/ferry/outpost
 
-/datum/map_template/outpost/load_new_z(list/level_traits)
-	. = ..()
-	SSshuttle.initialise_shuttle(shuttle_datum)
-
 /datum/shuttle/autodock/ferry/outpost
 	name = "Outpost Shuttle"
 	location = TRUE

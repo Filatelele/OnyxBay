@@ -192,3 +192,11 @@ SUBSYSTEM_DEF(storyteller)
 /datum/controller/subsystem/storyteller/proc/__create_all_triggers()
 	for (var/type in subtypesof(/storyteller_trigger))
 		__triggers[type] = new type
+
+/datum/controller/subsystem/storyteller/proc/generate_overmap_missions_for(obj/structure/overmap/overmap)
+	while(overmap.missions.len < overmap.max_missions)
+		var/mission_type = get_weighted_mission_type()
+		var/datum/mission/M = new mission_type(overmap)
+		overmap.missions += M
+
+	SSannounce.play_announce(/datum/announce/command_report, "Your ship has new orders. Further information is available on the Communications Console.", "Sectoral Command", "Command Room", 'sound/misc/notice2.ogg', FALSE, TRUE, GLOB.using_map.get_levels_with_trait(ZTRAIT_STATION))

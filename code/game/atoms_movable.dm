@@ -128,6 +128,10 @@
 
 	if(origin?.z != destination?.z)
 		SEND_SIGNAL(src, SIGNAL_Z_CHANGED, src, origin, destination)
+		var/obj/structure/overmap/former_overmap = origin?.get_overmap()
+		var/obj/structure/overmap/new_overmap = destination?.get_overmap()
+		former_overmap?.mobs_in_ship -= src
+		new_overmap?.mobs_in_ship |= src
 
 	SEND_SIGNAL(src, SIGNAL_MOVED, src, origin, destination)
 

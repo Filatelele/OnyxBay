@@ -49,6 +49,7 @@ SUBSYSTEM_DEF(mapping)
 			continue
 
 		outpost_template.load_new_z(list(ZTRAIT_SEALED))
+		SSshuttle.initialise_shuttle(outpost_template.shuttle_datum)
 
 /// Initialize all biomes, assoc as type || instance
 /datum/controller/subsystem/mapping/proc/initialize_biomes()

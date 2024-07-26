@@ -144,3 +144,8 @@
 	item_cost = 10
 	antag_roles = list(MODE_NUKE)
 	path = /obj/item/gun/magnetic/railgun/flechette
+
+/datum/uplink_item/item/visible_weapons/flechetterifle
+	name = "Kinetic Laser Assembly"
+	item_cost = 10
+	path = /obj/item/gun/custom_ka/frame01/illegal

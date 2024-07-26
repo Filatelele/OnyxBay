@@ -50,9 +50,10 @@
 	icon_state = "gripper-mining"
 
 	can_hold = list(
-	/obj/item/cell,
-	/obj/item/stock_parts,
-	/obj/item/circuitboard/miningdrill
+		/obj/item/cell,
+		/obj/item/stock_parts,
+		/obj/item/circuitboard/miningdrill,
+		/obj/item/custom_ka_upgrade,
 	)
 
 /obj/item/gripper/paperwork

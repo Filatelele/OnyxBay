@@ -44,14 +44,10 @@ var/global/list/minevendor_list = list( //keep in order of price
 	new /datum/data/mining_equipment("Sonic Jackhammer",             /obj/item/pickaxe/jackhammer,                                      2,   700),
 	new /datum/data/mining_equipment("RIG Module: Maneuvering Jets", /obj/item/rig_module/maneuvering_jets,                             5,   700),
 	new /datum/data/mining_equipment("Mining RIG",                   /obj/item/rig/mining,                                              5,   750),
-	new /datum/data/mining_equipment("KA Range Increase",            /obj/item/borg/upgrade/modkit/range,                              10,   750),
-	new /datum/data/mining_equipment("Kinetic Accelerator",          /obj/item/gun/energy/kinetic_accelerator,                         10,   750),
 	new /datum/data/mining_equipment("Ore Summoner",                 /obj/item/oreportal,                                               3,   800),
-	new /datum/data/mining_equipment("KA Cooldown Decrease",         /obj/item/borg/upgrade/modkit/cooldown,                           15,  1000),
 	new /datum/data/mining_equipment("Lazarus Injector",             /obj/item/lazarus_injector,                                       25,  1000),
 	new /datum/data/mining_equipment("Industrial Drill Head",        /obj/machinery/mining/drill,                                      -1,  1000,  1),
 	new /datum/data/mining_equipment("Super Resonator",              /obj/item/resonator/upgraded,                                     10,  1250),
-	new /datum/data/mining_equipment("KA AoE Damage",                /obj/item/borg/upgrade/modkit/aoe/turfs,                          15,  1500),
 	new /datum/data/mining_equipment("Mining hardsuit",              /obj/item/clothing/suit/space/void/mining/reinforced/prepared,     2,  1500),
 	new /datum/data/mining_equipment("Diamond Pickaxe",              /obj/item/pickaxe/diamond,                                        10,  1500)
 	)

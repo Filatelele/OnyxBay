@@ -1323,6 +1323,44 @@ something, make sure it's not in one of the other lists.
 		/obj/structure/scrap/guns/large = 3,
 	)
 
+/obj/random/custom_ka
+	name = "random custom kinetic accelerator"
+	desc = "Wew."
+	icon = 'icons/obj/guns/kinetic_accelerators.dmi'
+	icon_state = "frame01"
+
+	var/static/list/frames = list(
+		/obj/item/gun/custom_ka/frame01 = 3,
+		/obj/item/gun/custom_ka/frame02 = 2,
+		/obj/item/gun/custom_ka/frame03 = 1
+	)
+
+	var/static/list/cells = list(
+		/obj/item/custom_ka_upgrade/cells/cell01 = 3,
+		/obj/item/custom_ka_upgrade/cells/cell02 = 2,
+		/obj/item/custom_ka_upgrade/cells/cell03 = 1
+	)
+
+	var/static/list/barrels = list(
+		/obj/item/custom_ka_upgrade/barrels/barrel01 = 3,
+		/obj/item/custom_ka_upgrade/barrels/barrel02 = 2,
+		/obj/item/custom_ka_upgrade/barrels/barrel03 = 1
+	)
+
+/obj/random/custom_ka/spawn_item()
+	var/frame_type = util_pick_weight(frames)
+	var/obj/item/gun/custom_ka/spawned_frame = new frame_type(loc)
+
+	var/cell_type = util_pick_weight(cells)
+	spawned_frame.installed_cell = new cell_type(spawned_frame)
+
+	var/barrel_type = util_pick_weight(barrels)
+	spawned_frame.installed_barrel = new barrel_type(spawned_frame)
+
+	spawned_frame.installed_upgrade_chip = new /obj/item/custom_ka_upgrade/upgrade_chips/capacity(spawned_frame)
+
+	spawned_frame.update_icon()
+	spawned_frame.update_stats()
 
 // Selects one spawn point out of a group of points with the same ID and asks it to generate its items
 var/list/multi_point_spawns

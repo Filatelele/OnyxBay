@@ -470,3 +470,6 @@ var/const/enterloopsanity = 100
 
 /turf/proc/is_open()
 	return FALSE
+
+/turf/proc/handle_grab_interaction()
+	pass()

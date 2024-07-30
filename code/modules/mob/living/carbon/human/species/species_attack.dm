@@ -22,10 +22,8 @@
 	edge = 1
 
 /datum/unarmed_attack/claws/show_attack(mob/living/carbon/human/user, mob/living/carbon/human/target, zone, attack_damage)
-	var/skill = user.skills["combat"]
+	var/skill = 1
 	var/obj/item/organ/external/affecting = target.get_organ(zone)
-
-	if(!skill)	skill = 1
 	attack_damage = Clamp(attack_damage, 1, 5)
 
 	if(target == user)

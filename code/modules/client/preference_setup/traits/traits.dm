@@ -185,9 +185,13 @@ var/list/trait_to_job = list() // trait name = job names
 	var/category = null						// What section to place this trait inside.
 	var/cost = 0
 
-// Applies effects to the newly spawned mob.
+/// Applies effects to the newly spawned mob.
 /datum/trait/proc/apply_trait_post_spawn(mob/living/L)
-	return
+	pass()
+
+/// Removes effect from a mob.
+/datum/trait/proc/remove_trait_from_mob(mob/living/L)
+	pass()
 
 // Used to forbid a trait based on certain criteria (e.g. if they are an FBP).
 // It receives the player_setup_item datum since some reasons for being invalid depend on the currently loaded preferences.

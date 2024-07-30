@@ -166,7 +166,7 @@
 	show_character_previews()
 
 	winshow(user, "preferences_window", TRUE)
-	var/datum/browser/popup = new(user, "preferences_browser","Character Setup", 1000, 1000, src)
+	var/datum/browser/popup = new(user, "preferences_browser","Character Setup", 1200, 1000, src)
 	var/content = {"
 	<script type='text/javascript'>
 		function update_content(data){
@@ -457,6 +457,8 @@
 	character.home_system = home_system
 	character.personal_background = background
 	character.religion = religion
+
+	character.stats.copy_from_prefs(attributes)
 
 	if(!character.isSynthetic())
 		character.set_nutrition(rand(140, 360) * character.body_build.stomach_capacity)

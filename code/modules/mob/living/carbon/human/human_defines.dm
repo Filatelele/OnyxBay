@@ -66,9 +66,6 @@
 	var/obj/item/l_store = null
 	var/obj/item/s_store = null
 
-	var/used_skillpoints = 0
-	var/list/skills = list()
-
 	var/icon/stand_icon = null
 	var/icon/lying_icon = null
 
@@ -125,3 +122,6 @@
 	var/full_pain_lasttick = 0
 
 	var/debug = 0
+
+	var/datum/sanity/sanity
+	var/rest_points = 0

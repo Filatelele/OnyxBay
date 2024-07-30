@@ -46,8 +46,9 @@
 		else if(L.breath_fail_ratio > 0.4)
 			return ..(length(message) > 10 ? stars(message, 75) : message, alt_name = alt_name, language = language, whispering = whispering)
 
-	return ..(message, alt_name = alt_name, language = language, whispering = whispering)
+	SEND_SIGNAL(src, SIGNAL_HUMAN_SAY)
 
+	return ..(message, alt_name = alt_name, language = language, whispering = whispering)
 
 /mob/living/carbon/human/proc/forcesay(list/append)
 	if(stat != CONSCIOUS || !client)
@@ -85,7 +86,7 @@
 	var/obj/item/organ/external/head/head = organs_by_name[BP_HEAD]
 	if(istype(head))
 		var/obj/item/organ_module/translator/translator = locate() in head
-		if(language.name in translator?.languages)
+		if(language?.name in translator?.languages)
 			return TRUE
 
 	//These only pertain to common. Languages are handled by mob/say_understands()

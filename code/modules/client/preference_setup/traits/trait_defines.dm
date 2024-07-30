@@ -7,6 +7,9 @@
 /datum/trait/modifier/apply_trait_post_spawn(mob/living/L)
 	L.add_modifier(modifier_type)
 
+/datum/trait/modifier/remove_trait_from_mob(mob/living/L)
+	L.remove_a_modifier_of_type(modifier_type)
+
 /datum/trait/modifier/generate_desc()
 	var/new_desc = desc
 	if(!modifier_type)

@@ -41,6 +41,8 @@ var/global/datum/body_build/default_body_build = new
 
 	var/list/equip_adjust
 	var/list/equip_overlays = list()
+	/// List of stat modifiers of this species. E.g. STAT_STR = list(-2, 2) will apply a modifier with a random value in the specified range.
+	var/list/stats_modifiers = list()
 
 /datum/body_build/proc/get_mob_icon(slot, icon_state)
 	var/icon/I
@@ -92,6 +94,9 @@ var/global/datum/body_build/default_body_build = new
 
 	stomach_capacity   = STOMACH_CAPACITY_LOW
 	poise_pool         = HUMAN_LOW_POISE
+	stats_modifiers = list(
+		STAT_STR = list("max" = 14)
+	)
 
 	equip_adjust = list(
 		"slot_l_hand" = list(

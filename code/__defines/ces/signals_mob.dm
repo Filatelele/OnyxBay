@@ -42,3 +42,9 @@
 
 /// Called on `/obj/item/organ/proc/removed()` (organ)
 #define SIGNAL_MOB_ORGAN_REMOVED "mob_organ_removed"
+
+/// Called on `/mob/living/proc/Life()`
+#define SIGNAL_MOB_LIFE "mob_life"
+
+/// Call on `/mob/living/carbon/human/say()`
+#define SIGNAL_HUMAN_SAY "human_say"

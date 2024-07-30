@@ -105,6 +105,8 @@
 	var/halloss_message = "slumps over, too weak to continue fighting..."
 	var/halloss_message_self = "The pain is too severe for you to keep going..."
 
+	/// Controls how much sanity is processed on the mob for performance reasons.
+	var/lower_sanity_process
 	var/limbs_are_nonsolid
 	var/spawns_with_stack = 0
 	// Environment tolerance/life processes vars.
@@ -222,6 +224,8 @@
 	var/y_shift = 0 // Vertically shifts the icon, mostly for monkeys.
 
 	var/xenomorph_type = /mob/living/carbon/alien/larva // What type of larva is spawned if infected with an alien embryo
+	/// List of stat modifiers of this species. E.g. STAT_STR = list(-2, 2) will apply a modifier with a random value in the specified range.
+	var/list/stats_modifiers = list()
 /*
 These are all the things that can be adjusted for equipping stuff and
 each one can be in the NORTH, SOUTH, EAST, and WEST direction. Specify

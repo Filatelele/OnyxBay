@@ -27,6 +27,10 @@
 	var/glass_required = null // Required glass for current cocktail
 	var/list/glass_special = null // null equivalent to list()
 
+	var/sanity_gain = 0
+	var/sanityloss = 0
+	var/sanity_gain_ingest = 0
+
 /datum/reagent/New(datum/reagents/holder)
 	if(!istype(holder))
 		CRASH("Invalid reagents holder: [log_info_line(holder)]")

@@ -24,7 +24,7 @@
 
 /datum/category_item/player_setup_item/general/equipment
 	name = "Clothing"
-	sort_order = 4
+	sort_order = 6
 
 	var/static/list/backpacks_by_name
 

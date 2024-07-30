@@ -14,6 +14,8 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/fluorescent // Shows up under a UV light.
+	/// Sanity damage of this atom.
+	var/sanity_damage = 0
 
 	/// Helpful blue text, can be used to describe usage caveats and etc.
 	var/description_info

@@ -46,6 +46,7 @@
 /mob/living/carbon/human/Initialize()
 	. = ..()
 
+	sanity = new(src)
 	add_movespeed_modifier(/datum/movespeed_modifier/human_delay)
 	AddElement(/datum/element/last_words)
 	AddComponent(/datum/component/ambushable)

@@ -43,6 +43,7 @@
 		for(var/datum/objective/O in mind.objectives)
 			O.update()
 
+	SEND_SIGNAL(src, SIGNAL_MOB_LIFE)
 	return 1
 
 /mob/living/proc/do_check_environment()

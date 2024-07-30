@@ -16,6 +16,7 @@
 	var/brand
 	var/filter_trans = 0.5
 	var/smoke_effect = 0
+	var/quality_multiplier = 0
 
 /obj/item/clothing/mask/smokable/New()
 	..()

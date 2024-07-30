@@ -118,14 +118,9 @@
 	if(sabotaged)
 		cancel_shunt(TRUE)
 		do_sabotage()
-		//ftl_computer.jump_plotted = FALSE
 		return
 
 	if(ftl_flags & FTL_DRIVE_REQUIRES_FUEL)
-		//if(use_fuel(required_fuel_joules))
-		//	jump_timer = addtimer(CALLBACK(src, PROC_REF(execute_shunt)), jump_delay, TIMER_STOPPABLE)
-		//else
-		//	cancel_shunt()
 		return //If for some reason we don't have fuel now, just return.
 
 	jumping = TRUE

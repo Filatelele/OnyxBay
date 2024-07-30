@@ -135,9 +135,6 @@
 						var/mob/living/L = user
 						for(var/datum/modifier/trait/inaccurate/M in L.modifiers)
 							oops_chance = max(0, oops_chance - 2 * M.accuracy)
-					if(ishuman(user))
-						var/mob/living/carbon/human/H = user
-						oops_chance = max(0, oops_chance - 10 * H.skills["weapons"])
 
 					var/fuck_up_chance = ceil(oops_chance / 8)
 					var/roll = rand(99) + 1

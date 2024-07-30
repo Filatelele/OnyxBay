@@ -74,6 +74,13 @@
 
 	xenomorph_type = /mob/living/carbon/alien/larva/primal
 
+	stats_modifiers = list(
+		STAT_STR = list(1, 3),
+		STAT_FIT = list(0, 2),
+		STAT_DEX = list(-3, 0),
+		STAT_COG = list(-3, 0),
+	)
+
 //	prone_overlay_offset = list(-4, -4)
 
 /datum/species/unathi/equip_survival_gear(mob/living/carbon/human/H)

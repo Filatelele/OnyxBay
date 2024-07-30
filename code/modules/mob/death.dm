@@ -62,6 +62,10 @@
 	if(!gibbed && deathmessage != "no message") // This is gross, but reliable. Only brains use it.
 		src.visible_message("<b>\The [src.name]</b> [deathmessage]")
 
+	for(var/mob/living/carbon/human/H in oviewers(src))
+		H.sanity.onSeeDeath(src)
+		//SEND_SIGNAL_OLD(H, COMSIG_MOB_DEATH, src)
+
 	set_stat(DEAD)
 	reset_plane_and_layer()
 	update_canmove()

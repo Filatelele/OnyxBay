@@ -329,6 +329,9 @@
 
 //Mergesort: any value in a list
 /proc/sortList(list/L)
+	if(!islist(L))
+		return
+
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1

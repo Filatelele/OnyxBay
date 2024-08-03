@@ -351,6 +351,19 @@
 
 	to_chat(usr, EXAMINE_BLOCK(examine_result.Join("\n")))
 
+	var/mob/living/carbon/human/H = src
+	if(ishuman(src))
+		if(H.head && H.head.flags_inv && HIDEEYES)
+			return
+
+		if(H.wear_mask && H.wear_mask.flags_inv && HIDEEYES)
+			return
+
+	if(!to_axamine.z)
+		return
+
+	visible_message(FONT_SMALL("<b>[src]</b> looks at <b>[to_axamine]</b>."))
+
 /mob/proc/remove_from_recent_examines()
 	SIGNAL_HANDLER
 

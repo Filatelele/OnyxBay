@@ -185,6 +185,7 @@
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/attack_hand(mob/user)
 	if(!allowed(user))
+		playsound(src.loc, 'sound/signals/error32.ogg', 50)
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
@@ -199,6 +200,7 @@
 		last_pos = position
 		position = 0
 
+	playsound(src.loc, 'sound/effects/using/switch/lever4.ogg', 50)
 	operated = 1
 	update_icon()
 
@@ -228,6 +230,7 @@
 	else
 		position = 0
 
+	playsound(src.loc, 'sound/effects/using/switch/lever4.ogg', 50)
 	operated = 1
 	update_icon()
 

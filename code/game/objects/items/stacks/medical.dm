@@ -407,7 +407,7 @@
 
 			time *= mod.medical_treatment_time
 
-		if(do_after(user, time, M))
+		if(do_after(user, time, M, luck_check_type = LUCK_CHECK_MED))
 			if(M == user && prob(75))
 				user.visible_message(SPAN("warning", "\The [user] fumbles [src]."), \
 							         SPAN("warning", "You fumble [src]."), \
@@ -525,7 +525,7 @@
 		return
 
 	to_chat(user, SPAN("notice", "You prepare to inject [M]..."))
-	if(!do_after(user, 100))
+	if(!do_after(user, 100, luck_check_type = LUCK_CHECK_MED))
 		return
 
 	if(!M.is_ic_dead())

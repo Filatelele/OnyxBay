@@ -270,7 +270,7 @@
 
 			injtime *= M.medical_treatment_time
 
-		if(!do_after(user, injtime, trackTarget))
+		if(!do_after(user, injtime, trackTarget, luck_check_type = LUCK_CHECK_MED))
 			return
 
 		if(target != trackTarget && target.loc != trackTarget)

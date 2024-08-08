@@ -106,3 +106,9 @@
 
 	/// Movement dir of the most recently pressed movement key. Used in cardinal-only movement mode.
 	var/last_move_dir_pressed
+
+	var/luck_general = 100
+	var/luck_combat = 100
+	var/luck_eng = 100
+	var/luck_med = 100
+	var/luck_rnd = 100

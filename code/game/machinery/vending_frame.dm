@@ -130,7 +130,7 @@
 
 /obj/machinery/vending_frame/proc/wrench_frame(mob/user)
 	playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-	if(do_after(user, 20, src))
+	if(do_after(user, 20, src, luck_check_type = LUCK_CHECK_ENG) && !QDELETED(src))
 		to_chat(user, SPAN_NOTICE("You [anchored ? "unwrench" : "wrench"] the frame [anchored ? "from" : "into"] place."))
 		anchored = !anchored
 
@@ -140,7 +140,7 @@
 		return
 	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 	to_chat(user, SPAN_NOTICE("You start to add cables to the frame."))
-	if(do_after(user, 20, src) && state == STAGE_CABLE)
+	if(do_after(user, 20, src, luck_check_type = LUCK_CHECK_ENG) && state == STAGE_CABLE && !QDELETED(src))
 		if(C.use(5))
 			to_chat(user, SPAN_NOTICE("You have added cables to the frame."))
 			state = STAGE_CARTRIDGE
@@ -179,7 +179,7 @@
 		return
 	playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 	to_chat(user, SPAN_NOTICE("You start to install display in the frame."))
-	if(do_after(user, 20, src) && state == STAGE_GLASS)
+	if(do_after(user, 20, src, luck_check_type = LUCK_CHECK_ENG) && state == STAGE_GLASS && !QDELETED(src))
 		if(G.use(5))
 			to_chat(user, SPAN_NOTICE("You have installed display in the frame."))
 			state = STAGE_FINISHING

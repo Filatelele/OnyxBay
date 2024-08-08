@@ -295,6 +295,7 @@
 		qdel(src)
 		return
 
+	load_luck()
 	//////////////
 	//DISCONNECT//
 	//////////////
@@ -775,3 +776,72 @@
 		if(!(key in list("F1","F2")) && !winget(src, "default-\ref[key]", "command"))
 			to_chat(src, "You probably entered the game with a different keyboard layout.\n<a href='?src=\ref[src];reset_macros=1'>Please switch to the English layout and click here to fix the communication hotkeys.</a>")
 			break
+
+/client/proc/get_luck_for_type(luck_type)
+	switch(luck_type)
+		if(LUCK_CHECK_GENERAL)
+			return luck_general
+
+		if(LUCK_CHECK_COMBAT)
+			return luck_combat
+
+		if(LUCK_CHECK_ENG)
+			return luck_eng
+
+		if(LUCK_CHECK_MED)
+			return luck_med
+
+		if(LUCK_CHECK_RND)
+			return luck_rnd
+
+/client/proc/load_luck()
+	var/json_file = file("data/players/[ckey]/luck.json")
+	var/list/luck = json_decode(file2text(json_file))
+
+	for(var/lucktype in luck)
+		var/level = luck[lucktype]["level"]
+		switch(lucktype)
+			if(LUCK_CHECK_GENERAL)
+				luck_general = level
+			if(LUCK_CHECK_COMBAT)
+				luck_combat = level
+			if(LUCK_CHECK_ENG)
+				luck_eng = level
+			if(LUCK_CHECK_MED)
+				luck_med = level
+			if(LUCK_CHECK_RND)
+				luck_rnd = level
+
+/client/proc/write_luck(lucktype, luck_level, duration)
+	var/json_file = file("data/players/[ckey]/luck.json")
+	var/list/to_send = list()
+	if(!fexists(json_file))
+		WRITE_FILE(json_file, "{}")
+	else
+		to_send = json_decode(file2text(json_file))
+	to_send[lucktype] = list(
+		"level" = luck_level,
+		"rounds_left" = duration,
+	)
+	listclearnulls(to_send)
+	fdel(json_file)
+	WRITE_FILE(json_file, json_encode(to_send))
+	load_luck()
+
+/client/proc/update_luck()
+	var/json_file = file("data/players/[ckey]/luck.json")
+	var/list/to_send = list()
+	if(!fexists(json_file))
+		WRITE_FILE(json_file, "{}")
+	else
+		to_send = json_decode(file2text(json_file))
+
+	for(var/lucktype in to_send)
+		var/list/luck = to_send[lucktype]
+		luck["rounds_left"]--
+		if(luck["rounds_left"] <= 0)
+			to_send -= lucktype
+
+	fdel(json_file)
+	listclearnulls(to_send)
+	WRITE_FILE(json_file, json_encode(to_send))

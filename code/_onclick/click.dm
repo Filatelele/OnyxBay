@@ -67,6 +67,8 @@
 		if(modifiers["ctrl"])
 			CtrlRightClickOn(A)
 			return 1
+
+		RightClickOn(A)
 		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
@@ -360,6 +362,32 @@
 /*
 	Rclick.
 */
+
+/mob/proc/RightClickOn(atom/A)
+	if(!ismob(A))
+		return
+
+	if(Adjacent(A, src) && ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.give(A)
+		return
+
+	switch(a_intent)
+		if(I_HELP)
+			visible_message(SPAN_NOTICE("[src] waves friendly at [A]."), SPAN_NOTICE("You wave friendly at [A]."))
+			to_chat(A, SPAN_NOTICE("[src] gives you a friendly wave."))
+
+		if(I_DISARM)
+			visible_message(SPAN_NOTICE("[src] shoos [A] away."), SPAN_NOTICE("You shoo [A] away."))
+			to_chat(A, SPAN_NOTICE("[src] shoos you away!"))
+
+		if(I_GRAB)
+			visible_message(SPAN_NOTICE("[src] beckons [A] to come closer."), SPAN_NOTICE("You beckon [A] to come closer."))
+			to_chat(A, SPAN_NOTICE("[src] beckons you to come closer."))
+
+		if(I_HURT)
+			visible_message(SPAN_WARNING("[src] taunts [A]!"), SPAN_WARNING("You taunt [A]!"))
+			to_chat(A, SPAN_DANGER("[src] taunts you!"))
 
 /*
 	Control+Rclick

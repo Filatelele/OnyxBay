@@ -136,14 +136,16 @@
 	#define OBFUSCATION_LAYER           6.2
 	#define BASE_AREA_LAYER             999
 
-#define OBSERVER_PLANE             2
+#define RUNECHAT_PLANE             2
 
-#define LIGHTING_PLANE             3 // For Lighting. - The highest plane (ignoring all other even higher planes)
+#define OBSERVER_PLANE             3
+
+#define LIGHTING_PLANE             4 // For Lighting. - The highest plane (ignoring all other even higher planes)
 	#define LIGHTBULB_LAYER        0
 	#define LIGHTING_LAYER         1
 	#define ABOVE_LIGHTING_LAYER   2
 
-#define LIGHTING_EXPOSURE_PLANE    4
+#define LIGHTING_EXPOSURE_PLANE    5
 
 #define LIGHTING_LAMPS_PLANE       6
 
@@ -200,6 +202,8 @@
 #define LIGHTING_RENDERER 			"LIGHTING"
 #define ADDITIVE_LIGHTING_RENDERER  "LIGHTING_ADDITIVE"
 #define LIGHTING_LAMPS_RENDERER     "LIGHTING_LAMPS_RENDERER"
+#define RUNECHAT_RENDERER            "RUNECHAT"
+#define LIGHTING_RENDERER 			 "LIGHTING"
 #define ABOVE_LIGHTING_RENDERER 	 "ABOVE_LIGHTING"
 #define SCREEN_EFFECTS_RENDERER 	 "SCREEN_EFFECTS"
 #define INTERFACE_RENDERER 			 "INTERFACE"

@@ -2,7 +2,7 @@
 	var/path
 	var/list/traits
 	var/travel_chance = 0
-	/// The base turf type
+	/// Fallback turf in case area has none.
 	var/base_turf = /turf/space
 
 	/// Set to TRUE so this level will be initialized in SSmapping initialization sequence.
@@ -18,9 +18,6 @@
 	var/exterior_atmos_temp = 20 CELSIUS
 	/// Gas mixture datum returned to exterior return_air. Set to assoc list of material to moles to initialize the gas datum.
 	var/datum/gas_mixture/exterior_atmosphere
-
-	/// Fallback turf in case area has none.
-	var/base_turf = /turf/space
 
 /datum/space_level/New()
 	var/list/traits_map = list()

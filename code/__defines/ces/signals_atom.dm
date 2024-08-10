@@ -48,3 +48,6 @@
 
 /// Called on '/atom/fire_act' (/atom)
 #define SIGNAL_FIRE_ACT "atom_fire_act"
+
+//from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization and has a loc
+#define SIGNAL_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON "atom_init_success_on"

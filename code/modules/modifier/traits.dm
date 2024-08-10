@@ -213,3 +213,61 @@
 /datum/modifier/trait/magicimmune
 	name = "Magic Immunity"
 	desc = "You're immune to magic"
+
+/datum/modifier/trait/opiat_addiction
+	name = "Opiat addiction"
+	desc = "You are addicted to opiates."
+
+/datum/modifier/trait/opiat_addiction/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/opioid/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+		//spawn()
+		//	var/turf/T = get_turf(H)
+		//	H.equip_to_storage_or_drop(new /obj/item/weapon/reagent_containers/syringe/drugs/packaged(T))
+		//	H.equip_to_storage_or_drop(new /obj/item/weapon/reagent_containers/syringe/drugs/packaged(T))
+		//	H.equip_to_storage_or_drop(new /obj/item/weapon/reagent_containers/syringe/drugs/packaged(T))
+		//	H.equip_to_storage_or_drop(new /obj/item/seeds/opium(T))
+
+/datum/modifier/trait/alcohol_addiction
+	name = "Alcohol addiction"
+	desc = "You are addicted to alcohol."
+
+/datum/modifier/trait/alcohol_addiction/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/alcohol/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+
+/datum/modifier/trait/alcohol_addiction
+	name = "Alcohol addiction"
+	desc = "You are addicted to alcohol."
+
+/datum/modifier/trait/alcohol_addiction/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/alcohol/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+
+/datum/modifier/trait/smoker
+	name = "Smoker"
+	desc = "You are smoker."
+
+/datum/modifier/trait/smoker/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/nicotine/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+
+		//spawn()
+		//	var/turf/T = get_turf(H)
+
+			//var/cigarett_t = pick(subtypesof(/obj/item/weapon/storage/fancy/cigarettes) - subtypesof(/obj/item/weapon/storage/fancy/cigarettes/syndi_cigs))
+			//var/lighter_t = pick(subtypesof(/obj/item/weapon/flame/lighter))
+		//	H.equip_to_storage_or_drop(new cigarett_t(T))
+		//	H.equip_to_storage_or_drop(new lighter_t(T))

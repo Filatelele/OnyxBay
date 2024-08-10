@@ -265,3 +265,47 @@
 	desc = "You work with the wiring more carefully"
 	electrocute_damage_percent = 0.85
 	electrocute_block_chance = 0.25
+
+/datum/modifier/trait/opiat_addiction
+	name = "Opiat addiction"
+	desc = "You are addicted to opiates."
+
+/datum/modifier/trait/opiat_addiction/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/opioid/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+
+/datum/modifier/trait/alcohol_addiction
+	name = "Alcohol addiction"
+	desc = "You are addicted to alcohol."
+
+/datum/modifier/trait/alcohol_addiction/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/alcohol/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+
+/datum/modifier/trait/alcohol_addiction
+	name = "Alcohol addiction"
+	desc = "You are addicted to alcohol."
+
+/datum/modifier/trait/alcohol_addiction/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/alcohol/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))
+
+/datum/modifier/trait/smoker
+	name = "Smoker"
+	desc = "You are smoker."
+
+/datum/modifier/trait/smoker/on_applied()
+	. = ..()
+	var/mob/living/carbon/human/H = holder
+	if(H)
+		var/datum/addiction/nicotine/A = new
+		H.add_addiction(A, (rand(40, 70) * 0.25))

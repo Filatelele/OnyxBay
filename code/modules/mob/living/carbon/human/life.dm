@@ -85,6 +85,7 @@
 	//No need to update all of these procs if the guy is dead.
 	if(!is_ooc_dead() && !InStasis())
 		//Organs and blood
+		handle_addictions()
 		handle_organs()
 		handle_organs_pain()
 		stabilize_body_temperature() //Body temperature adjusts itself (self-regulation)
@@ -566,6 +567,7 @@
 	for(var/T in chem_doses)
 		if(bloodstr.has_reagent(T) || ingested.has_reagent(T) || touching.has_reagent(T))
 			continue
+
 		chem_doses -= T
 
 	// Trace chemicals

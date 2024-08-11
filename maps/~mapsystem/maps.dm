@@ -173,20 +173,6 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 
 		L.generate(level)
 
-// Used to apply various post-compile procedural effects to the map.
-/datum/map/proc/refresh_mining_turfs(zlevel)
-
-	set background = 1
-	set waitfor = 0
-
-	for(var/thing in mining_walls["[zlevel]"])
-		var/turf/simulated/mineral/M = thing
-		M.update_icon()
-	for(var/thing in mining_floors["[zlevel]"])
-		var/turf/simulated/floor/asteroid/M = thing
-		if(istype(M))
-			M.update_icon()
-
 /datum/map/proc/get_network_access(network)
 	switch(network)
 		if(NETWORK_CIVILIAN_WEST)

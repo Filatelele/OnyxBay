@@ -32,7 +32,6 @@
 
 		for(var/metal in mineable.resources)
 			var/ore_type
-			var/data_value = 1
 
 			switch(metal)
 				if(MATERIAL_SAND, MATERIAL_GRAPHENE, MATERIAL_IRON)

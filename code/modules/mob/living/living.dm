@@ -857,3 +857,48 @@
 
 /mob/living/proc/can_animate_pickup()
 	return m_intent != M_WALK
+
+/mob/living/verb/look_up()
+	set name = "Look up"
+	set desc = "If you want to know what's above."
+	set category = "IC"
+
+	if(!is_physically_disabled())
+		var/turf/above = GetAbove(src)
+		if(shadow)
+			if(client.eye == shadow)
+				reset_view(0)
+				return
+			if(istype(above, /turf/simulated/open))
+				to_chat(src, SPAN_NOTICE("You look up."))
+				if(client)
+					reset_view(shadow)
+				return
+		to_chat(src, SPAN_NOTICE("You can see \the [above]."))
+	else
+		to_chat(src, SPAN_NOTICE("You can't look up right now."))
+	return
+
+/mob/living/proc/look_down(turf/clicked)
+	if(!is_physically_disabled())
+		var/turf/below = GetBelow(clicked)
+		if(!do_after(src, rand(0.5 SECONDS, 1.5 SECONDS), clicked))
+			return
+
+		var/shift_x = 0
+		var/shift_y = 0
+		switch(get_dir(src, clicked))
+			if(NORTH)
+				shift_x = 16
+			if(SOUTH)
+				shift_x = -16
+			if(EAST)
+				shift_y = -16
+			if(WEST)
+				shift_y = 16
+
+		shift_view(shift_x, shift_y, TRUE)
+		reset_view(below)
+
+/mob/living/proc/stop_looking()
+	reset_view(0)

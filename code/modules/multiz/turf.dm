@@ -188,3 +188,6 @@
 /turf/simulated/open/Destroy()
 	src.clean_up()
 	. = ..()
+
+/turf/simulated/open/attack_hand(mob/user)
+	user.zMoveDown()

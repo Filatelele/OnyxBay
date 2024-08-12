@@ -114,7 +114,7 @@
 				new_pixel_y += pixel_shift["y"] || 0
 				new_pixel_z += pixel_shift["z"] || 0
 
-		if(leaning)
+		if(leaning && isnull(current_vertical_travel_method))
 			switch(get_dir(src, leaning))
 				if(SOUTH)
 					set_dir(NORTH)
@@ -128,6 +128,18 @@
 				if(EAST)
 					set_dir(WEST)
 					new_pixel_x += leaning.leaning_offset
+
+		var/datum/vertical_travel_method/vtm = current_vertical_travel_method
+		if(istype(vtm))
+			var/atom/reference = (vtm.direction == UP) ? vtm.subject : vtm.destination
+			if(reference?.x < x)
+				pixel_x -= (vtm.direction == UP) ? vtm.offset_up : vtm.offset_down
+			else if(reference?.x > x)
+				pixel_x += (vtm.direction == UP) ? vtm.offset_up : vtm.offset_down
+			if(reference?.y < y)
+				pixel_y -= (vtm.direction == UP) ? vtm.offset_up : vtm.offset_down
+			else if(reference?.y > y)
+				pixel_y += (vtm.direction == UP) ? vtm.offset_up : vtm.offset_down
 
 	if(last_pixel_x != new_pixel_x || last_pixel_y != new_pixel_y || last_pixel_z != new_pixel_z)
 		if(anim_time > 0)

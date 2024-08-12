@@ -2,13 +2,13 @@
 	set name = "Move Upwards"
 	set category = "IC"
 
-	SelfMove(UP)
+	zMove(UP)
 
 /mob/verb/down()
 	set name = "Move Down"
 	set category = "IC"
 
-	SelfMove(DOWN)
+	zMove(DOWN)
 
 /atom/proc/CanMoveOnto(atom/movable/mover, turf/target, height=1.5, direction = 0)
 	//Purpose: Determines if the object can move through this
@@ -118,6 +118,12 @@
 			if(!A.CanPass(src, location_override))
 				return FALSE
 
+	if(!has_gravity(src))
+		return FALSE
+
+	var/obj/item/tank/jetpack/thrust = get_jetpack()
+	if(thrust?.allow_thrust(JETPACK_MOVE_COST, src))
+		return FALSE
 
 	return TRUE
 
@@ -199,3 +205,87 @@
 		playsound(loc, "[gender_prefix]_fall_alive", 25)
 	else
 		playsound(loc, "[gender_prefix]_fall_dead", 25)
+
+/mob/proc/zMove(direction, method = 0)
+	if(eyeobj)
+		return eyeobj.zMove(direction)
+
+	var/atom/movable/mover = src
+
+	//If we're inside a thing, that thing is the thing that moves
+	if (istype(loc, /obj))
+		mover = loc
+
+	// If were inside a mech
+	if(istype(loc, /obj/mecha))
+		var/obj/mecha/mech = loc
+		if(src in mech.occupant)
+			mover = loc
+
+	var/turf/destination = (direction == UP) ? GetAbove(src) : GetBelow(src)
+	var/turf/start = get_turf(src)
+	if(!destination)
+		to_chat(src, SPAN_NOTICE("There is nothing of interest in this direction"))
+		return FALSE
+
+	//After checking that there's a valid destination, we'll first attempt phase movement as a shortcut.
+	//Since it can pass through obstacles, we'll do this before checking whether anything is blocking us
+	if(istype(mover, /obj/mecha))
+		var/mob/living/mech = mover
+		if(mech.current_vertical_travel_method)
+			to_chat(src, SPAN_NOTICE("You can't do this yet!"))
+	else if(src.current_vertical_travel_method)
+		to_chat(src, SPAN_NOTICE("You can't do this yet!"))
+		return
+
+	var/datum/vertical_travel_method/VTM = new Z_MOVE_PHASE(src)
+	if(VTM.can_perform(direction))
+		// special case for mechs
+		if(istype(mover, /obj/mecha))
+			var/obj/mecha/mech = mover
+			mech.current_vertical_travel_method = VTM
+		else
+			src.current_vertical_travel_method = VTM
+		VTM.attempt(direction)
+		return
+
+	var/list/possible_methods = list(
+		Z_MOVE_JETPACK,
+		Z_MOVE_CLIMB_NOGRAV,
+		Z_MOVE_CLIMB_MAG,
+		Z_MOVE_CLIMB,
+	)
+
+	// Prevent people from going directly inside or outside a shuttle through the ceiling
+	// Would be possible if the shuttle is not on the highest z-level
+	// Also prevent the bug where people could get in from under the shuttle
+	if(istype(start, /turf/simulated/shuttle) || istype(destination, /turf/simulated/shuttle))
+		to_chat(src, SPAN_WARNING("An invisible energy shield around the shuttle blocks you."))
+		return FALSE
+
+	// Check for blocking atoms at the destination.
+	for(var/atom/A in destination)
+		if(!A.CanPass(mover, start, 1.5, 0))
+			to_chat(src, SPAN_WARNING("\The [A] blocks you."))
+			return FALSE
+
+	for(var/a in possible_methods)
+		VTM = new a(src)
+		if(VTM.can_perform(direction))
+			// special case for mechs
+			if(istype(mover, /obj/mecha))
+				var/obj/mecha/mech = mover
+				mech.current_vertical_travel_method = VTM
+			else
+				src.current_vertical_travel_method = VTM
+			VTM.attempt(direction)
+			return TRUE
+
+	to_chat(src, SPAN_NOTICE("You lack a means of z-travel in that direction."))
+	return FALSE
+
+/mob/proc/zMoveUp()
+	return zMove(UP)
+
+/mob/proc/zMoveDown()
+	return zMove(DOWN)

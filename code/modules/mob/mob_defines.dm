@@ -251,6 +251,9 @@
 	//The last mob/living to push/drag/grab this mob (mostly used by slimes friend recognition)
 	var/weakref/last_handled_by_mob
 
+	/// Link currently used VTM if we moving between Z-levels
+	var/current_vertical_travel_method
+
 /datum/rad_resist/mob
 	alpha_particle_resist = 6 MEGA ELECTRONVOLT
 	beta_particle_resist = 0.1 MEGA ELECTRONVOLT

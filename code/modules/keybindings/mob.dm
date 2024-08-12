@@ -27,7 +27,7 @@
 	return TRUE
 
 /datum/keybinding/mob/activate_inhand
-	hotkey_keys = list("Z", "Y","Southeast") // Southeast = PAGEDOWN
+	hotkey_keys = list("Z", "Y","Southeast")
 	name = "activate_inhand"
 	full_name = "Activate In-Hand"
 	description = "Uses whatever item you have inhand"
@@ -129,7 +129,7 @@
 
 /datum/keybinding/mob/move_up/down(client/user)
 	var/mob/M = user.mob
-	M.SelfMove(UP)
+	M.zMove(UP)
 
 /datum/keybinding/mob/move_down
 	hotkey_keys = list(".", "Southeast")
@@ -139,7 +139,7 @@
 
 /datum/keybinding/mob/move_down/down(client/user)
 	var/mob/M = user.mob
-	M.SelfMove(DOWN)
+	M.zMove(DOWN)
 
 /datum/keybinding/mob/pull
 	hotkey_keys = list("Delete")

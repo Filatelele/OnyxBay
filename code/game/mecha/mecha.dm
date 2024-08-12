@@ -85,6 +85,9 @@
 
 	var/strafe = FALSE
 
+	/// Link currently used VTM if we moving between Z-levels
+	var/current_vertical_travel_method
+
 	rad_resist_type = /datum/rad_resist/mecha
 
 /datum/rad_resist/mecha

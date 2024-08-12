@@ -18,7 +18,9 @@
 		var/new_turf_type = density ? (istype(T.loc, /area/space) ? airless_celing_type : ceiling_type) : ceiling_type
 		T.ChangeTurf(new_turf_type)
 
-	if(istype(T, /turf/simulated/open))
+	if(isopenspace(T))
+		var/turf/simulated/open/O = T
+		O.update()
 		T.update_icon()
 
 //Creates a new turf

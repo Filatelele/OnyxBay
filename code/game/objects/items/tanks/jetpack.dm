@@ -63,18 +63,28 @@
 		return 0
 
 	var/datum/gas_mixture/M = return_air()
-	if((num < 0.005 || M.total_moles < num))
+	if((num < JETPACK_MOVE_COST || M.total_moles < num))
 		src.ion_trail.stop()
 		return 0
 
 	var/datum/gas_mixture/G = M.remove(num)
 
 	var/allgases = G.gas["carbon_dioxide"] + G.gas["nitrogen"] + G.gas["oxygen"] + G.gas["plasma"]
-	if(allgases >= 0.005)
+	if(allgases >= JETPACK_MOVE_COST)
 		return 1
 
 	qdel(G)
 	return
+
+/// A check only version of the `allow_thrust()`, does not alter any values
+/obj/item/tank/jetpack/proc/check_thrust(num = JETPACK_MOVE_COST, mob/living/user)
+	if(!(src.on))
+		return FALSE
+
+	if((air_contents?.total_moles < num))
+		return FALSE
+
+	return TRUE
 
 /obj/item/tank/jetpack/ui_action_click()
 	toggle()
@@ -120,12 +130,26 @@
 
 	var/obj/item/tank/pressure_vessel = holder.air_supply
 
-	if((num < 0.005 || pressure_vessel.air_contents.total_moles < num))
+	if((num < JETPACK_MOVE_COST || pressure_vessel.air_contents.total_moles < num))
 		src.ion_trail.stop()
 		return 0
 
 	var/datum/gas_mixture/G = pressure_vessel.air_contents.remove(num)
 
-	if(G.total_moles >= 0.005)
+	if(G.total_moles >= JETPACK_MOVE_COST)
 		return 1
 	qdel(G)
+
+/// A check only version of the `allow_thrust()`, does not alter any values
+/obj/item/tank/jetpack/rig/check_thrust(num = JETPACK_MOVE_COST, mob/living/user)
+	if(!(src.on))
+		return FALSE
+
+	if(!istype(holder) || !holder.air_supply)
+		return FALSE
+
+	var/obj/item/tank/pressure_vessel = holder.air_supply
+	if((pressure_vessel?.air_contents?.total_moles < num))
+		return FALSE
+
+	return TRUE

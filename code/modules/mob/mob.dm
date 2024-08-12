@@ -291,20 +291,45 @@
 
 	return FALSE
 
+/**
+  * Resets the client's perspective (viewpoint)
+  * Focuses either on the given atom
+  * Or on the mob itself in case arg is not given
+  */
 /mob/proc/reset_view(atom/A)
-	if (client)
-		A = A ? A : eyeobj
-		if (istype(A, /atom/movable))
-			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
-		else
-			if (isturf(loc))
+	if(!client)
+		return
+
+	animate(client, pixel_x = 0, pixel_y = 0, 2, easing = SINE_EASING)
+	A = istype(A) ? A : eyeobj
+
+	if(istype(A))
+		if(ismovable(A))
+			//Set the the thing unless it's us
+			if(A != src)
+				client.perspective = EYE_PERSPECTIVE
+				client.eye = A
+			else
 				client.eye = client.mob
 				client.perspective = MOB_PERSPECTIVE
-			else
+		else if(isturf(A))
+			//Set to the turf unless it's our current turf
+			if(A != loc)
 				client.perspective = EYE_PERSPECTIVE
-				client.eye = loc
-	return
+				client.eye = A
+			else
+				client.eye = client.mob
+				client.perspective = MOB_PERSPECTIVE
+		else
+			//Do nothing
+	else
+		//Reset to common defaults: mob if on turf, otherwise current loc
+		if(isturf(loc))
+			client.eye = client.mob
+			client.perspective = MOB_PERSPECTIVE
+		else
+			client.perspective = EYE_PERSPECTIVE
+			client.eye = loc
 
 /**
  * This proc creates content for nano inventory.
@@ -703,15 +728,18 @@
 	else
 		reset_plane_and_layer()
 
-/mob/proc/facedir(ndir)
+/atom/movable/proc/facedir(ndir)
+	set_dir(ndir)
+
+/mob/facedir(ndir)
 	if(!canface() || moving)
-		return 0
+		return FALSE
+
 	set_dir(ndir)
 	if(buckled && buckled.buckle_movable)
 		buckled.set_dir(ndir)
 	setMoveCooldown(movement_delay())
-	return 1
-
+	return TRUE
 
 /mob/verb/eastface()
 	set hidden = 1
@@ -960,6 +988,7 @@
 		facing_dir = dir
 
 /mob/set_dir()
+	reset_view()
 	if(facing_dir)
 		if(!canface() || lying || buckled || restrained())
 			facing_dir = null

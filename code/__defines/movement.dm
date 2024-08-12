@@ -13,3 +13,10 @@
 
 #define MOVESPEED_ID_MOB_GRAB_STATE "mob_grab_state"
 #define MOVESPEED_ID_MOB_WALK_RUN "mob_walk_run"
+
+#define Z_MOVE_PHASE			/datum/vertical_travel_method/phase 	//Used by ghosts, AI eye and mobs with incorp move. Instant and goes through obstacle. It's basically an OOC action
+#define Z_MOVE_JETPACK			/datum/vertical_travel_method/jetpack
+#define Z_MOVE_CLIMB_NOGRAV     /datum/vertical_travel_method/climb_nograv
+#define Z_MOVE_CLIMB			/datum/vertical_travel_method/climb
+#define Z_MOVE_CLIMB_MAG		/datum/vertical_travel_method/climb/mag	//Walking up a wall with magboots in zero G. Fast and safe
+#define JETPACK_MOVE_COST	0.005

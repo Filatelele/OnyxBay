@@ -409,6 +409,13 @@
 /atom/proc/AltRightClick(mob/user)
 	return
 
+/mob/living/AltRightClickOn(atom/A)
+	if(isopenspace(A) && Adjacent(A))
+		look_down(A)
+		return
+
+	return ..()
+
 /*
 	Shift+Rclick
 */
@@ -476,8 +483,7 @@
 	else
 		to_chat(src, "<span class='warning'>You're out of energy!  You need food!</span>")
 
-// Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(atom/A)
+/atom/movable/proc/face_atom(atom/A)
 	if(!A || !x || !y || !A.x || !A.y) return
 	var/dx = A.x - x
 	var/dy = A.y - y

@@ -205,12 +205,12 @@ SFX_CHAINSAW = list(
 	'sound/weapons/chainsaw_attack3.ogg'
 ),
 SFX_GLASS_HIT = list(
-	'sound/effects/materials/glass/knock1.ogg',
-	'sound/effects/materials/glass/knock2.ogg',
-	'sound/effects/materials/glass/knock3.ogg',
-	'sound/effects/materials/glass/knock4.ogg',
-	'sound/effects/materials/glass/knock5.ogg',
-	'sound/effects/materials/glass/knock6.ogg'
+	'sound/effects/materials/glass/kick1.ogg',
+	'sound/effects/materials/glass/kick2.ogg',
+	'sound/effects/materials/glass/kick3.ogg',
+	'sound/effects/materials/glass/kick4.ogg',
+	'sound/effects/materials/glass/kick5.ogg',
+	'sound/effects/materials/glass/kick6.ogg'
 ),
 SFX_GLASS_KNOCK = list(
 	'sound/effects/materials/glass/glassknock.ogg'
@@ -382,7 +382,6 @@ SFX_FOOTSTEP_WOOD = list(
 	'sound/effects/footstep/wood2.ogg',
 	'sound/effects/footstep/wood3.ogg',
 	'sound/effects/footstep/wood4.ogg',
-	'sound/effects/footstep/wood5.ogg'
 ),
 SFX_FOOTSTEP_TILES = list(
 	'sound/effects/footstep/floor1.ogg',
@@ -406,11 +405,10 @@ SFX_FOOTSTEP_CARPET = list(
 	'sound/effects/footstep/carpet5.ogg'
 ),
 SFX_FOOTSTEP_ASTEROID = list(
-	'sound/effects/footstep/asteroid1.ogg',
-	'sound/effects/footstep/asteroid2.ogg',
-	'sound/effects/footstep/asteroid3.ogg',
-	'sound/effects/footstep/asteroid4.ogg',
-	'sound/effects/footstep/asteroid5.ogg'
+	'sound/effects/footstep/gravel1.ogg',
+	'sound/effects/footstep/gravel2.ogg',
+	'sound/effects/footstep/gravel3.ogg',
+	'sound/effects/footstep/gravel4.ogg',
 ),
 SFX_FOOTSTEP_SNOW = list(
 	'sound/effects/footstep/snow1.ogg',

@@ -33,7 +33,7 @@
 	var/preset_trader = null
 	var/datum/trader/trader = null
 	var/list/audio_cues = null
-	var/mappath = /datum/map_template/empty127
+	var/mappath // This shit breaks build. TODO: Fix.
 
 /datum/star_system/New(name, desc, threat_level, alignment, owner, hidden, system_type, system_traits, is_capital, adjacency_list, wormhole_connections, x, y, parallax_property, visitable, sector, is_hypergate, audio_cues)
 	. = ..()

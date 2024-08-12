@@ -2,6 +2,8 @@
 	anchored = TRUE
 	var/list/random_icon_states
 
+	sanity_damage = -0.1
+
 /obj/effect/decal/cleanable/clean_blood(ignore = 0)
 	if(!ignore)
 		qdel(src)

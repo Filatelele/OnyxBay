@@ -1502,4 +1502,5 @@ GLOBAL_LIST_INIT(sfx_list, list(
 		'sound/effects/explosions/explosion23.ogg',
 		'sound/effects/explosions/explosion24.ogg'
 	),
+	#include "sfx2.dm"
 ))

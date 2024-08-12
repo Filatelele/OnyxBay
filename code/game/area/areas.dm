@@ -30,6 +30,8 @@
 	/// Used by ambush component. List of mob types that will be spawned on ambush.
 	var/list/ambush_mobs
 
+	var/datum/area_sanity/sanity
+
 /area/New()
 	icon_state = ""
 	uid = ++global_uid
@@ -47,6 +49,8 @@
 
 	if(area_flags & AREA_FLAG_UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
+
+	sanity = new(src)
 
 	..()
 

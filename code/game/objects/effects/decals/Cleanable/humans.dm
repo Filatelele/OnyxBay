@@ -19,6 +19,7 @@ var/global/list/image/splatter_cache=list()
 	var/basecolor=COLOR_BLOOD_HUMAN // Color when wet.
 	var/list/datum/disease2/disease/virus2 = list()
 	var/amount = 5
+	sanity_damage = -0.2
 
 /obj/effect/decal/cleanable/blood/reveal_blood()
 	if(!fluorescent)

@@ -69,7 +69,7 @@
 /datum/breakdown/proc/conclude()
 	if(end_messages)
 		log_and_message_admins("[holder.owner] is no longer affected by [name]")
-		to_chat(holder.owner,SPAN_NOTICE(pick(end_messages)))
+		to_chat(holder.owner, SPAN_THOUGHT(pick(end_messages)))
 	if(insight_reward)
 		if(finished)
 			holder.give_insight(insight_reward)

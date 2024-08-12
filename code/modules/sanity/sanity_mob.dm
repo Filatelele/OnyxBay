@@ -138,8 +138,7 @@ GLOBAL_VAR_INIT(GLOBAL_INSIGHT_MOD, 1)
 		return
 
 	if(!(owner.sdisabilities & BLIND) && !owner.blinded)
-		affect += handle_area()
-		affect -= handle_view()
+		affect += handle_view()
 	changeLevel(max(affect  * life_tick_modifier, min((view_damage_threshold*environment_cap_coeff) - level, 0)))
 	handle_Insight()
 	handle_level()

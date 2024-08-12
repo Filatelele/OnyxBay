@@ -4,9 +4,11 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	anchored = 0
+	sanity_damage = -0.5
 
 /obj/item/remains/human
 	desc = "They look like human remains. They have a strange aura about them."
+	sanity_damage = -3
 
 /obj/effect/decal/remains	// Apparently used by cult somewhere?
 	desc = "They look like human remains. They have a strange aura about them."

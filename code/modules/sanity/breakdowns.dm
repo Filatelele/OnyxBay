@@ -1,7 +1,7 @@
 #define BREAKDOWN_ALERT_COOLDOWN rand(45 SECONDS, 90 SECONDS)
 
 /datum/breakdown/positive
-	start_message_span = "bold notice"
+	start_message_span = "danger"
 	icon_state = "positive"
 	breakdown_sound = 'sound/sanity/sane.ogg'
 
@@ -17,9 +17,6 @@
 	restore_sanity_pre = 25
 	icon_state = "negative"
 	breakdown_sound = 'sound/sanity/insane.ogg'
-
-
-
 
 #define STALWART_THRESHOLD 30 // How damaged should owner be for Stalwart to be able to trigger
 
@@ -43,10 +40,8 @@
 	holder.owner.adjustBruteLoss(-25)
 	holder.owner.adjustFireLoss(-25)
 	holder.owner.adjustOxyLoss(-45)
-	holder.owner.reagents.add_reagent("tramadol", 5) // the way this works is silly as all fuck and should probably be fixed at some point
+	holder.owner.reagents.add_reagent(/datum/reagent/painkiller/tramadol, 5)
 	..()
-
-
 
 /datum/breakdown/positive/adaptation
 	name = "Adaptation"
@@ -66,8 +61,6 @@
 	holder.negative_prob = max(holder.negative_prob - 5, 0)
 	holder.max_level = max(holder.max_level + 20, 0)
 	..()
-
-
 
 /datum/breakdown/positive/concentration
 	name = "Absolute Concentration"
@@ -93,8 +86,6 @@
 	--holder.sanity_invulnerability
 	..()
 
-
-
 /datum/breakdown/positive/determination
 	name = "Determination"
 	duration = 10 MINUTES
@@ -119,8 +110,6 @@
 	//--holder.owner.shock_resist
 	..()
 
-
-
 /datum/breakdown/positive/lesson
 	name = "A Lesson Learnt"
 	duration = 0
@@ -138,8 +127,6 @@
 	for(var/stat in ALL_STATS)
 		holder.owner.stats.changeStat(stat, rand(5,10))
 	..()
-
-
 
 /datum/breakdown/negative/selfharm
 	name = "Self-harm"
@@ -206,8 +193,6 @@
 	//--holder.owner.suppress_communication
 	..()
 
-
-
 /datum/breakdown/negative/hysteric
 	name = "Hysteric"
 	duration = 1.5 MINUTES
@@ -249,8 +234,6 @@
 	//--holder.owner.suppress_communication
 	..()
 
-
-
 /datum/breakdown/negative/delusion
 	//name = "Delusion"
 	duration = 1 MINUTES
@@ -278,8 +261,6 @@
 		shake_camera(holder.owner, 2)
 	if(prob(10))
 		holder.owner.playsound_local(holder.owner, 'sound/effects/alert.ogg')
-
-
 
 /datum/breakdown/negative/fabric
 	name = "The Fabric"
@@ -324,7 +305,6 @@
 	SIGNAL_HANDLER
 	holder.owner.client?.images |= images
 
-
 /datum/breakdown/negative/spiral
 	name = "Downward-spiral"
 	duration = 0
@@ -343,7 +323,6 @@
 	holder.negative_prob = min(holder.negative_prob + 20, 100)
 	holder.max_level = max(holder.max_level - 20, 0)
 	..()
-
 
 /datum/breakdown/common/power_hungry
 	name = "Power Hungry"
@@ -375,7 +354,7 @@
 		return FALSE
 	if(world.time >= message_time)
 		message_time = world.time + BREAKDOWN_ALERT_COOLDOWN
-		to_chat(holder.owner, SPAN_NOTICE(pick(messages)))
+		to_chat(holder.owner, SPAN_THOUGHT(pick(messages)))
 
 /datum/breakdown/common/power_hungry/conclude()
 	//unregister_signal(holder.owner, COMSIG_CARBON_ELECTROCTE)
@@ -469,7 +448,6 @@
 	start_messages = list("Flesh is weak, you are disgusted by the weakness of your own body.")
 	end_messages = list("Nothing like a mechanical upgrade to feel like new.")
 
-
 /datum/breakdown/common/desire_for_chrome/can_occur()
 	for(var/obj/item/organ/external/Ex in holder.owner.organs)
 		if(!BP_IS_ROBOTIC(Ex))
@@ -487,7 +465,6 @@
 /datum/breakdown/common/desire_for_chrome/proc/check_organ()
 	SIGNAL_HANDLER
 	finished = TRUE
-
 
 /datum/breakdown/common/false_nostalgy
 	name = "False Nostalgy"
@@ -512,7 +489,7 @@
 					"When you are in [target] you feel like home... You want to feel like home.",
 					"[target] reminds you of the hunt.")
 
-	to_chat(holder.owner, SPAN_NOTICE(pick(messages)))
+	to_chat(holder.owner, SPAN_THOUGHT(pick(messages)))
 	return ..()
 
 /datum/breakdown/common/false_nostalgy/update()
@@ -525,7 +502,7 @@
 		return FALSE
 	if(world.time >= message_time)
 		message_time = world.time + BREAKDOWN_ALERT_COOLDOWN
-		to_chat(holder.owner, SPAN_NOTICE(pick(messages)))
+		to_chat(holder.owner, SPAN_THOUGHT(pick(messages)))
 
 /datum/breakdown/common/new_heights
 	name = "New Heights"
@@ -552,7 +529,7 @@
 
 	if(world.time >= message_time)
 		message_time = world.time + BREAKDOWN_ALERT_COOLDOWN
-		to_chat(holder.owner, SPAN_NOTICE(pick(messages)))
+		to_chat(holder.owner, SPAN_THOUGHT(pick(messages)))
 
 /datum/breakdown/common/obsession
 	name = "Obsession"
@@ -605,7 +582,7 @@
 									"you want to be close to [target.name].",
 									"Seeing [target.name] makes you happy."
 									))
-			to_chat(holder.owner, SPAN_NOTICE(message))
+			to_chat(holder.owner, SPAN_THOUGHT(message))
 
 /datum/breakdown/common/obsession/occur()
 	for(var/stat in ALL_STATS)
@@ -653,8 +630,6 @@
 			//	holder.owner.unEquip(holder.owner.get_inactive_hand())
 			//	holder.owner.put_in_hands(I)
 			//break
-
-
 
 /datum/breakdown/common/signs
 	//name = "Signs"

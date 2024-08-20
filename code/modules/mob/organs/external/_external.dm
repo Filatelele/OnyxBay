@@ -344,7 +344,7 @@
 
 	dislocated = 1
 	if(owner)
-		grant_verb(owner, /mob/living/carbon/human/proc/undislocate)
+		owner.verbs |= /mob/living/carbon/human/proc/undislocate
 
 /obj/item/organ/external/proc/undislocate()
 	if(dislocated == -1)
@@ -359,7 +359,7 @@
 			if(limb.dislocated == 1)
 				return
 
-		revoke_verb(owner, /mob/living/carbon/human/proc/undislocate)
+		owner.verbs -= /mob/living/carbon/human/proc/undislocate
 
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
@@ -1148,15 +1148,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(company)
 		var/datum/robolimb/R = GLOB.all_robolimbs[company]
+
 		if(!R || (species && (species.name in R.species_cannot_use)) || \
 		 (R.restricted_to.len && !(species.name in R.restricted_to)) || \
 		 (R.applies_to_part.len && !(organ_tag in R.applies_to_part)))
 			R = basic_robolimb
 		else
 			model = company
-			force_icon = R.icon
-			name = "robotic [initial(name)]"
 			desc = "[R.desc] It looks like it was produced by [R.company]."
+
+		name = "robotic [initial(name)]"
+		force_icon = (species && (species.name in R.racial_icons)) ? R.racial_icons[species.name] : R.icon
 
 	dislocated = -1
 	remove_splint()
@@ -1230,7 +1232,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYADD(supplied_wound.embedded_objects, W)
 	implants += W
 	owner.embedded_flag = 1
-	grant_verb(owner, /mob/proc/yank_out_object)
+	owner.verbs += /mob/proc/yank_out_object
 	W.add_blood(owner)
 	if(ismob(W.loc))
 		var/mob/living/H = W.loc

@@ -303,20 +303,16 @@
 	if(cancel)
 		return
 
-	var/turf/clicked_turf = get_turf(src)
-	user.set_listed_turf(clicked_turf)
+	var/turf/T = get_turf(src)
 
-/mob/proc/set_listed_turf(turf/turf_to_list)
-	if(isnull(client))
-		return
+	if(T && user.TurfAdjacent(T))
+		if(user.listed_turf == T)
+			user.listed_turf = null
+		else
+			user.listed_turf = T
+			user.client.statpanel = "Turf"
 
-	if(!istype(turf_to_list))
-		return
-
-	if(!TurfAdjacent(turf_to_list))
-		return
-
-	client.turf_examine.set_turf(turf_to_list)
+	return TRUE
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.AdjacentQuick(src)
